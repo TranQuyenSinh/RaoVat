@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
-import { Collapse, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap'
 import { Link } from 'react-router-dom'
-import logo from '../../assets/images/logo.png'
-import './NavMenu.scss'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import logo from '../../../assets/images/logo.png'
 import SearchBar from '../SearchBar/SearchBar'
+import './Header.scss'
+import NavMenu from '../NavMenu/NavMenu'
 
-export class NavMenu extends Component {
-    static displayName = NavMenu.name
+export class Header extends Component {
+    static displayName = Header.name
 
     constructor(props) {
         super(props)
@@ -27,21 +26,21 @@ export class NavMenu extends Component {
     render() {
         return (
             <header>
-                <div className='fixed-top navbar navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3'>
+                <div className='header fixed-top navbar navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3'>
                     {/* Logo */}
-                    <Link className='navbar__brand' to='/'>
+                    <Link className='header__brand' to='/'>
                         <img src={logo} alt='RaoVat.net' />
                     </Link>
 
                     {/* Danh mục */}
-                    <div className='navbar__category'>
-                        <div className='navbar__category--btn'>
+                    <div className='header__category'>
+                        <div className='header__category--btn'>
                             <FontAwesomeIcon icon={faBars} />
                             <span className='mx-2'>Danh mục</span>
                             <FontAwesomeIcon icon={faChevronDown} />
                         </div>
 
-                        <ul className='navbar__category--dropdown'>
+                        <ul className='header__category--dropdown custom-menu'>
                             <li>
                                 <Link to='/counter'>Xe cộ</Link>
                             </li>
@@ -56,6 +55,9 @@ export class NavMenu extends Component {
 
                     {/* Search bar */}
                     <SearchBar />
+
+                    {/* Navmenu */}
+                    <NavMenu />
                 </div>
             </header>
         )

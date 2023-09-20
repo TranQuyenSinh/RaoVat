@@ -1,0 +1,50 @@
+@import '../../../styles/variables';
+
+.navmenu {
+    display        : flex;
+    flex           : 1;
+    align-items    : center;
+    justify-content: flex-end;
+    gap            : 15px;
+
+    &__item.user_info {
+        position: relative;
+
+
+        .user_info--dropdown {
+            right    : 0;
+            left     : unset;
+            min-width: 200px;
+        }
+    }
+
+    &__item {
+        padding: 12px 6px;
+        cursor : pointer;
+
+
+        span {
+            margin: 0 6px;
+        }
+
+        &:hover span {
+            opacity: .9;
+        }
+    }
+
+    &__btn {
+        text-transform  : uppercase;
+        outline         : none;
+        border          : none;
+        color           : $whitecolor;
+        background-color: $maincolor-dark;
+        font-weight     : bold;
+        padding         : 8px 20px;
+        border-radius   : 3px;
+
+        &:hover {
+            background-color: $maincolor-darker;
+        }
+
+    }
+}

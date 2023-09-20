@@ -1,0 +1,49 @@
+﻿@import '../../../styles/variables';
+
+.header {
+  height          : $navbar-height;
+  background-color: $maincolor;
+  display         : flex;
+  align-items     : baseline;
+  padding-left    : 12px;
+  padding-right   : 12px;
+
+  &__brand {
+
+    img {
+      height: 50px;
+    }
+  }
+
+  &__category {
+    margin-left: 100px;
+    position   : relative;
+
+    &:hover {
+      .header__category--dropdown {
+        display: block;
+      }
+    }
+
+    &--btn {
+      margin-left: 12px;
+      padding    : 12px 12px 6px;
+      cursor     : pointer;
+      position   : relative;
+
+      &:hover {
+        opacity: .8;
+      }
+
+    }
+
+    &--dropdown {
+      display  : none;
+      min-width: 200px;
+    }
+
+
+  }
+
+
+}

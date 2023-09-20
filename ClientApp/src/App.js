@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { CustomerLayout } from './components/Layout/CustomerLayout'
-import { SystemLayout } from './components/Layout/SystemLayout'
+import { CustomerLayout } from './components/layout/CustomerLayout'
+import { SystemLayout } from './components/layout/SystemLayout'
 import { CustomerRoutes, SystemRoutes } from './routes'
 import './styles/custom.scss'
 

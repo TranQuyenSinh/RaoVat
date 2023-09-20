@@ -23,11 +23,27 @@ ul {
 }
 
 .bg-main {
-    background-color: $maincolor;
+    background-color: $maincolor !important;
 }
 
 .bg-main-darker {
-    background-color: $maincolor-darker;
+    background-color: $maincolor-darker !important;
+}
+
+.bg-red {
+    background-color: $redcolor !important;
+}
+
+.bg-blue {
+    background-color: $bluecolor !important;
+}
+
+.bg-green {
+    background-color: $greencolor !important;
+}
+
+.bg-gray {
+    background-color: $graycolor !important;
 }
 
 .btn-main {
@@ -38,4 +54,49 @@ ul {
         border-color    : $maincolor-darker;
         background-color: $maincolor-darker;
     }
+}
+
+.custom-menu {
+    position     : absolute;
+    left         : 16px;
+    top          : calc(100% - 5px);
+    background   : $whitecolor;
+    box-shadow   : $div-boxshadow;
+    border-radius: 3px;
+
+    li {
+        &.menu-title {
+            color           : $textgraycolor;
+            font-weight     : bold;
+            cursor          : default;
+            background-color: $backgroundcolor !important;
+            padding         : 6px 10px;
+
+            &:hover {
+                background-color: unset;
+            }
+        }
+
+        a {
+            color      : $textcolor;
+            display    : block;
+            padding    : 12px;
+            display    : flex;
+            align-items: center;
+            gap        : 10px;
+
+            .menu-icon {
+                color        : $whitecolor;
+                padding      : 5px;
+                font-size    : 12px;
+                border-radius: 50%;
+            }
+
+            &:hover {
+                background-color: $backgroundcolor-darker;
+            }
+
+        }
+    }
+
 }

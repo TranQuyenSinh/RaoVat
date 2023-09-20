@@ -1,0 +1,68 @@
+﻿@import '../../styles/variables';
+
+.navbar {
+  height          : $navbar-height;
+  background-color: $maincolor;
+  display         : flex;
+  align-items     : baseline;
+
+  &__brand {
+    padding: 0 12px;
+
+    img {
+      height: 50px;
+    }
+  }
+
+  &__category {
+    position: relative;
+
+    &:hover {
+      .navbar__category--dropdown {
+        display: block;
+      }
+    }
+
+    &--btn {
+      margin-left: 12px;
+      padding    : 12px 12px 6px;
+      cursor     : pointer;
+      position   : relative;
+
+      &:hover {
+        opacity: .8;
+      }
+
+    }
+
+    &--dropdown {
+      display      : none;
+      position     : absolute;
+      left         : 16px;
+      top          : calc(100% - 5px);
+      background   : $whitecolor;
+      min-width    : 200px;
+      box-shadow   : $div-boxshadow;
+      border-radius: 3px;
+      transition   : transform .15s ease-in-out;
+      transform    : scale(.95);
+
+      li {
+        a {
+          color  : $textcolor;
+          display: block;
+          padding: 12px;
+
+          &:hover {
+            background-color: $backgroundcolor;
+          }
+
+        }
+      }
+    }
+
+
+  }
+
+
+}

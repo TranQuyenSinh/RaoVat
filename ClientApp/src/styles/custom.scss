@@ -1,0 +1,41 @@
+@import './base';
+
+
+* {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color          : unset;
+}
+
+p,
+span,
+div {
+    font-size: 15px;
+}
+
+ul {
+    list-style-type: none;
+    padding        : 0;
+    margin         : 0;
+}
+
+.bg-main {
+    background-color: $maincolor;
+}
+
+.bg-main-darker {
+    background-color: $maincolor-darker;
+}
+
+.btn-main {
+    color           : $whitecolor !important;
+    background-color: $maincolor-dark;
+
+    &:hover {
+        border-color    : $maincolor-darker;
+        background-color: $maincolor-darker;
+    }
+}

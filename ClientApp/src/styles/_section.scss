@@ -1,0 +1,13 @@
+.custom-section {
+    background: $whitecolor;
+    padding   : 12px 0px 0px;
+
+    .title {
+        font-size   : 17px;
+        margin      : 0px 0px 12px;
+        font-weight : bold;
+        line-height : 1.41;
+        color       : $textcolor;
+        padding-left: 12px;
+    }
+}

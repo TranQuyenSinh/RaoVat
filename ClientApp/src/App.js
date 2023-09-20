@@ -1,22 +1,27 @@
 import React, { Component } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import AppRoutes from './AppRoutes'
-import { Layout } from './components/Layout'
+import { CustomerLayout } from './components/Layout/CustomerLayout'
+import { SystemLayout } from './components/Layout/SystemLayout'
+import { CustomerRoutes, SystemRoutes } from './routes'
 import './styles/custom.scss'
 
 export default class App extends Component {
-    static displayName = App.name
-
     render() {
         return (
-            <Layout>
-                <Routes>
-                    {AppRoutes.map((route, index) => {
+            <Routes>
+                <Route path='/' element={<CustomerLayout />}>
+                    {CustomerRoutes.map((route, index) => {
                         const { element, ...rest } = route
                         return <Route key={index} {...rest} element={element} />
                     })}
-                </Routes>
-            </Layout>
+                </Route>
+                <Route path='system' element={<SystemLayout />}>
+                    {SystemRoutes.map((route, index) => {
+                        const { element, ...rest } = route
+                        return <Route key={index} {...rest} element={element} />
+                    })}
+                </Route>
+            </Routes>
         )
     }
 }

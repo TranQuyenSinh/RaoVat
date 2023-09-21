@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Section from '../../components/customer/Section/Section'
-import { Link } from 'react-router-dom'
 import Carousel from '../../components/customer/Carousel/Carousel'
+import { fetchGenresStart } from '../../redux/test/test.actions'
+import { useRetrieveData } from '../../hooks/useRetrieveData'
 
 export const Home = () => {
+    const [isLoadingGenres, genres] = useRetrieveData(fetchGenresStart, state => state.test)
     const carouselData = [
         {
             image: 'https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg',
@@ -15,6 +17,7 @@ export const Home = () => {
         },
         { image: 'https://imgv3.fotor.com/images/blog-cover-image/part-blurry-image.jpg', link: '/' },
     ]
+
     return (
         <>
             <Section>
@@ -22,7 +25,26 @@ export const Home = () => {
                     <Carousel id='top-carousel' data={carouselData} />
                 </div>
             </Section>
-            <Section></Section>
+            <Section>
+                <div className='section-title'>Danh mục nổi bật</div>
+                <div className='section-content '>
+                    <div className='genre-container'>
+                        <div className='genre-item'>
+                            <img src='' alt='' />
+                        </div>
+                    </div>
+                </div>
+            </Section>
+
+            <Section>
+                <div className='section-content '>
+                    {isLoadingGenres ? (
+                        <h1>LOADING...</h1>
+                    ) : (
+                        genres && genres.map(item => <div key={item.id}>{item.title}</div>)
+                    )}
+                </div>
+            </Section>
         </>
     )
 }

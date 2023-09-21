@@ -12,7 +12,7 @@ const SearchBar = () => {
 
     useEffect(() => {
         const controller = new AbortController()
-        axios.get('/test/checkdb', { signal: controller.signal }).then(res => setSearchResult(res.data))
+        // axios.get('/test/checkdb', { signal: controller.signal }).then(res => setSearchResult(res.data))
 
         return () => {
             controller.abort()

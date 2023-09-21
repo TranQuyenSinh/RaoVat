@@ -13,7 +13,7 @@ a {
 p,
 span,
 div {
-    font-size: 15px;
+    font-size: 16px;
 }
 
 ul {
@@ -63,6 +63,7 @@ ul {
     background   : $whitecolor;
     box-shadow   : $div-boxshadow;
     border-radius: 3px;
+    padding      : 0;
 
     li {
         &.menu-title {

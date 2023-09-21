@@ -1,5 +1,7 @@
 @import '../styles/variables';
 
 .main-content {
-    padding-top: $navbar-height;
+    padding-top     : $navbar-height;
+    padding-bottom  : 3px;
+    background-color: $backgroundcolor;
 }

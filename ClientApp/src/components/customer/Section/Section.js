@@ -1,8 +1,12 @@
 import React from 'react'
 import './Section.scss'
 
-const Section = ({ children }) => {
-    return <div className='section-container'>{children}</div>
+const Section = ({ children, className: otherClass, ...otherProps }) => {
+    return (
+        <div className={`section-container ${otherClass}`} {...otherProps}>
+            {children}
+        </div>
+    )
 }
 
 export default Section

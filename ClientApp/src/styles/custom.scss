@@ -22,6 +22,14 @@ ul {
     margin         : 0;
 }
 
+.text-main {
+    color: $textmain !important;
+}
+
+.text-main-darker {
+    color: $maincolor-darker !important;
+}
+
 .bg-main {
     background-color: $maincolor !important;
 }
@@ -100,4 +108,14 @@ ul {
         }
     }
 
+}
+
+.btn-close {
+    box-shadow: none !important;
+    padding   : 10px !important;
+
+    &:hover {
+        border-radius   : 50% !important;
+        background-color: $backgroundcolor !important;
+    }
 }

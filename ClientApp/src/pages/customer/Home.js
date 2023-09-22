@@ -3,6 +3,7 @@ import Section from '../../components/customer/Section/Section'
 import Carousel from '../../components/customer/Carousel/Carousel'
 import { fetchGenresStart } from '../../redux/test/test.actions'
 import { useRetrieveData } from '../../hooks/useRetrieveData'
+import LocationSelect from '../../components/customer/LocationSelect/LocationSelect'
 
 export const Home = () => {
     const [isLoadingGenres, genres] = useRetrieveData(fetchGenresStart, state => state.test)
@@ -20,6 +21,11 @@ export const Home = () => {
 
     return (
         <>
+            <Section className='p-0'>
+                <div className='section-content'>
+                    <LocationSelect />
+                </div>
+            </Section>
             <Section>
                 <div className='section-content'>
                     <Carousel id='top-carousel' data={carouselData} />

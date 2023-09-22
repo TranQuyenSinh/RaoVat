@@ -6,6 +6,7 @@ import logo from '../../../assets/images/logo.png'
 import SearchBar from '../SearchBar/SearchBar'
 import './Header.scss'
 import NavMenu from '../NavMenu/NavMenu'
+import LocationSelect from '../LocationSelect/LocationSelect'
 
 export class Header extends Component {
     static displayName = Header.name

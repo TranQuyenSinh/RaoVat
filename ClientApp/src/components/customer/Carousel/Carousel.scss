@@ -1,4 +1,8 @@
 .custom-carousel {
+    .carousel-inner {
+        border-radius: 10px;
+    }
+
     .carousel-item {
         img {
             height    : 300px;

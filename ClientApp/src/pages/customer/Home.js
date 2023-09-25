@@ -3,7 +3,12 @@ import Section from '../../components/customer/Section/Section'
 import Carousel from '../../components/customer/Carousel/Carousel'
 import { fetchGenresStart } from '../../redux/test/test.actions'
 import { useRetrieveData } from '../../hooks/useRetrieveData'
+import { GenreGrid } from '../../components/customer/GenreGrid/GenreGrid'
 import LocationSelect from '../../components/customer/LocationSelect/LocationSelect'
+import Slider from 'react-slick'
+
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
 export const Home = () => {
     const [isLoadingGenres, genres] = useRetrieveData(fetchGenresStart, state => state.test)
@@ -34,11 +39,7 @@ export const Home = () => {
             <Section>
                 <div className='section-title'>Danh mục nổi bật</div>
                 <div className='section-content '>
-                    <div className='genre-container'>
-                        <div className='genre-item'>
-                            <img src='' alt='' />
-                        </div>
-                    </div>
+                    <GenreGrid />
                 </div>
             </Section>
 

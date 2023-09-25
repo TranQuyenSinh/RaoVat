@@ -1,0 +1,52 @@
+.genres-container {
+
+    .slick-slide>div:first-child {
+        margin-bottom: 24px;
+    }
+
+    .slick-carousel-arrow {
+        position           : absolute;
+        width              : 36px;
+        height             : 36px;
+        top                : calc(50% - 10px) !important;
+        cursor             : pointer;
+        border-radius      : 50%;
+        z-index            : 2;
+        background-size    : 100%;
+        background-position: center center;
+        transition         : all .2s ease-in-out;
+
+        &:hover {
+            transform: translate(0, -50%) scale(1.2) !important;
+        }
+
+
+        &.prev-arrow {
+            left: 0px;
+        }
+
+        &.next-arrow {
+            right: 0px;
+        }
+
+        &.slick-disabled {
+            display: none !important;
+        }
+    }
+
+    .genre-item {
+        cursor : pointer;
+        outline: none !important;
+
+        img {
+            width        : 84px;
+            height       : 84px;
+            margin       : 0 auto;
+            border-radius: 12px;
+        }
+
+        .genre-title {
+            text-align: center;
+        }
+    }
+}

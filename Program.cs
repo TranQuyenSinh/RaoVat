@@ -1,6 +1,8 @@
 using App.Data;
+using App.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using App.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,9 @@ builder.Services.AddCors(options =>
         });
 });
 
+// Đăng ký my services
+builder.Services.AddTransient<GenreService, GenreService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -44,10 +49,10 @@ app.UseStaticFiles(new StaticFileOptions()
 
 app.UseRouting();
 
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.MapFallbackToFile("index.html");
 

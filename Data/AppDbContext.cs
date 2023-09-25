@@ -21,6 +21,7 @@ namespace App.Data
             builder.Entity<Role>().HasData(
                 RoleSeeder.Seed()
             );
+            builder.Entity<Genre>().HasIndex(x => x.Slug).IsUnique();
             builder.Entity<Genre>().HasData(
                 GenreSeeder.Seed()
             );

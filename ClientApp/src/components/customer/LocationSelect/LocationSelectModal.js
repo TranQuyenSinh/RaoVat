@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import { getAllLocations } from '../../../services/location'
+import { getAllLocations } from '../../../services'
 import { useDispatch, useSelector } from 'react-redux'
 import CustomRadio from '../../input/CustomRadio/CustomRadio'
 import { changeCustomerLocation } from '../../../redux/app/app.actions'

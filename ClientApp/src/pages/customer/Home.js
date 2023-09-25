@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import Section from '../../components/customer/Section/Section'
 import Carousel from '../../components/customer/Carousel/Carousel'
-import { fetchGenresStart } from '../../redux/test/test.actions'
 import { useRetrieveData } from '../../hooks/useRetrieveData'
 import { GenreGrid } from '../../components/customer/GenreGrid/GenreGrid'
 import LocationSelect from '../../components/customer/LocationSelect/LocationSelect'
@@ -11,7 +10,6 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
 export const Home = () => {
-    const [isLoadingGenres, genres] = useRetrieveData(fetchGenresStart, state => state.test)
     const carouselData = [
         {
             image: 'https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg',
@@ -40,16 +38,6 @@ export const Home = () => {
                 <div className='section-title'>Danh mục nổi bật</div>
                 <div className='section-content '>
                     <GenreGrid />
-                </div>
-            </Section>
-
-            <Section>
-                <div className='section-content '>
-                    {isLoadingGenres ? (
-                        <h1>LOADING...</h1>
-                    ) : (
-                        genres && genres.map(item => <div key={item.id}>{item.title}</div>)
-                    )}
                 </div>
             </Section>
         </>

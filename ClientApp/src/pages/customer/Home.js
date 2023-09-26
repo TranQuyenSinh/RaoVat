@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import Section from '../../components/customer/Section/Section'
 import Carousel from '../../components/customer/Carousel/Carousel'
-import { useRetrieveData } from '../../hooks/useRetrieveData'
 import { GenreGrid } from '../../components/customer/GenreGrid/GenreGrid'
 import LocationSelect from '../../components/customer/LocationSelect/LocationSelect'
-import Slider from 'react-slick'
+import AdCard from '../../components/customer/AdCard/AdCard'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import GridAd from '../../components/customer/AdCard/GridAd'
 
 export const Home = () => {
     const carouselData = [
@@ -38,6 +38,12 @@ export const Home = () => {
                 <div className='section-title'>Danh mục nổi bật</div>
                 <div className='section-content '>
                     <GenreGrid />
+                </div>
+            </Section>
+            <Section>
+                <div className='section-title'>Tin đăng mới</div>
+                <div className='section-content '>
+                    <GridAd />
                 </div>
             </Section>
         </>

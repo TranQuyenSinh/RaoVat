@@ -18,6 +18,9 @@ namespace App.Seeder
                     Email = "tqsinh_21th@student.agu.edu.vn",
                     Gender = true,
                     DateOfBirth = new DateTime(2002, 3, 11),
+                    ProvinceCode = 10,
+                    DistrictCode = 82,
+                    WardCode = 2683,
                 },
                 new Customer() {
                     Id = 2,
@@ -30,6 +33,9 @@ namespace App.Seeder
                     Email = "hmnguyen_21th@student.agu.edu.vn",
                     Gender = true,
                     DateOfBirth = new DateTime(2002, 4, 12),
+                    ProvinceCode = 89,
+                    DistrictCode = 883,
+                    WardCode = 30280,
                 },
                 new Customer() {
                     Id = 3,
@@ -42,6 +48,9 @@ namespace App.Seeder
                     Email = "ntknguyet_21th@student.agu.edu.vn",
                     Gender = false,
                     DateOfBirth = new DateTime(2002, 7, 18),
+                    ProvinceCode = 1,
+                    DistrictCode = 1,
+                    WardCode = 4,
                 },
 
             };

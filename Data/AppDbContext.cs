@@ -22,6 +22,9 @@ namespace App.Data
                 RoleSeeder.Seed()
             );
             builder.Entity<Genre>().HasIndex(x => x.Slug).IsUnique();
+
+
+
             builder.Entity<Genre>().HasData(
                 GenreSeeder.Seed()
             );
@@ -31,6 +34,14 @@ namespace App.Data
             builder.Entity<User>().HasData(
                 UserSeeder.Seed()
             );
+
+            builder.Entity<Genre>()
+                .HasMany<Customer>(x => x.Customers)
+                .WithMany(x => x.FavorGenres)
+                .UsingEntity<CustomerGenresFavor>(
+                    left => left.HasOne<Customer>().WithMany().OnDelete(DeleteBehavior.NoAction),
+                    right => right.HasOne<Genre>().WithMany().OnDelete(DeleteBehavior.NoAction)
+                );
 
             // Username must be unique
             builder.Entity<User>().HasIndex(x => x.UserName).IsUnique();
@@ -45,9 +56,15 @@ namespace App.Data
             .WithMany()
             .HasForeignKey(a => a.AprovedUserId);
 
+
+            // table favorite ads of customer
             builder.Entity<Ad>()
             .HasMany<Customer>(a => a.FavoredCustomers)
-            .WithMany(c => c.FavorAds);
+            .WithMany(c => c.FavorAds)
+            .UsingEntity<CustomerAdsFavor>(
+                left => left.HasOne<Customer>().WithMany().OnDelete(DeleteBehavior.NoAction),
+                right => right.HasOne<Ad>().WithMany().OnDelete(DeleteBehavior.NoAction)
+            );
         }
 
         public DbSet<Role> Roles { get; set; }

@@ -22,21 +22,6 @@ namespace Server.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AdGenre", b =>
-                {
-                    b.Property<int>("AdsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GenresId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AdsId", "GenresId");
-
-                    b.HasIndex("GenresId");
-
-                    b.ToTable("AdGenre");
-                });
-
             modelBuilder.Entity("App.Models.Ad", b =>
                 {
                     b.Property<int>("Id")
@@ -95,6 +80,29 @@ namespace Server.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Ad");
+                });
+
+            modelBuilder.Entity("App.Models.AdGenre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AdId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdId");
+
+                    b.HasIndex("GenreId");
+
+                    b.ToTable("AdGenre");
                 });
 
             modelBuilder.Entity("App.Models.AdImage", b =>
@@ -185,7 +193,7 @@ namespace Server.Migrations
                             Id = 1,
                             Address = "5M2, Mỹ Long, Long Xuyên, An Giang",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 9, 26, 21, 19, 13, 398, DateTimeKind.Local).AddTicks(9401),
+                            CreatedAt = new DateTime(2023, 9, 28, 10, 4, 51, 31, DateTimeKind.Local).AddTicks(3053),
                             DateOfBirth = new DateTime(2002, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "ABC",
                             DistrictCode = 82,
@@ -202,7 +210,7 @@ namespace Server.Migrations
                             Id = 2,
                             Address = "60C, Mỹ Bình, Long Xuyên, An Giang",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 9, 26, 21, 19, 13, 398, DateTimeKind.Local).AddTicks(9434),
+                            CreatedAt = new DateTime(2023, 9, 28, 10, 4, 51, 31, DateTimeKind.Local).AddTicks(3086),
                             DateOfBirth = new DateTime(2002, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "XYZ",
                             DistrictCode = 883,
@@ -219,7 +227,7 @@ namespace Server.Migrations
                             Id = 3,
                             Address = "30/12A, Mỹ Phước, Long Xuyên, An Giang",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 9, 26, 21, 19, 13, 398, DateTimeKind.Local).AddTicks(9438),
+                            CreatedAt = new DateTime(2023, 9, 28, 10, 4, 51, 31, DateTimeKind.Local).AddTicks(3089),
                             DateOfBirth = new DateTime(2002, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "ABCXYZ",
                             DistrictCode = 1,
@@ -491,21 +499,6 @@ namespace Server.Migrations
                         });
                 });
 
-            modelBuilder.Entity("AdGenre", b =>
-                {
-                    b.HasOne("App.Models.Ad", null)
-                        .WithMany()
-                        .HasForeignKey("AdsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("App.Models.Genre", null)
-                        .WithMany()
-                        .HasForeignKey("GenresId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("App.Models.Ad", b =>
                 {
                     b.HasOne("App.Models.User", "ApovedUser")
@@ -521,6 +514,21 @@ namespace Server.Migrations
                     b.Navigation("ApovedUser");
 
                     b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("App.Models.AdGenre", b =>
+                {
+                    b.HasOne("App.Models.Ad", null)
+                        .WithMany()
+                        .HasForeignKey("AdId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("App.Models.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("App.Models.AdImage", b =>

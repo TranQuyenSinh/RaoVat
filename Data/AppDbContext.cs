@@ -42,6 +42,12 @@ namespace App.Data
                     left => left.HasOne<Customer>().WithMany().OnDelete(DeleteBehavior.NoAction),
                     right => right.HasOne<Genre>().WithMany().OnDelete(DeleteBehavior.NoAction)
                 );
+            builder.Entity<Ad>()
+                .HasMany<Genre>(x => x.Genres)
+                .WithMany(x => x.Ads)
+                .UsingEntity<AdGenre>(
+                    left => left.HasOne<Genre>().WithMany(),
+                    right => right.HasOne<Ad>().WithMany());
 
             // Username must be unique
             builder.Entity<User>().HasIndex(x => x.UserName).IsUnique();

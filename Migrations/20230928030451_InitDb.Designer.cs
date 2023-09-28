@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230919093044_Create_AdImage")]
-    partial class Create_AdImage
+    [Migration("20230928030451_InitDb")]
+    partial class InitDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,36 +24,6 @@ namespace Server.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("AdCustomer", b =>
-                {
-                    b.Property<int>("FavorAdsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FavoredCustomersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FavorAdsId", "FavoredCustomersId");
-
-                    b.HasIndex("FavoredCustomersId");
-
-                    b.ToTable("AdCustomer");
-                });
-
-            modelBuilder.Entity("AdGenre", b =>
-                {
-                    b.Property<int>("AdsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GenresId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AdsId", "GenresId");
-
-                    b.HasIndex("GenresId");
-
-                    b.ToTable("AdGenre");
-                });
 
             modelBuilder.Entity("App.Models.Ad", b =>
                 {
@@ -115,6 +85,29 @@ namespace Server.Migrations
                     b.ToTable("Ad");
                 });
 
+            modelBuilder.Entity("App.Models.AdGenre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AdId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdId");
+
+                    b.HasIndex("GenreId");
+
+                    b.ToTable("AdGenre");
+                });
+
             modelBuilder.Entity("App.Models.AdImage", b =>
                 {
                     b.Property<int>("Id")
@@ -162,6 +155,9 @@ namespace Server.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("DistrictCode")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -184,6 +180,12 @@ namespace Server.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<int>("ProvinceCode")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WardCode")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Customer");
@@ -194,43 +196,98 @@ namespace Server.Migrations
                             Id = 1,
                             Address = "5M2, Mỹ Long, Long Xuyên, An Giang",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 9, 19, 16, 30, 44, 320, DateTimeKind.Local).AddTicks(953),
+                            CreatedAt = new DateTime(2023, 9, 28, 10, 4, 51, 31, DateTimeKind.Local).AddTicks(3053),
                             DateOfBirth = new DateTime(2002, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "ABC",
+                            DistrictCode = 82,
                             Email = "tqsinh_21th@student.agu.edu.vn",
                             FullName = "Trần Quyền Sinh",
                             Gender = true,
                             Password = "123123",
-                            Phone = "0818283714"
+                            Phone = "0818283714",
+                            ProvinceCode = 10,
+                            WardCode = 2683
                         },
                         new
                         {
                             Id = 2,
                             Address = "60C, Mỹ Bình, Long Xuyên, An Giang",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 9, 19, 16, 30, 44, 320, DateTimeKind.Local).AddTicks(984),
+                            CreatedAt = new DateTime(2023, 9, 28, 10, 4, 51, 31, DateTimeKind.Local).AddTicks(3086),
                             DateOfBirth = new DateTime(2002, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "XYZ",
+                            DistrictCode = 883,
                             Email = "hmnguyen_21th@student.agu.edu.vn",
                             FullName = "Hồ Minh Nguyên",
                             Gender = true,
                             Password = "123123",
-                            Phone = "0913615294"
+                            Phone = "0913615294",
+                            ProvinceCode = 89,
+                            WardCode = 30280
                         },
                         new
                         {
                             Id = 3,
                             Address = "30/12A, Mỹ Phước, Long Xuyên, An Giang",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 9, 19, 16, 30, 44, 320, DateTimeKind.Local).AddTicks(988),
+                            CreatedAt = new DateTime(2023, 9, 28, 10, 4, 51, 31, DateTimeKind.Local).AddTicks(3089),
                             DateOfBirth = new DateTime(2002, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "ABCXYZ",
+                            DistrictCode = 1,
                             Email = "ntknguyet_21th@student.agu.edu.vn",
                             FullName = "Nguyễn Thị Kim Nguyệt",
                             Gender = false,
                             Password = "123123",
-                            Phone = "0941482144"
+                            Phone = "0941482144",
+                            ProvinceCode = 1,
+                            WardCode = 4
                         });
+                });
+
+            modelBuilder.Entity("App.Models.CustomerAdsFavor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AdId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("CustomerAdsFavor");
+                });
+
+            modelBuilder.Entity("App.Models.CustomerGenresFavor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("GenreId");
+
+                    b.ToTable("CustomerGenresFavor");
                 });
 
             modelBuilder.Entity("App.Models.Genre", b =>
@@ -254,6 +311,10 @@ namespace Server.Migrations
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -262,6 +323,9 @@ namespace Server.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
+
+                    b.HasIndex("Slug")
+                        .IsUnique();
 
                     b.ToTable("Genre");
 
@@ -272,6 +336,7 @@ namespace Server.Migrations
                             Description = "ABC",
                             Icon = "genreicon.png",
                             Image = "genreimage.png",
+                            Slug = "do-dien-tu",
                             Title = "Đồ điện tử"
                         },
                         new
@@ -281,6 +346,7 @@ namespace Server.Migrations
                             Icon = "genreicon.png",
                             Image = "genreimage.png",
                             ParentId = 1,
+                            Slug = "dien-thoai",
                             Title = "Điện thoại"
                         },
                         new
@@ -290,6 +356,7 @@ namespace Server.Migrations
                             Icon = "genreicon.png",
                             Image = "genreimage.png",
                             ParentId = 1,
+                            Slug = "may-tinh-bang",
                             Title = "Máy tính bảng"
                         },
                         new
@@ -299,6 +366,7 @@ namespace Server.Migrations
                             Icon = "genreicon.png",
                             Image = "genreimage.png",
                             ParentId = 1,
+                            Slug = "laptop",
                             Title = "Laptop"
                         },
                         new
@@ -307,6 +375,7 @@ namespace Server.Migrations
                             Description = "ABC",
                             Icon = "genreicon.png",
                             Image = "genreimage.png",
+                            Slug = "do-gia-dung",
                             Title = "Đồ gia dụng"
                         },
                         new
@@ -316,6 +385,7 @@ namespace Server.Migrations
                             Icon = "genreicon.png",
                             Image = "genreimage.png",
                             ParentId = 5,
+                            Slug = "giuong-chan-ga",
                             Title = "Giường, chăn ga"
                         },
                         new
@@ -325,6 +395,7 @@ namespace Server.Migrations
                             Icon = "genreicon.png",
                             Image = "genreimage.png",
                             ParentId = 5,
+                            Slug = "dung-cu-bep",
                             Title = "Dụng cụ bếp"
                         },
                         new
@@ -334,6 +405,7 @@ namespace Server.Migrations
                             Icon = "genreicon.png",
                             Image = "genreimage.png",
                             ParentId = 5,
+                            Slug = "den",
                             Title = "Đèn"
                         });
                 });
@@ -430,51 +502,6 @@ namespace Server.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CustomerGenre", b =>
-                {
-                    b.Property<int>("CustomersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FavorGenresId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CustomersId", "FavorGenresId");
-
-                    b.HasIndex("FavorGenresId");
-
-                    b.ToTable("CustomerGenre");
-                });
-
-            modelBuilder.Entity("AdCustomer", b =>
-                {
-                    b.HasOne("App.Models.Ad", null)
-                        .WithMany()
-                        .HasForeignKey("FavorAdsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("App.Models.Customer", null)
-                        .WithMany()
-                        .HasForeignKey("FavoredCustomersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("AdGenre", b =>
-                {
-                    b.HasOne("App.Models.Ad", null)
-                        .WithMany()
-                        .HasForeignKey("AdsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("App.Models.Genre", null)
-                        .WithMany()
-                        .HasForeignKey("GenresId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("App.Models.Ad", b =>
                 {
                     b.HasOne("App.Models.User", "ApovedUser")
@@ -492,12 +519,57 @@ namespace Server.Migrations
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("App.Models.AdGenre", b =>
+                {
+                    b.HasOne("App.Models.Ad", null)
+                        .WithMany()
+                        .HasForeignKey("AdId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("App.Models.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("App.Models.AdImage", b =>
                 {
                     b.HasOne("App.Models.Ad", null)
                         .WithMany("Images")
                         .HasForeignKey("AdId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("App.Models.CustomerAdsFavor", b =>
+                {
+                    b.HasOne("App.Models.Ad", null)
+                        .WithMany()
+                        .HasForeignKey("AdId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("App.Models.Customer", null)
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("App.Models.CustomerGenresFavor", b =>
+                {
+                    b.HasOne("App.Models.Customer", null)
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("App.Models.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
@@ -519,21 +591,6 @@ namespace Server.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("CustomerGenre", b =>
-                {
-                    b.HasOne("App.Models.Customer", null)
-                        .WithMany()
-                        .HasForeignKey("CustomersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("App.Models.Genre", null)
-                        .WithMany()
-                        .HasForeignKey("FavorGenresId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("App.Models.Ad", b =>

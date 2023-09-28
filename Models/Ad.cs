@@ -19,6 +19,7 @@ namespace App.Models
 
         public string Description { get; set; }
 
+        // 0 - cũ, 1 - mới
         public bool Status { get; set; }
 
         [StringLength(255)]

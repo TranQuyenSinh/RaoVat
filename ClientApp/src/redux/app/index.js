@@ -1,12 +1,13 @@
 import { appTypes } from './app.types'
 
 const initialState = {
-    currentLocation: { code: 0, name: 'Toàn quốc' },
+    currentLocation: 'Toàn quốc',
 }
 
 const appReducer = (state = initialState, { type, payload }) => {
     switch (type) {
         case appTypes.CHANGE_CUSTOMER_LOCATION:
+            console.log(payload)
             return {
                 ...state,
                 currentLocation: payload,

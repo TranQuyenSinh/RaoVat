@@ -14,17 +14,16 @@ const LocationSelectModal = ({ isOpen, toggle }) => {
 
     useEffect(() => {
         const fetchAllProvinces = async () => {
-            let { data } = await getAllLocations()
-            data = [{ code: 0, name: 'Toàn quốc' }, ...data]
-            setAllProvinces(data)
+            let allProvinces = await getAllLocations()
+            allProvinces = ['Toàn quốc', ...allProvinces]
+            setAllProvinces(allProvinces)
         }
 
         fetchAllProvinces()
     }, [])
 
     const handleChangeLocation = () => {
-        let { code, name } = selectedLocation
-        dispatch(changeCustomerLocation({ code, name }))
+        dispatch(changeCustomerLocation(selectedLocation))
         toggle()
     }
 
@@ -39,8 +38,8 @@ const LocationSelectModal = ({ isOpen, toggle }) => {
             <ModalBody>
                 {allProvinces &&
                     allProvinces.map((item, index) => (
-                        <CustomRadio onClick={() => setSelectedLocation(item)} name='provinceCode' key={item.code}>
-                            {item.name}
+                        <CustomRadio onClick={() => setSelectedLocation(item)} name='provinceCode' key={index}>
+                            {item}
                         </CustomRadio>
                     ))}
             </ModalBody>

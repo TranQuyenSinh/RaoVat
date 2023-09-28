@@ -152,8 +152,8 @@ namespace Server.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DistrictCode")
-                        .HasColumnType("int");
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -177,11 +177,11 @@ namespace Server.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("ProvinceCode")
-                        .HasColumnType("int");
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("WardCode")
-                        .HasColumnType("int");
+                    b.Property<string>("Ward")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -191,53 +191,53 @@ namespace Server.Migrations
                         new
                         {
                             Id = 1,
-                            Address = "5M2, Mỹ Long, Long Xuyên, An Giang",
+                            Address = "5M2",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 9, 28, 10, 4, 51, 31, DateTimeKind.Local).AddTicks(3053),
+                            CreatedAt = new DateTime(2023, 9, 28, 15, 48, 20, 613, DateTimeKind.Local).AddTicks(4642),
                             DateOfBirth = new DateTime(2002, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "ABC",
-                            DistrictCode = 82,
+                            District = "Thành phố Long Xuyên",
                             Email = "tqsinh_21th@student.agu.edu.vn",
                             FullName = "Trần Quyền Sinh",
                             Gender = true,
                             Password = "123123",
                             Phone = "0818283714",
-                            ProvinceCode = 10,
-                            WardCode = 2683
+                            Province = "Tỉnh An Giang",
+                            Ward = "Phường Mỹ Long"
                         },
                         new
                         {
                             Id = 2,
-                            Address = "60C, Mỹ Bình, Long Xuyên, An Giang",
+                            Address = "60C",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 9, 28, 10, 4, 51, 31, DateTimeKind.Local).AddTicks(3086),
+                            CreatedAt = new DateTime(2023, 9, 28, 15, 48, 20, 613, DateTimeKind.Local).AddTicks(4675),
                             DateOfBirth = new DateTime(2002, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "XYZ",
-                            DistrictCode = 883,
+                            District = "Thành phố Long Xuyên",
                             Email = "hmnguyen_21th@student.agu.edu.vn",
                             FullName = "Hồ Minh Nguyên",
                             Gender = true,
                             Password = "123123",
                             Phone = "0913615294",
-                            ProvinceCode = 89,
-                            WardCode = 30280
+                            Province = "Tỉnh An Giang",
+                            Ward = "Phường Mỹ Bình"
                         },
                         new
                         {
                             Id = 3,
-                            Address = "30/12A, Mỹ Phước, Long Xuyên, An Giang",
+                            Address = "30/12A",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 9, 28, 10, 4, 51, 31, DateTimeKind.Local).AddTicks(3089),
+                            CreatedAt = new DateTime(2023, 9, 28, 15, 48, 20, 613, DateTimeKind.Local).AddTicks(4678),
                             DateOfBirth = new DateTime(2002, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "ABCXYZ",
-                            DistrictCode = 1,
+                            District = "Thành phố Rạch Giá",
                             Email = "ntknguyet_21th@student.agu.edu.vn",
                             FullName = "Nguyễn Thị Kim Nguyệt",
                             Gender = false,
                             Password = "123123",
                             Phone = "0941482144",
-                            ProvinceCode = 1,
-                            WardCode = 4
+                            Province = "Tỉnh Kiên Giang",
+                            Ward = "Phường Vĩnh Quang"
                         });
                 });
 

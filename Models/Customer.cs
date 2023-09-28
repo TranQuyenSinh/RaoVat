@@ -20,9 +20,9 @@ namespace App.Models
         [StringLength(255, MinimumLength = 6)]
         public string Password { get; set; }
 
-        public int ProvinceCode { get; set; }
-        public int DistrictCode { get; set; }
-        public int WardCode { get; set; }
+        public string? Province { get; set; }
+        public string? District { get; set; }
+        public string? Ward { get; set; }
 
         [StringLength(255)]
         public string? Address { get; set; }

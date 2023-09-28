@@ -42,6 +42,7 @@ public class GenreManageController : ControllerBase
     }
 
     [HttpGet]
+    [Route("test")]
     public string Test()
     {
         return "test successfully";

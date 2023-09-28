@@ -1,7 +1,7 @@
 import { appTypes } from './app.types'
 
 const initialState = {
-    currentLocation: { code: 0, name: 'Toàn quốc' },
+    currentLocation: 'Toàn quốc',
 }
 
 const appReducer = (state = initialState, { type, payload }) => {

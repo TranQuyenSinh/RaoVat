@@ -13,7 +13,7 @@ const LocationSelect = () => {
     }
 
     const dispatch = useDispatch()
-    const currentLocation = useSelector(state => state.app.currentLocation)
+    const { currentLocation } = useSelector(state => state.app)
     return (
         <>
             <div onClick={toggle} className='location-select-container'>
@@ -21,7 +21,7 @@ const LocationSelect = () => {
                     <FontAwesomeIcon className='me-2' icon={faLocation} />
                     <strong>
                         Vị trí của bạn:<> </>
-                        <span className='text-main'>{currentLocation.name}</span>
+                        <span className='text-main'>{currentLocation}</span>
                     </strong>
                 </div>
                 <div className='right'>

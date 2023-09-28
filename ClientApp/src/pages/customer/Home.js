@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Section from '../../components/customer/Section/Section'
 import Carousel from '../../components/customer/Carousel/Carousel'
 import { GenreGrid } from '../../components/customer/GenreGrid/GenreGrid'
 import LocationSelect from '../../components/customer/LocationSelect/LocationSelect'
-import AdCard from '../../components/customer/AdCard/AdCard'
+
+import { useSelector } from 'react-redux'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import GridAd from '../../components/customer/AdCard/GridAd'
+import { getLatestCardAds } from '../../services'
 
 export const Home = () => {
     const carouselData = [
@@ -21,6 +23,36 @@ export const Home = () => {
         },
         { image: 'https://imgv3.fotor.com/images/blog-cover-image/part-blurry-image.jpg', link: '/' },
     ]
+
+    const [latestAds, setLatestAds] = useState([])
+    const [currentIndex, setCurrentIndex] = useState(0)
+
+    const { currentLocation } = useSelector(state => state.app)
+
+    const fetchMoreLatestAds = async () => {
+        if (currentIndex !== -1) {
+            let { data } = await getLatestCardAds({ currentIndex: currentIndex, province: currentLocation })
+            if (data && data.length > 0) {
+                currentIndex === 0 ? setLatestAds(data) : setLatestAds([...latestAds, ...data])
+            } else {
+                setCurrentIndex(-1)
+                currentIndex === 0 && setLatestAds([])
+            }
+        }
+    }
+
+    useEffect(() => {
+        fetchMoreLatestAds()
+    }, [currentIndex])
+
+    useEffect(() => {
+        if (currentIndex === 0) fetchMoreLatestAds()
+        else setCurrentIndex(0)
+    }, [currentLocation])
+
+    const loadMoreAd = () => {
+        setCurrentIndex(currentIndex + 1)
+    }
 
     return (
         <>
@@ -43,8 +75,13 @@ export const Home = () => {
             <Section>
                 <div className='section-title'>Tin đăng mới</div>
                 <div className='section-content '>
-                    <GridAd />
+                    <GridAd data={latestAds} />
                 </div>
+                {currentIndex !== -1 && (
+                    <div onClick={loadMoreAd} className='section-link'>
+                        Xem thêm
+                    </div>
+                )}
             </Section>
         </>
     )

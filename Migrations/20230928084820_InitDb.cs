@@ -23,9 +23,9 @@ namespace Server.Migrations
                     Phone = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    ProvinceCode = table.Column<int>(type: "int", nullable: false),
-                    DistrictCode = table.Column<int>(type: "int", nullable: false),
-                    WardCode = table.Column<int>(type: "int", nullable: false),
+                    Province = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    District = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Ward = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
@@ -227,12 +227,12 @@ namespace Server.Migrations
 
             migrationBuilder.InsertData(
                 table: "Customer",
-                columns: new[] { "Id", "Address", "Avatar", "CreatedAt", "DateOfBirth", "Description", "DistrictCode", "Email", "FullName", "Gender", "Password", "Phone", "ProvinceCode", "WardCode" },
+                columns: new[] { "Id", "Address", "Avatar", "CreatedAt", "DateOfBirth", "Description", "District", "Email", "FullName", "Gender", "Password", "Phone", "Province", "Ward" },
                 values: new object[,]
                 {
-                    { 1, "5M2, Mỹ Long, Long Xuyên, An Giang", "customerAvatar.jpg", new DateTime(2023, 9, 28, 10, 4, 51, 31, DateTimeKind.Local).AddTicks(3053), new DateTime(2002, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "ABC", 82, "tqsinh_21th@student.agu.edu.vn", "Trần Quyền Sinh", true, "123123", "0818283714", 10, 2683 },
-                    { 2, "60C, Mỹ Bình, Long Xuyên, An Giang", "customerAvatar.jpg", new DateTime(2023, 9, 28, 10, 4, 51, 31, DateTimeKind.Local).AddTicks(3086), new DateTime(2002, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "XYZ", 883, "hmnguyen_21th@student.agu.edu.vn", "Hồ Minh Nguyên", true, "123123", "0913615294", 89, 30280 },
-                    { 3, "30/12A, Mỹ Phước, Long Xuyên, An Giang", "customerAvatar.jpg", new DateTime(2023, 9, 28, 10, 4, 51, 31, DateTimeKind.Local).AddTicks(3089), new DateTime(2002, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "ABCXYZ", 1, "ntknguyet_21th@student.agu.edu.vn", "Nguyễn Thị Kim Nguyệt", false, "123123", "0941482144", 1, 4 }
+                    { 1, "5M2", "customerAvatar.jpg", new DateTime(2023, 9, 28, 15, 48, 20, 613, DateTimeKind.Local).AddTicks(4642), new DateTime(2002, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "ABC", "Thành phố Long Xuyên", "tqsinh_21th@student.agu.edu.vn", "Trần Quyền Sinh", true, "123123", "0818283714", "Tỉnh An Giang", "Phường Mỹ Long" },
+                    { 2, "60C", "customerAvatar.jpg", new DateTime(2023, 9, 28, 15, 48, 20, 613, DateTimeKind.Local).AddTicks(4675), new DateTime(2002, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "XYZ", "Thành phố Long Xuyên", "hmnguyen_21th@student.agu.edu.vn", "Hồ Minh Nguyên", true, "123123", "0913615294", "Tỉnh An Giang", "Phường Mỹ Bình" },
+                    { 3, "30/12A", "customerAvatar.jpg", new DateTime(2023, 9, 28, 15, 48, 20, 613, DateTimeKind.Local).AddTicks(4678), new DateTime(2002, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "ABCXYZ", "Thành phố Rạch Giá", "ntknguyet_21th@student.agu.edu.vn", "Nguyễn Thị Kim Nguyệt", false, "123123", "0941482144", "Tỉnh Kiên Giang", "Phường Vĩnh Quang" }
                 });
 
             migrationBuilder.InsertData(

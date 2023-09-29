@@ -3,6 +3,9 @@ using App.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using App.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,9 +30,33 @@ builder.Services.AddCors(options =>
         });
 });
 
+// Identity
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(o =>
+{
+    var Key = Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]);
+    o.SaveToken = true;
+    o.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["JWT:Issuer"],
+        ValidAudience = builder.Configuration["JWT:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Key)
+    };
+});
+builder.Services.AddAuthorization();
+
 // Đăng ký my services
-builder.Services.AddTransient<GenreService, GenreService>();
-builder.Services.AddTransient<AdServices, AdServices>();
+builder.Services.AddTransient<GenreService>();
+builder.Services.AddTransient<AdServices>();
+builder.Services.AddTransient<AuthServices>();
+
 
 var app = builder.Build();
 
@@ -43,7 +70,6 @@ if (!app.Environment.IsDevelopment())
 app.UseCors();
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
 app.UseStaticFiles(new StaticFileOptions()
 {
     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Uploads")),
@@ -51,6 +77,9 @@ app.UseStaticFiles(new StaticFileOptions()
 });
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {

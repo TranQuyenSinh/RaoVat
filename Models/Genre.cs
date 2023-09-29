@@ -24,11 +24,11 @@ namespace App.Models
         public int? ParentId { get; set; }
 
         [ForeignKey("ParentId")]
-        public virtual Genre Parent { get; set; }
+        public Genre? Parent { get; set; }
 
-        public virtual ICollection<Genre>? ChildGenres { get; set; }
+        public virtual ICollection<Genre>? ChildrenGenres { get; set; }
 
-        public virtual ICollection<Customer>? Customers { get; set; }
+        public virtual ICollection<User>? LikedUsers { get; set; }
 
         public virtual ICollection<Ad>? Ads { get; set; }
     }

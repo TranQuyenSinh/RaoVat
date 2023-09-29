@@ -1,10 +1,10 @@
 namespace App.Models;
 
-public class CustomerAdsFavor
+public class User_Ad_Favorite
 {
     public int Id { get; set; }
 
-    public int CustomerId { get; set; }
+    public int UserId { get; set; }
 
     public int AdId { get; set; }
 }

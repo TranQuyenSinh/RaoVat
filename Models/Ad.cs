@@ -14,9 +14,6 @@ namespace App.Models
 
         public int Price { get; set; }
 
-        public int AuthorId { get; set; }
-        public Customer Author { get; set; }
-
         public string Description { get; set; }
 
         // 0 - cũ, 1 - mới
@@ -32,6 +29,10 @@ namespace App.Models
 
         public DateTime ExpireAt { get; set; } = DateTime.Now.AddDays(10);
 
+        public int AuthorId { get; set; }
+        public User Author { get; set; }
+
+        /* ================ Aprove information ================ */
         public int? AprovedUserId { get; set; }
         public User? ApovedUser { get; set; }
 
@@ -40,7 +41,7 @@ namespace App.Models
         public byte AprovedStatus { get; set; } = 0;
 
         public virtual ICollection<Genre> Genres { get; set; }
-        public virtual ICollection<Customer>? FavoredCustomers { get; set; }
+        public virtual ICollection<User>? LikedUsers { get; set; }
         public virtual ICollection<AdImage>? Images { get; set; }
 
     }

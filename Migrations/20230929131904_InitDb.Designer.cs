@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230928084820_InitDb")]
+    [Migration("20230929131904_InitDb")]
     partial class InitDb
     {
         /// <inheritdoc />
@@ -129,165 +129,6 @@ namespace Server.Migrations
                     b.HasIndex("AdId");
 
                     b.ToTable("AdImage");
-                });
-
-            modelBuilder.Entity("App.Models.Customer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Avatar")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateOfBirth")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("District")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<bool?>("Gender")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Phone")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("Province")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Ward")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Customer");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "5M2",
-                            Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 9, 28, 15, 48, 20, 613, DateTimeKind.Local).AddTicks(4642),
-                            DateOfBirth = new DateTime(2002, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "ABC",
-                            District = "Thành phố Long Xuyên",
-                            Email = "tqsinh_21th@student.agu.edu.vn",
-                            FullName = "Trần Quyền Sinh",
-                            Gender = true,
-                            Password = "123123",
-                            Phone = "0818283714",
-                            Province = "Tỉnh An Giang",
-                            Ward = "Phường Mỹ Long"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "60C",
-                            Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 9, 28, 15, 48, 20, 613, DateTimeKind.Local).AddTicks(4675),
-                            DateOfBirth = new DateTime(2002, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "XYZ",
-                            District = "Thành phố Long Xuyên",
-                            Email = "hmnguyen_21th@student.agu.edu.vn",
-                            FullName = "Hồ Minh Nguyên",
-                            Gender = true,
-                            Password = "123123",
-                            Phone = "0913615294",
-                            Province = "Tỉnh An Giang",
-                            Ward = "Phường Mỹ Bình"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Address = "30/12A",
-                            Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 9, 28, 15, 48, 20, 613, DateTimeKind.Local).AddTicks(4678),
-                            DateOfBirth = new DateTime(2002, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "ABCXYZ",
-                            District = "Thành phố Rạch Giá",
-                            Email = "ntknguyet_21th@student.agu.edu.vn",
-                            FullName = "Nguyễn Thị Kim Nguyệt",
-                            Gender = false,
-                            Password = "123123",
-                            Phone = "0941482144",
-                            Province = "Tỉnh Kiên Giang",
-                            Ward = "Phường Vĩnh Quang"
-                        });
-                });
-
-            modelBuilder.Entity("App.Models.CustomerAdsFavor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AdId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AdId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("CustomerAdsFavor");
-                });
-
-            modelBuilder.Entity("App.Models.CustomerGenresFavor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GenreId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("GenreId");
-
-                    b.ToTable("CustomerGenresFavor");
                 });
 
             modelBuilder.Entity("App.Models.Genre", b =>
@@ -437,6 +278,11 @@ namespace Server.Migrations
                         {
                             Id = 2,
                             RoleName = "Censor"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            RoleName = "Guest"
                         });
                 });
 
@@ -448,30 +294,62 @@ namespace Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Address")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<bool?>("Gender")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
+                    b.Property<string>("Phone")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ward")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
-                    b.HasIndex("UserName")
+                    b.HasIndex("Email")
                         .IsUnique();
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("User");
 
@@ -479,27 +357,103 @@ namespace Server.Migrations
                         new
                         {
                             Id = 1,
+                            Address = "5M2",
+                            Avatar = "customerAvatar.jpg",
+                            CreatedAt = new DateTime(2023, 9, 29, 20, 19, 3, 984, DateTimeKind.Local).AddTicks(8681),
+                            DateOfBirth = new DateTime(2002, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "ABC",
+                            District = "Thành phố Long Xuyên",
+                            Email = "admin@gmail.com",
                             FullName = "Trần Quyền Sinh",
+                            Gender = true,
                             Password = "123123",
+                            Phone = "0818283714",
+                            Province = "Tỉnh An Giang",
                             RoleId = 1,
-                            UserName = "admin"
+                            Ward = "Phường Mỹ Long"
                         },
                         new
                         {
                             Id = 2,
-                            FullName = "Nguyễn Phước Tài",
+                            Address = "60C",
+                            Avatar = "customerAvatar.jpg",
+                            CreatedAt = new DateTime(2023, 9, 29, 20, 19, 3, 984, DateTimeKind.Local).AddTicks(8711),
+                            DateOfBirth = new DateTime(2002, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "XYZ",
+                            District = "Thành phố Long Xuyên",
+                            Email = "censor@gmail.com",
+                            FullName = "Hồ Minh Nguyên",
+                            Gender = true,
                             Password = "123123",
-                            RoleId = 1,
-                            UserName = "admin2"
+                            Phone = "0913615294",
+                            Province = "Tỉnh An Giang",
+                            RoleId = 2,
+                            Ward = "Phường Mỹ Bình"
                         },
                         new
                         {
                             Id = 3,
-                            FullName = "Đặng Hào Phong",
+                            Address = "30/12A",
+                            Avatar = "customerAvatar.jpg",
+                            CreatedAt = new DateTime(2023, 9, 29, 20, 19, 3, 984, DateTimeKind.Local).AddTicks(8716),
+                            DateOfBirth = new DateTime(2002, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "ABCXYZ",
+                            District = "Thành phố Rạch Giá",
+                            Email = "guest@gmail.com",
+                            FullName = "Nguyễn Thị Kim Nguyệt",
+                            Gender = false,
                             Password = "123123",
-                            RoleId = 2,
-                            UserName = "censor"
+                            Phone = "0941482144",
+                            Province = "Tỉnh Kiên Giang",
+                            RoleId = 3,
+                            Ward = "Phường Vĩnh Quang"
                         });
+                });
+
+            modelBuilder.Entity("App.Models.User_Ad_Favorite", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AdId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AdId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("User_Ad_Favorite");
+                });
+
+            modelBuilder.Entity("App.Models.User_Genre_Favorite", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GenreId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("User_Genre_Favorite", (string)null);
                 });
 
             modelBuilder.Entity("App.Models.Ad", b =>
@@ -508,8 +462,8 @@ namespace Server.Migrations
                         .WithMany()
                         .HasForeignKey("AprovedUserId");
 
-                    b.HasOne("App.Models.Customer", "Author")
-                        .WithMany("Ads")
+                    b.HasOne("App.Models.User", "Author")
+                        .WithMany("OwnAds")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -543,40 +497,10 @@ namespace Server.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("App.Models.CustomerAdsFavor", b =>
-                {
-                    b.HasOne("App.Models.Ad", null)
-                        .WithMany()
-                        .HasForeignKey("AdId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("App.Models.Customer", null)
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("App.Models.CustomerGenresFavor", b =>
-                {
-                    b.HasOne("App.Models.Customer", null)
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("App.Models.Genre", null)
-                        .WithMany()
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("App.Models.Genre", b =>
                 {
                     b.HasOne("App.Models.Genre", "Parent")
-                        .WithMany("ChildGenres")
+                        .WithMany("ChildrenGenres")
                         .HasForeignKey("ParentId");
 
                     b.Navigation("Parent");
@@ -593,19 +517,49 @@ namespace Server.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("App.Models.User_Ad_Favorite", b =>
+                {
+                    b.HasOne("App.Models.Ad", null)
+                        .WithMany()
+                        .HasForeignKey("AdId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("App.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("App.Models.User_Genre_Favorite", b =>
+                {
+                    b.HasOne("App.Models.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("App.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("App.Models.Ad", b =>
                 {
                     b.Navigation("Images");
                 });
 
-            modelBuilder.Entity("App.Models.Customer", b =>
-                {
-                    b.Navigation("Ads");
-                });
-
             modelBuilder.Entity("App.Models.Genre", b =>
                 {
-                    b.Navigation("ChildGenres");
+                    b.Navigation("ChildrenGenres");
+                });
+
+            modelBuilder.Entity("App.Models.User", b =>
+                {
+                    b.Navigation("OwnAds");
                 });
 #pragma warning restore 612, 618
         }

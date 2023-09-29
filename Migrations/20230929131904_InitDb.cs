@@ -14,31 +14,6 @@ namespace Server.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Customer",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Province = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    District = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Ward = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Gender = table.Column<bool>(type: "bit", nullable: true),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customer", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Genre",
                 columns: table => new
                 {
@@ -75,39 +50,25 @@ namespace Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CustomerGenresFavor",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    GenreId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CustomerGenresFavor", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CustomerGenresFavor_Customer_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customer",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_CustomerGenresFavor_Genre_GenreId",
-                        column: x => x.GenreId,
-                        principalTable: "Genre",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Province = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    District = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Ward = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Gender = table.Column<bool>(type: "bit", nullable: true),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -128,13 +89,13 @@ namespace Server.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    AuthorId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     Color = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Origin = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ExpireAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AuthorId = table.Column<int>(type: "int", nullable: false),
                     AprovedUserId = table.Column<int>(type: "int", nullable: true),
                     AprovedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     AprovedStatus = table.Column<byte>(type: "tinyint", nullable: false)
@@ -143,14 +104,38 @@ namespace Server.Migrations
                 {
                     table.PrimaryKey("PK_Ad", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ad_Customer_AuthorId",
-                        column: x => x.AuthorId,
-                        principalTable: "Customer",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Ad_User_AprovedUserId",
                         column: x => x.AprovedUserId,
+                        principalTable: "User",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Ad_User_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User_Genre_Favorite",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    GenreId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User_Genre_Favorite", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_User_Genre_Favorite_Genre_GenreId",
+                        column: x => x.GenreId,
+                        principalTable: "Genre",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_User_Genre_Favorite_User_UserId",
+                        column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id");
                 });
@@ -202,37 +187,27 @@ namespace Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CustomerAdsFavor",
+                name: "User_Ad_Favorite",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     AdId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CustomerAdsFavor", x => x.Id);
+                    table.PrimaryKey("PK_User_Ad_Favorite", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CustomerAdsFavor_Ad_AdId",
+                        name: "FK_User_Ad_Favorite_Ad_AdId",
                         column: x => x.AdId,
                         principalTable: "Ad",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_CustomerAdsFavor_Customer_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customer",
+                        name: "FK_User_Ad_Favorite_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.InsertData(
-                table: "Customer",
-                columns: new[] { "Id", "Address", "Avatar", "CreatedAt", "DateOfBirth", "Description", "District", "Email", "FullName", "Gender", "Password", "Phone", "Province", "Ward" },
-                values: new object[,]
-                {
-                    { 1, "5M2", "customerAvatar.jpg", new DateTime(2023, 9, 28, 15, 48, 20, 613, DateTimeKind.Local).AddTicks(4642), new DateTime(2002, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "ABC", "Thành phố Long Xuyên", "tqsinh_21th@student.agu.edu.vn", "Trần Quyền Sinh", true, "123123", "0818283714", "Tỉnh An Giang", "Phường Mỹ Long" },
-                    { 2, "60C", "customerAvatar.jpg", new DateTime(2023, 9, 28, 15, 48, 20, 613, DateTimeKind.Local).AddTicks(4675), new DateTime(2002, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "XYZ", "Thành phố Long Xuyên", "hmnguyen_21th@student.agu.edu.vn", "Hồ Minh Nguyên", true, "123123", "0913615294", "Tỉnh An Giang", "Phường Mỹ Bình" },
-                    { 3, "30/12A", "customerAvatar.jpg", new DateTime(2023, 9, 28, 15, 48, 20, 613, DateTimeKind.Local).AddTicks(4678), new DateTime(2002, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "ABCXYZ", "Thành phố Rạch Giá", "ntknguyet_21th@student.agu.edu.vn", "Nguyễn Thị Kim Nguyệt", false, "123123", "0941482144", "Tỉnh Kiên Giang", "Phường Vĩnh Quang" }
                 });
 
             migrationBuilder.InsertData(
@@ -250,7 +225,8 @@ namespace Server.Migrations
                 values: new object[,]
                 {
                     { 1, "Administrator" },
-                    { 2, "Censor" }
+                    { 2, "Censor" },
+                    { 3, "Guest" }
                 });
 
             migrationBuilder.InsertData(
@@ -268,12 +244,12 @@ namespace Server.Migrations
 
             migrationBuilder.InsertData(
                 table: "User",
-                columns: new[] { "Id", "FullName", "Password", "RoleId", "UserName" },
+                columns: new[] { "Id", "Address", "Avatar", "CreatedAt", "DateOfBirth", "Description", "District", "Email", "FullName", "Gender", "Password", "Phone", "Province", "RoleId", "Ward" },
                 values: new object[,]
                 {
-                    { 1, "Trần Quyền Sinh", "123123", 1, "admin" },
-                    { 2, "Nguyễn Phước Tài", "123123", 1, "admin2" },
-                    { 3, "Đặng Hào Phong", "123123", 2, "censor" }
+                    { 1, "5M2", "customerAvatar.jpg", new DateTime(2023, 9, 29, 20, 19, 3, 984, DateTimeKind.Local).AddTicks(8681), new DateTime(2002, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "ABC", "Thành phố Long Xuyên", "admin@gmail.com", "Trần Quyền Sinh", true, "123123", "0818283714", "Tỉnh An Giang", 1, "Phường Mỹ Long" },
+                    { 2, "60C", "customerAvatar.jpg", new DateTime(2023, 9, 29, 20, 19, 3, 984, DateTimeKind.Local).AddTicks(8711), new DateTime(2002, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "XYZ", "Thành phố Long Xuyên", "censor@gmail.com", "Hồ Minh Nguyên", true, "123123", "0913615294", "Tỉnh An Giang", 2, "Phường Mỹ Bình" },
+                    { 3, "30/12A", "customerAvatar.jpg", new DateTime(2023, 9, 29, 20, 19, 3, 984, DateTimeKind.Local).AddTicks(8716), new DateTime(2002, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "ABCXYZ", "Thành phố Rạch Giá", "guest@gmail.com", "Nguyễn Thị Kim Nguyệt", false, "123123", "0941482144", "Tỉnh Kiên Giang", 3, "Phường Vĩnh Quang" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -302,26 +278,6 @@ namespace Server.Migrations
                 column: "AdId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CustomerAdsFavor_AdId",
-                table: "CustomerAdsFavor",
-                column: "AdId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CustomerAdsFavor_CustomerId",
-                table: "CustomerAdsFavor",
-                column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CustomerGenresFavor_CustomerId",
-                table: "CustomerGenresFavor",
-                column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CustomerGenresFavor_GenreId",
-                table: "CustomerGenresFavor",
-                column: "GenreId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Genre_ParentId",
                 table: "Genre",
                 column: "ParentId");
@@ -333,15 +289,35 @@ namespace Server.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_User_Email",
+                table: "User",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_User_RoleId",
                 table: "User",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_UserName",
-                table: "User",
-                column: "UserName",
-                unique: true);
+                name: "IX_User_Ad_Favorite_AdId",
+                table: "User_Ad_Favorite",
+                column: "AdId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_Ad_Favorite_UserId",
+                table: "User_Ad_Favorite",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_Genre_Favorite_GenreId",
+                table: "User_Genre_Favorite",
+                column: "GenreId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_Genre_Favorite_UserId",
+                table: "User_Genre_Favorite",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -354,19 +330,16 @@ namespace Server.Migrations
                 name: "AdImage");
 
             migrationBuilder.DropTable(
-                name: "CustomerAdsFavor");
+                name: "User_Ad_Favorite");
 
             migrationBuilder.DropTable(
-                name: "CustomerGenresFavor");
+                name: "User_Genre_Favorite");
 
             migrationBuilder.DropTable(
                 name: "Ad");
 
             migrationBuilder.DropTable(
                 name: "Genre");
-
-            migrationBuilder.DropTable(
-                name: "Customer");
 
             migrationBuilder.DropTable(
                 name: "User");

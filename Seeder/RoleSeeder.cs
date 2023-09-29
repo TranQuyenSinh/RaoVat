@@ -9,6 +9,7 @@ namespace App.Seeder
             var initData = new List<Role>() {
                 new Role() {Id = 1, RoleName = "Administrator"},
                 new Role() {Id = 2, RoleName = "Censor"},
+                new Role() {Id = 3, RoleName = "Guest"},
             };
 
             return initData;

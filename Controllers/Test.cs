@@ -30,7 +30,7 @@ public class Test : ControllerBase
         var rand = new Random();
 
         var images = new string[] { "1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg" };
-        var authors = _dbContext.Customers.ToList();
+        var authors = _dbContext.Users.ToList();
         var status = new List<int>() { 1, 2, 3 };
         var colors = new List<string>() { "Đỏ", "Vàng", "Xanh lá", "Hồng", "Tím nhạt" };
         var origins = new List<string>() { "Việt Nam", "USA", "Anh", "Trung Quốc", "Nhật Bản" };

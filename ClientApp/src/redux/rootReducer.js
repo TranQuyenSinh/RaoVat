@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage'
 
 import test from './test'
 import app from './app'
+import user from './user'
 
 const persistConfig = {
     key: 'root',
@@ -16,7 +17,14 @@ const appPersistConfig = {
     whitelist: ['currentLocation'],
 }
 
+const userPersistConfig = {
+    ...persistConfig,
+    key: 'user',
+    // whitelist: ['user'],
+}
+
 export default combineReducers({
     test,
     app: persistReducer(appPersistConfig, app),
+    user: persistReducer(userPersistConfig, user),
 })

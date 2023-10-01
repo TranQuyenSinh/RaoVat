@@ -10,6 +10,10 @@
     &__item.user_info {
         position: relative;
 
+        .user-avatar {
+            width        : 40px;
+            border-radius: 50%;
+        }
 
         .user_info--dropdown {
             right    : 0;
@@ -19,12 +23,17 @@
     }
 
     &__item {
-        padding: 12px 6px;
-        cursor : pointer;
+        cursor: pointer;
+        color : $textcolor !important;
 
 
         span {
             margin: 0 6px;
+        }
+
+        a {
+            color: $textcolor !important;
+
         }
 
         &:hover span {

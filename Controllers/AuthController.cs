@@ -27,11 +27,11 @@ public class AuthController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost("login")]
-    public IActionResult LoginUser([FromForm] LoginModel loginUser)
+    public IActionResult LoginUser([FromBody] LoginModel loginUser)
     {
         var user = _authService.LoginUser(loginUser.Email, loginUser.Password);
         if (user == null)
-            return Unauthorized("Authentication failed");
+            return Unauthorized("Sai email hoặc mật khẩu, vui lòng nhập lại!");
 
         var claims = new List<Claim>();
 
@@ -49,27 +49,30 @@ public class AuthController : ControllerBase
         user.RefreshTokenExpiryTime = DateTime.Now.AddDays(refreshTokenValidityInDays);
         _context.SaveChanges();
 
-        Response.Cookies.Append("refreshToken", refreshToken);
+        var cookieOptions = new CookieOptions()
+        {
+            Expires = DateTime.Now.AddDays(2),
+            Path = "/",
+            HttpOnly = true,
+            SameSite = SameSiteMode.Strict,
+            Secure = true,
+        };
 
+        Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
         return Ok(new
         {
-            user = new
-            {
-                user.Id,
-                user.FullName,
-                role = user.Role.RoleName
-            },
-            token = new
-            {
-                accessToken = token,
-                refreshToken
-            }
+            user.Id,
+            user.FullName,
+            user.Phone,
+            avatar = AppPath.GenerateUserAvatarUrl(user.Avatar),
+            role = user.Role.RoleName,
+            accessToken = token,
         });
     }
 
     [HttpPost]
     [Route("refresh-token")]
-    public IActionResult RefreshToken([FromForm] string? accessToken)
+    public IActionResult RefreshToken(string? accessToken)
     {
         string? refreshToken = Request.Cookies["refreshToken"];
 
@@ -92,22 +95,15 @@ public class AuthController : ControllerBase
         // nếu ko tìm thấy user, hoặc refresh token ko khớp trong DB, hoặc refresh token hết hạn
         if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
         {
-            return BadRequest("Invalid access token or refresh token");
+            return BadRequest("Refresh token has expired, please login again!");
         }
 
         _ = int.TryParse(_configuration["JWT:TokenValidityInHours"], out int accessTokenValidityInHours);
         var newAccessToken = _authService.GenerateAccessToken(userId, TimeSpan.FromHours(accessTokenValidityInHours), claims.Claims.ToArray());
-        var newRefreshToken = _authService.GenerateRefreshToken();
-
-        user.RefreshToken = newRefreshToken;
-        _context.SaveChanges();
-
-        Response.Cookies.Append("refreshToken", newRefreshToken);
 
         return Ok(new
         {
             accessToken = newAccessToken,
-            refreshToken = newRefreshToken
         });
     }
 

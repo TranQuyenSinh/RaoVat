@@ -1,4 +1,4 @@
-import axios from '../axios'
+import { axios } from '../axios'
 import { genreApi } from '../api'
 
 export const getRootGenres = () => {

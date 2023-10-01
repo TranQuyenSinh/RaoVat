@@ -1,2 +1,2 @@
-export { default as CustomerRoutes } from './CustomerRoutes'
-export { default as SystemRoutes } from './SystemRoutes'
+export * from './CustomerRoutes'
+export * from './SystemRoutes'

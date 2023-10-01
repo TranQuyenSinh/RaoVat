@@ -58,7 +58,9 @@ ul {
     color           : $whitecolor !important;
     background-color: $maincolor-dark;
 
-    &:hover {
+    &:hover,
+    &:active,
+    &:focus {
         border-color    : $maincolor-darker;
         background-color: $maincolor-darker;
     }

@@ -1,20 +1,16 @@
 import { Counter } from '../components/Counter'
-import { FetchData } from '../components/FetchData'
 import { Home } from '../pages/customer/Home'
 
-const AppRoutes = [
+export const CustomerPublicRoutes = [
     {
         index: true,
         element: <Home />,
     },
+]
+
+export const CustomerPrivateRoutes = [
     {
         path: 'counter',
         element: <Counter />,
     },
-    {
-        path: 'fetch-data',
-        element: <FetchData />,
-    },
 ]
-
-export default AppRoutes

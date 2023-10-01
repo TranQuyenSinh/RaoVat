@@ -26,7 +26,8 @@ builder.Services.AddCors(options =>
         {
             builder.WithOrigins("https://localhost:3000")
                                 .AllowAnyHeader()
-                                .AllowAnyMethod();
+                                .AllowAnyMethod()
+                                .AllowCredentials();
         });
 });
 
@@ -47,7 +48,8 @@ builder.Services.AddAuthentication(x =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = builder.Configuration["JWT:Issuer"],
         ValidAudience = builder.Configuration["JWT:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Key)
+        IssuerSigningKey = new SymmetricSecurityKey(Key),
+        ClockSkew = TimeSpan.Zero
     };
 });
 builder.Services.AddAuthorization();

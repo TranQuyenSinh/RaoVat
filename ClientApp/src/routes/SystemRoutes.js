@@ -2,14 +2,10 @@ import { Counter } from '../components/Counter'
 import { FetchData } from '../components/FetchData'
 import { Home } from '../pages/customer/Home'
 
-const SystemRoutes = [
+export const SystemPublicRoutes = [
     {
         index: 'system',
         element: <Home />,
-    },
-    {
-        path: 'counter',
-        element: <Counter />,
     },
     {
         path: 'fetch-data',
@@ -17,4 +13,9 @@ const SystemRoutes = [
     },
 ]
 
-export default SystemRoutes
+export const SystemPrivateRoutes = [
+    {
+        path: 'counter',
+        element: <Counter />,
+    },
+]

@@ -1,17 +1,9 @@
 import React, { Component } from 'react'
-
+import { authAxios } from '../axios'
 export class Counter extends Component {
-    static displayName = Counter.name
-
-    constructor(props) {
-        super(props)
-        this.state = { currentCount: 0 }
-    }
-
-    incrementCounter() {
-        this.setState({
-            currentCount: this.state.currentCount + 1,
-        })
+    async fetchData() {
+        let { data } = await authAxios.get('/api/auth/users')
+        console.log(data)
     }
 
     render() {
@@ -22,11 +14,11 @@ export class Counter extends Component {
                 <p className='bg-custom'>This is a simple example of a React component.</p>
 
                 <p aria-live='polite'>
-                    Current count: <strong>{this.state.currentCount}</strong>
+                    Current count: <strong></strong>
                 </p>
 
-                <button className='btn btn-main' onClick={this.incrementCounter}>
-                    Increment
+                <button className='btn btn-main' onClick={this.fetchData}>
+                    FETCH
                 </button>
             </div>
         )

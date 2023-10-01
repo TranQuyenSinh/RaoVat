@@ -7,6 +7,7 @@ $lightgreencolor : #589f39;
 $greencolor      : #33a837;
 $graycolor       : #9b9b9b;
 
+
 $linkcolor  : #2A70DF;
 $mutedcolor : #9b9b9b;
 $whitecolor : #fff;
@@ -16,6 +17,13 @@ $textcolor             : #222;
 $textgraycolor         : #777777;
 $backgroundcolor       : #f4f4f4;
 $backgroundcolor-darker: #e8e8e8;
+
+$background-gradient-login: to right,
+#F2C94C,
+#F2994A;
+$background-gradient-register: to right,
+#F2C94C,
+#F2994A;
 
 $card-boxshadow: 0 1px 7px 0 rgba(0, 0, 0, .3);
 $div-boxshadow : 0px 2px 4px -1px rgba(0, 0, 0, 0.2),

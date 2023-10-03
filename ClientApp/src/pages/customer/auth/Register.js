@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
-import { loginUser } from '../../../redux/user/user.actions'
+import { registerGuest } from '../../../redux/user/user.actions'
 import './Register.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
@@ -18,7 +18,7 @@ export const Register = props => {
     const navigate = useNavigate()
     const btnSubmit = useRef()
     const dispatch = useDispatch()
-    const { isLoggedIn, errorMessage } = useSelector(state => state.user)
+    const { isLoggedIn, registerErrorMessage } = useSelector(state => state.user)
 
     useEffect(() => {
         if (isLoggedIn) navigate('/')
@@ -33,7 +33,7 @@ export const Register = props => {
 
     const handleRegister = async () => {
         let { fullname, email, password } = formData
-        dispatch(loginUser(email, password))
+        dispatch(registerGuest(fullname, email, password))
     }
 
     const handleKeyDown = event => {
@@ -59,10 +59,10 @@ export const Register = props => {
                     </div>
 
                     {/* Error message */}
-                    {errorMessage && (
+                    {registerErrorMessage && (
                         <div className='my-2 error-box'>
                             <FontAwesomeIcon className='danger-icon' icon={faExclamationTriangle} />
-                            <span>{errorMessage}</span>
+                            <span>{registerErrorMessage}</span>
                         </div>
                     )}
 

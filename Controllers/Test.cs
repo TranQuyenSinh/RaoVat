@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace App.Controllers;
 
 [ApiController]
-[Route("[controller]/[action]")]
+[Route("[controller]")]
 public class Test : ControllerBase
 {
     private readonly ILogger<Test> _logger;
@@ -19,6 +19,11 @@ public class Test : ControllerBase
         _dbContext = dbContext;
     }
 
+    [HttpGet("users")]
+    public IActionResult GetUsers()
+    {
+        return Ok(_dbContext.Users.ToList());
+    }
 
     public string SeedAds()
     {

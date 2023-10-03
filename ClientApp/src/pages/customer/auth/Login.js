@@ -17,7 +17,7 @@ export const Login = props => {
     const navigate = useNavigate()
     const btnSubmit = useRef()
     const dispatch = useDispatch()
-    const { isLoggedIn, errorMessage } = useSelector(state => state.user)
+    const { isLoggedIn, loginErrorMessage } = useSelector(state => state.user)
 
     useEffect(() => {
         if (isLoggedIn) navigate('/')
@@ -58,10 +58,10 @@ export const Login = props => {
                     </div>
 
                     {/* Error message */}
-                    {errorMessage && (
+                    {loginErrorMessage && (
                         <div className='col-12 my-2 error-box'>
                             <FontAwesomeIcon className='danger-icon' icon={faExclamationTriangle} />
-                            <span>{errorMessage}</span>
+                            <span>{loginErrorMessage}</span>
                         </div>
                     )}
 

@@ -1,5 +1,5 @@
 export const authApi = {
     login: 'api/auth/login',
-    register: 'api/auth/register',
+    registerGuest: 'api/auth/register-guest',
     refreshToken: 'api/auth/refresh-token',
 }

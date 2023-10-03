@@ -3,7 +3,8 @@ import { userTypes } from './user.types'
 const initialState = {
     isLoggedIn: false,
     isLoading: false,
-    errorMessage: null,
+    loginErrorMessage: null,
+    registerErrorMessage: null,
     currentUser: {},
 }
 
@@ -13,7 +14,7 @@ const userReducer = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 isLoading: true,
-                errorMessage: null,
+                loginErrorMessage: null,
             }
         case userTypes.LOGIN_SUCCESS:
             return {
@@ -21,14 +22,38 @@ const userReducer = (state = initialState, { type, payload }) => {
                 isLoggedIn: true,
                 isLoading: false,
                 currentUser: payload,
-                errorMessage: null,
+                loginErrorMessage: null,
             }
+
+        // Register
+        case userTypes.REGISTER_GUEST_START:
+            return {
+                ...state,
+                isLoading: true,
+                registerErrorMessage: null,
+            }
+        case userTypes.REGISTER_GUEST_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                registerErrorMessage: null,
+            }
+
+        // failure cases
         case userTypes.LOGIN_FAILURE:
             return {
                 ...state,
                 isLoading: false,
-                errorMessage: payload.response.data,
+                loginErrorMessage: payload,
             }
+        case userTypes.REGISTER_GUEST_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                registerErrorMessage: payload,
+            }
+
+        // logout
         case userTypes.LOGOUT:
             return {
                 ...state,

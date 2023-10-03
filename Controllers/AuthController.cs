@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using App.Utils;
+using App.Models;
 namespace App.Controllers;
 
 [ApiController]
@@ -29,25 +30,13 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public IActionResult LoginUser([FromBody] LoginModel loginUser)
     {
-        var user = _authService.LoginUser(loginUser.Email, loginUser.Password);
-        if (user == null)
-            return Unauthorized("Sai email hoặc mật khẩu, vui lòng nhập lại!");
-
-        var claims = new List<Claim>();
-
-        claims.Add(new Claim(ClaimTypes.Sid, user.Id.ToString()));
-        claims.Add(new Claim("fullname", user.FullName));
-        claims.Add(new Claim(ClaimTypes.Role, user.Role.RoleName));
+        var (success, message, user) = _authService.LoginUser(loginUser.Email, loginUser.Password);
+        if (!success)
+            return Unauthorized(message);
 
         // Generate auth token
-        _ = int.TryParse(_configuration["JWT:TokenValidityInHours"], out int accessTokenValidityInHours);
-        _ = int.TryParse(_configuration["JWT:RefreshTokenValidityInDays"], out int refreshTokenValidityInDays);
-        var token = _authService.GenerateAccessToken(user.Id, TimeSpan.FromHours(accessTokenValidityInHours), claims.ToArray());
-        var refreshToken = _authService.GenerateRefreshToken();
-
-        user.RefreshToken = refreshToken;
-        user.RefreshTokenExpiryTime = DateTime.Now.AddDays(refreshTokenValidityInDays);
-        _context.SaveChanges();
+        var token = _authService.GenerateAccessToken(user);
+        var refreshToken = _authService.GenerateRefreshToken(user);
 
         var cookieOptions = new CookieOptions()
         {
@@ -70,6 +59,33 @@ public class AuthController : ControllerBase
         });
     }
 
+
+    [AllowAnonymous]
+    [HttpPost("register-guest")]
+    public IActionResult RegisterUser([FromBody] RegisterModel guest)
+    {
+        if (string.IsNullOrEmpty(guest.Email) || string.IsNullOrEmpty(guest.Password) || string.IsNullOrEmpty(guest.FullName))
+        {
+            return BadRequest("Vui lòng điền đẩy đủ các trường!");
+        }
+        var newGuest = new User()
+        {
+            Email = guest.Email,
+            FullName = guest.FullName,
+            Password = PasswordHasher.Hash(guest.Password)
+        };
+
+        var (Success, Message) = _authService.CreateNewGuest(newGuest);
+        if (Success)
+        {
+            return Ok(Message);
+        }
+        else
+        {
+            return BadRequest(Message);
+        }
+    }
+
     [HttpPost]
     [Route("refresh-token")]
     public IActionResult RefreshToken(string? accessToken)
@@ -82,12 +98,10 @@ public class AuthController : ControllerBase
         }
 
         var claims = _authService.GetClaimsFromToken(accessToken);
-
         if (claims.Claims.Count() == 0)
         {
             return BadRequest("Invalid access token or refresh token");
         }
-
         _ = int.TryParse(claims.FindFirst(ClaimTypes.Sid)?.Value, out int userId);
 
         var user = _context.Users.Include(x => x.Role).Where(x => x.Id == userId).FirstOrDefault();
@@ -98,9 +112,7 @@ public class AuthController : ControllerBase
             return BadRequest("Refresh token has expired, please login again!");
         }
 
-        _ = int.TryParse(_configuration["JWT:TokenValidityInHours"], out int accessTokenValidityInHours);
-        var newAccessToken = _authService.GenerateAccessToken(userId, TimeSpan.FromHours(accessTokenValidityInHours), claims.Claims.ToArray());
-
+        var newAccessToken = _authService.GenerateAccessToken(user);
         return Ok(new
         {
             accessToken = newAccessToken,

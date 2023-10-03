@@ -10,6 +10,7 @@ const axios = baseAxios.create({
 const authAxios = baseAxios.create({
     baseURL: process.env.ASPNET_SERVER_URL || 'https://localhost:8080',
     timeout: 10000,
+    withCredentials: true,
 })
 
 authAxios.interceptors.request.use(config => {

@@ -21,41 +21,92 @@ public class AuthServices
         _context = context;
     }
 
-    public User? LoginUser(string email, string password)
+    public (bool, string, User?) LoginUser(string email, string password)
     {
-        return _context.Users.Include(u => u.Role).FirstOrDefault(u => u.Email == email && u.Password == password);
+        var user = _context.Users
+                    .Include(u => u.Role)
+                    .Where(x => x.Email == email).FirstOrDefault();
+        if (user == null)
+            return (
+                Success: false,
+                Message: "Email không hợp lệ",
+                data: null
+            );
+
+        if (!PasswordHasher.Verify(password, user.Password))
+            return (
+                Success: false,
+                Message: "Sai mật khẩu, vui lòng nhập lại!",
+                data: null
+            );
+
+        return (
+            Success: true,
+            Message: "Đăng nhập thành công",
+            data: user
+        );
     }
 
-    public string GenerateAccessToken(
-        int userId,
-        TimeSpan expiration,
-        Claim[] additionalClaims = null)
+    public (bool, string) CreateNewGuest(User user)
+    {
+        var u = _context.Users.Where(x => x.Email == user.Email).FirstOrDefault();
+        if (u != null)
+            return
+            (
+                Success: false,
+                Message: "Email này đã được sử dụng, vui lòng chọn email khác"
+            );
+
+        user.Role = _context.Roles.FirstOrDefault(x => x.RoleName == RoleName.Guest);
+        _context.Users.Add(user);
+        _context.SaveChanges();
+
+        return
+        (
+            Success: true,
+            Message: "Đăng ký thành công"
+        );
+    }
+
+    public string GenerateAccessToken(User user)
     {
         string signingKey = _configuration["JWT:Key"];
         string issuer = _configuration["JWT:Issuer"];
         string audience = _configuration["JWT:Audience"];
+        _ = int.TryParse(_configuration["JWT:TokenValidityInHours"], out int accessTokenValidityInHours);
 
-
-
+        // Add payload
+        var claims = new List<Claim>() {
+            new (ClaimTypes.Sid, user.Id.ToString()),
+            new ("fullname", user.FullName),
+            new (ClaimTypes.Role, user.Role.RoleName),
+        };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         var token = new JwtSecurityToken(
             issuer: issuer,
             audience: audience,
-            expires: DateTime.UtcNow.Add(expiration),
-            claims: additionalClaims,
+            expires: DateTime.UtcNow.Add(TimeSpan.FromHours(accessTokenValidityInHours)),
+            claims: claims,
             signingCredentials: creds
         );
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public string GenerateRefreshToken()
+    public string GenerateRefreshToken(User user)
     {
+        _ = int.TryParse(_configuration["JWT:RefreshTokenValidityInDays"], out int refreshTokenValidityInDays);
         var randomNumber = new byte[64];
         using var rng = RandomNumberGenerator.Create();
         rng.GetBytes(randomNumber);
-        return Convert.ToBase64String(randomNumber);
+        var refreshToken = Convert.ToBase64String(randomNumber);
+
+        user.RefreshToken = refreshToken;
+        user.RefreshTokenExpiryTime = DateTime.Now.AddDays(refreshTokenValidityInDays);
+        _context.SaveChanges();
+
+        return refreshToken;
     }
 
     public ClaimsPrincipal? GetClaimsFromToken(string? token)

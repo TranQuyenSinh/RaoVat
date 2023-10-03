@@ -1,5 +1,6 @@
 import { userTypes } from './user.types'
 import { history } from '../../routes/CustomBrowserRouter'
+import { toast } from 'react-toastify'
 
 const initialState = {
     isLoggedIn: false,
@@ -27,6 +28,11 @@ const userReducer = (state = initialState, { type, payload }) => {
             }
 
         // Register
+        case userTypes.REGISTER_GUEST_INIT:
+            return {
+                ...state,
+                registerErrorMessage: null,
+            }
         case userTypes.REGISTER_GUEST_START:
             return {
                 ...state,
@@ -34,6 +40,7 @@ const userReducer = (state = initialState, { type, payload }) => {
                 registerErrorMessage: null,
             }
         case userTypes.REGISTER_GUEST_SUCCESS:
+            toast.success('Đăng ký tài khoản thành công!')
             history.push('/login')
             return {
                 ...state,

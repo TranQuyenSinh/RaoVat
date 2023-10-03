@@ -29,7 +29,7 @@ export const loginUserSuccess = user => ({
 
 export const loginUserFailure = err => ({
     type: userTypes.LOGIN_FAILURE,
-    payload: err.response.data,
+    payload: err,
 })
 
 // Register
@@ -49,6 +49,10 @@ export const registerGuest = (fullname, email, password) => {
     }
 }
 
+export const registerGuestInit = () => ({
+    type: userTypes.REGISTER_GUEST_INIT,
+})
+
 export const registerGuestStart = () => ({
     type: userTypes.REGISTER_GUEST_START,
 })
@@ -59,7 +63,7 @@ export const registerGuestSuccess = () => ({
 
 export const registerGuestFailure = err => ({
     type: userTypes.REGISTER_GUEST_FAILURE,
-    payload: err.response.data,
+    payload: err,
 })
 
 // Logout

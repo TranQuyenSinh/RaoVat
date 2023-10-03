@@ -54,4 +54,26 @@ authAxios.interceptors.response.use(
         return Promise.reject(error)
     }
 )
+
+// Handle errors from ASP.NET server
+axios.interceptors.response.use(
+    response => response,
+    error => {
+        let { data } = error.response
+        if (typeof data === 'string') {
+            return Promise.reject(data)
+        }
+        if (typeof data === 'object') {
+            let { errors, status } = data
+            if (Object.keys(errors).length > 0 && status === 400) {
+                let errorMessage = Object.keys(errors)
+                    .map(key => errors[key].join('\r\n'))
+                    .join(`\r\n`)
+                return Promise.reject(errorMessage)
+            }
+        }
+
+        return Promise.reject(error)
+    }
+)
 export { axios, authAxios }

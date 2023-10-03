@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
-import { registerGuest } from '../../../redux/user/user.actions'
+import { registerGuest, registerGuestInit } from '../../../redux/user/user.actions'
 import './Register.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
@@ -25,6 +25,8 @@ export const Register = props => {
     }, [isLoggedIn])
 
     useEffect(() => {
+        dispatch(registerGuestInit())
+
         document.addEventListener('keydown', handleKeyDown)
         return () => {
             document.removeEventListener('keydown', handleKeyDown)
@@ -50,78 +52,80 @@ export const Register = props => {
     }
 
     return (
-        <div className='register-bg'>
-            <div className='register-container'>
-                <div className='register-content'>
-                    {/* Logo App */}
-                    <div className='text-center'>
-                        <img src={logo} className='w-25 my-2' />
-                    </div>
-
-                    {/* Error message */}
-                    {registerErrorMessage && (
-                        <div className='my-2 error-box'>
-                            <FontAwesomeIcon className='danger-icon' icon={faExclamationTriangle} />
-                            <span>{registerErrorMessage}</span>
+        <>
+            <div className='register-bg'>
+                <div className='register-container'>
+                    <div className='register-content'>
+                        {/* Logo App */}
+                        <div className='text-center'>
+                            <img src={logo} className='w-25 my-2' />
                         </div>
-                    )}
 
-                    {/* Input */}
-                    <div className='register-title'>Đăng ký tài khoản</div>
-                    <div className='form-group'>
-                        <CustomInput
-                            label={'Họ và tên'}
-                            value={formData.fullname}
-                            onChange={handleChangeInput}
-                            name='fullname'
-                            type='text'
-                        />
-                    </div>
-                    <div className='form-group'>
-                        <CustomInput
-                            label={'Email'}
-                            value={formData.email}
-                            onChange={handleChangeInput}
-                            name='email'
-                            type='text'
-                        />
-                    </div>
-                    <div className=' form-group'>
-                        <div className='password-input-container'>
+                        {/* Error message */}
+                        {registerErrorMessage && (
+                            <div className='my-2 error-box'>
+                                <FontAwesomeIcon className='danger-icon' icon={faExclamationTriangle} />
+                                <span>{registerErrorMessage}</span>
+                            </div>
+                        )}
+
+                        {/* Input */}
+                        <div className='register-title'>Đăng ký tài khoản</div>
+                        <div className='form-group'>
                             <CustomInput
-                                label={'Mật khẩu'}
-                                value={formData.password}
+                                label={'Họ và tên'}
+                                value={formData.fullname}
                                 onChange={handleChangeInput}
-                                name='password'
-                                type={!showPassword ? 'password' : 'text'}
-                            />
-                            <FontAwesomeIcon
-                                className='show-password-icon'
-                                onClick={() => setShowPassword(!showPassword)}
-                                icon={showPassword ? faEye : faEyeSlash}
+                                name='fullname'
+                                type='text'
                             />
                         </div>
-                    </div>
+                        <div className='form-group'>
+                            <CustomInput
+                                label={'Email'}
+                                value={formData.email}
+                                onChange={handleChangeInput}
+                                name='email'
+                                type='text'
+                            />
+                        </div>
+                        <div className=' form-group'>
+                            <div className='password-input-container'>
+                                <CustomInput
+                                    label={'Mật khẩu'}
+                                    value={formData.password}
+                                    onChange={handleChangeInput}
+                                    name='password'
+                                    type={!showPassword ? 'password' : 'text'}
+                                />
+                                <FontAwesomeIcon
+                                    className='show-password-icon'
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    icon={showPassword ? faEye : faEyeSlash}
+                                />
+                            </div>
+                        </div>
 
-                    {/* Button register, Register */}
-                    <div className=''>
-                        <button
-                            ref={btnSubmit}
-                            onClick={handleRegister}
-                            className='btn btn-main w-100 btn-register mt-2'>
-                            Đăng ký
-                        </button>
-                    </div>
+                        {/* Button register, Register */}
+                        <div className=''>
+                            <button
+                                ref={btnSubmit}
+                                onClick={handleRegister}
+                                className='btn btn-main w-100 btn-register mt-2'>
+                                Đăng ký
+                            </button>
+                        </div>
 
-                    <div className=' text-center  mt-4'>
-                        <span className='text-muted'>Đã có tài khoản?</span>
-                        <> </>
-                        <Link to={'/login'} className='link-primary'>
-                            Đăng nhập ngay
-                        </Link>
+                        <div className=' text-center  mt-4'>
+                            <span className='text-muted'>Đã có tài khoản?</span>
+                            <> </>
+                            <Link to={'/login'} className='link-primary'>
+                                Đăng nhập ngay
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }

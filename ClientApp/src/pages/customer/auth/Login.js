@@ -56,7 +56,6 @@ export const Login = props => {
                     <div className='col-12 text-center'>
                         <img src={logo} className=' w-25 my-2' />
                     </div>
-
                     {/* Error message */}
                     {loginErrorMessage && (
                         <div className='col-12 my-2 error-box'>

@@ -1,4 +1,5 @@
 using App.Models;
+using App.Utils;
 
 namespace App.Seeder
 {
@@ -11,7 +12,7 @@ namespace App.Seeder
                     Id = 1,
                     FullName = "Trần Quyền Sinh",
                     Email = "admin@gmail.com",
-                    Password = "123123",
+                    Password =PasswordHasher.Hash("123123"),
                     Phone = "0818283714",
                     Avatar = "customerAvatar.jpg",
                     Address = "5M2",
@@ -28,7 +29,7 @@ namespace App.Seeder
                     FullName = "Hồ Minh Nguyên",
                     Email = "censor@gmail.com",
                     Phone = "0913615294",
-                    Password = "123123",
+                    Password =PasswordHasher.Hash("123123"),
                     Avatar = "customerAvatar.jpg",
                     Address = "60C",
                     Description = "XYZ",
@@ -44,7 +45,7 @@ namespace App.Seeder
                     FullName = "Nguyễn Thị Kim Nguyệt",
                     Email = "guest@gmail.com",
                     Phone = "0941482144",
-                    Password = "123123",
+                    Password =PasswordHasher.Hash("123123"),
                     Avatar = "customerAvatar.jpg",
                     Address = "30/12A",
                     Description = "ABCXYZ",

@@ -11,6 +11,7 @@ import { store, persistor } from './redux/store'
 
 import App from './App'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
+import { CustomBrowserRouter } from './routes/CustomBrowserRouter'
 
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href')
 const rootElement = document.getElementById('root')
@@ -18,11 +19,11 @@ const root = createRoot(rootElement)
 
 root.render(
     <Provider store={store}>
-        <BrowserRouter basename={baseUrl}>
+        <CustomBrowserRouter basename={baseUrl}>
             <PersistGate persistor={persistor}>
                 <App />
             </PersistGate>
-        </BrowserRouter>
+        </CustomBrowserRouter>
     </Provider>
 )
 

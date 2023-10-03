@@ -1,4 +1,5 @@
 import { userTypes } from './user.types'
+import { customHistory } from '../../routes/CustomBrowserRouter'
 
 const initialState = {
     isLoggedIn: false,
@@ -33,6 +34,7 @@ const userReducer = (state = initialState, { type, payload }) => {
                 registerErrorMessage: null,
             }
         case userTypes.REGISTER_GUEST_SUCCESS:
+            customHistory.push('/')
             return {
                 ...state,
                 isLoading: false,

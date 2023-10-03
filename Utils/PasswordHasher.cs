@@ -29,21 +29,28 @@ public static class PasswordHasher
 
     public static bool Verify(string password, string hashedPassword)
     {
-        var hashBytes = Convert.FromBase64String(hashedPassword);
-
-        var salt = new byte[SaltSize];
-        Array.Copy(hashBytes, 0, salt, 0, SaltSize);
-
-        var pbkdf2 = new Rfc2898DeriveBytes(password, salt, Iterations);
-        byte[] hash = pbkdf2.GetBytes(HashSize);
-
-        for (var i = 0; i < HashSize; i++)
+        try
         {
-            if (hashBytes[i + SaltSize] != hash[i])
+            var hashBytes = Convert.FromBase64String(hashedPassword);
+
+            var salt = new byte[SaltSize];
+            Array.Copy(hashBytes, 0, salt, 0, SaltSize);
+
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, Iterations);
+            byte[] hash = pbkdf2.GetBytes(HashSize);
+
+            for (var i = 0; i < HashSize; i++)
             {
-                return false;
+                if (hashBytes[i + SaltSize] != hash[i])
+                {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
+        catch (Exception e)
+        {
+            return false;
+        }
     }
 }

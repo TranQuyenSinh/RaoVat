@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom'
 import './NavMenu.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../../../redux/user/user.actions'
+import no_avatar from '../../../assets/images/no_avatar.png'
 
 const NavMenu = () => {
     const dispatch = useDispatch()
@@ -30,7 +31,7 @@ const NavMenu = () => {
             {isLoggedIn ? (
                 <div className='navmenu__item user_info dropdown'>
                     <div data-bs-toggle='dropdown' className=''>
-                        <img src={currentUser?.avatar} className='user-avatar' alt='' />
+                        <img src={currentUser?.avatar || no_avatar} className='user-avatar' alt='' />
                         <span>{currentUser?.fullName}</span>
                         <FontAwesomeIcon icon={faChevronDown} size='xs' />
                     </div>

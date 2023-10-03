@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230930101446_AddRefreshToken_User")]
+    [Migration("20231003073055_AddRefreshToken_User")]
     partial class AddRefreshToken_User
     {
         /// <inheritdoc />
@@ -365,14 +365,14 @@ namespace Server.Migrations
                             Id = 1,
                             Address = "5M2",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 9, 30, 17, 14, 46, 45, DateTimeKind.Local).AddTicks(3514),
+                            CreatedAt = new DateTime(2023, 10, 3, 14, 30, 55, 74, DateTimeKind.Local).AddTicks(8235),
                             DateOfBirth = new DateTime(2002, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "ABC",
                             District = "Thành phố Long Xuyên",
                             Email = "admin@gmail.com",
                             FullName = "Trần Quyền Sinh",
                             Gender = true,
-                            Password = "123123",
+                            Password = "NBSmfJPuNafiHpOQgrWOKfbZrK0uL0qrfnkn1nFrRqLZ77IW",
                             Phone = "0818283714",
                             Province = "Tỉnh An Giang",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -384,14 +384,14 @@ namespace Server.Migrations
                             Id = 2,
                             Address = "60C",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 9, 30, 17, 14, 46, 45, DateTimeKind.Local).AddTicks(3547),
+                            CreatedAt = new DateTime(2023, 10, 3, 14, 30, 55, 79, DateTimeKind.Local).AddTicks(6434),
                             DateOfBirth = new DateTime(2002, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "XYZ",
                             District = "Thành phố Long Xuyên",
                             Email = "censor@gmail.com",
                             FullName = "Hồ Minh Nguyên",
                             Gender = true,
-                            Password = "123123",
+                            Password = "P0ASGe7h/swkLC9HfYSaJCuv/1X+NsCO7254ok7eC19JYPuZ",
                             Phone = "0913615294",
                             Province = "Tỉnh An Giang",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -403,14 +403,14 @@ namespace Server.Migrations
                             Id = 3,
                             Address = "30/12A",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 9, 30, 17, 14, 46, 45, DateTimeKind.Local).AddTicks(3552),
+                            CreatedAt = new DateTime(2023, 10, 3, 14, 30, 55, 84, DateTimeKind.Local).AddTicks(6938),
                             DateOfBirth = new DateTime(2002, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "ABCXYZ",
                             District = "Thành phố Rạch Giá",
                             Email = "guest@gmail.com",
                             FullName = "Nguyễn Thị Kim Nguyệt",
                             Gender = false,
-                            Password = "123123",
+                            Password = "UIwQ2f6T1ASeQ0q07JoVQq6FbPDQnGJO5Ga21xcQcsU45I/9",
                             Phone = "0941482144",
                             Province = "Tỉnh Kiên Giang",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),

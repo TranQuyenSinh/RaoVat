@@ -1,0 +1,164 @@
+@import '../../../styles/variables';
+
+.ad-detail-container {
+    .ad-detail-section {
+        padding       : 20px;
+        display       : flex;
+        flex-direction: row;
+        flex-wrap     : nowrap;
+
+        .ad-infor {
+            width: 70%;
+
+            .ad-img-slider {
+                background-color: $backgroundcolor;
+
+                .slider-item {
+                    img {
+                        height: 450px;
+                        margin: 0 auto;
+                        cursor: zoom-in;
+                    }
+                }
+            }
+
+            .ad-title {
+                font-weight: bold;
+                margin     : 6px 0;
+            }
+
+            .ad-price {
+                display        : flex;
+                flex-direction : row;
+                align-items    : center;
+                justify-content: space-between;
+                color          : $redcolor;
+                margin         : 6px 0;
+
+                span {
+                    font-weight: bold;
+                }
+
+                .save-ad-btn {
+                    border-color: $redcolor;
+
+                    span {
+                        font-weight: normal;
+                    }
+                }
+
+            }
+
+            .ad-description {
+                white-space  : pre-line;
+                text-align   : justify;
+                font-size    : 15px;
+                margin-bottom: 8px;
+            }
+
+            .ad-param-container {
+                display      : flex;
+                flex-wrap    : wrap;
+                color        : $textgraycolor;
+                margin-bottom: 12px;
+
+                .ad-param-item {
+                    width      : 50%;
+                    display    : flex;
+                    align-items: center;
+                    gap        : 6px;
+                    padding    : 6px 0;
+                }
+            }
+
+            .ad-location {
+
+                .location-title {
+                    color      : $textgraycolor;
+                    font-weight: bold;
+                }
+
+                .location-content {}
+            }
+
+        }
+
+        .shop-sidebar {
+            width      : 100%;
+            margin-left: 12px;
+            padding-top: 16px;
+            border-top : 1px solid $graycolor;
+
+            .sticky {
+                top: 90px !important;
+            }
+
+            .shop-info {
+                display    : flex;
+                align-items: start;
+                gap        : 12px;
+
+                .shop-avatar {
+                    img {
+                        width        : 40px;
+                        height       : 40px;
+                        border-radius: 50%;
+                    }
+                }
+
+                .shop-title {
+                    font-weight: 600;
+                }
+
+                .shop-publish-at {
+                    font-size : 12px;
+                    margin-top: 2px;
+                    color     : $mutedcolor;
+
+                }
+            }
+
+            .ad-favorite-count {
+                display      : flex;
+                align-items  : center;
+                gap          : 4px;
+                color        : $maincolor;
+                padding      : 12px;
+                border-bottom: 1px solid $maincolor;
+                margin-top   : 8px;
+            }
+
+            .shop-contact {
+                display         : flex;
+                gap             : 12px;
+                align-items     : center;
+                padding         : 12px;
+                color           : $whitecolor;
+                margin-top      : 12px;
+                background-color: $greencolor;
+                width           : 100%;
+                border-radius   : 5px;
+            }
+
+            .shop-all-ad {
+                display         : flex;
+                align-items     : center;
+                gap             : 12px;
+                padding         : 12px;
+                border-radius   : 5px;
+                color           : $bluecolor;
+                background-color: $whitecolor;
+                border          : 1px solid $bluecolor;
+                margin-top      : 8px;
+                cursor          : pointer;
+                transition      : all .2s ease-in-out;
+
+                &:hover {
+                    color           : $whitecolor;
+                    background-color: $bluecolor;
+                }
+            }
+        }
+    }
+
+}

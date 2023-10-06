@@ -10,7 +10,7 @@ const AdCard = ({ ad }) => {
         <>
             {ad && (
                 <div className='adcard'>
-                    <Link to={'/'} className='adcard__wrapper'>
+                    <Link to={`/tin-dang/${ad.id}`} className='adcard__wrapper'>
                         <div className='adcard__image' style={{ backgroundImage: `url(${ad.thumbnail})` }}></div>
                         <div className='adcard__content'>
                             <div className='adcard__content--title'>{ad.title}</div>

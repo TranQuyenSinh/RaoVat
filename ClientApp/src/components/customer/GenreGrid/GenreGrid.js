@@ -3,8 +3,7 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import './GenreGrid.scss'
-import testImage from '../../../assets/images/test.png'
-import { genreCarouselConfigs } from '../../../configs/carouselConfig'
+import { genreCarouselConfigs } from '../../../components/carousel/carouselConfig'
 import { getRootGenres, getGenreBySlug } from '../../../services'
 
 export const GenreGrid = ({ genreSlug }) => {

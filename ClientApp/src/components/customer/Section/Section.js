@@ -1,9 +1,9 @@
 import React from 'react'
 import './Section.scss'
 
-const Section = ({ children, className: otherClass, ...otherProps }) => {
+const Section = ({ children, style, className: otherClass, ...otherProps }) => {
     return (
-        <div className={`section-container ${otherClass}`} {...otherProps}>
+        <div style={style} className={`section-container ${otherClass}`} {...otherProps}>
             {children}
         </div>
     )

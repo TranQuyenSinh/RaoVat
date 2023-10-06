@@ -66,6 +66,27 @@ ul {
     }
 }
 
+.btn-outline {
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    gap            : 4px;
+    cursor         : pointer;
+    padding        : 4px 8px;
+    border-radius  : 30px;
+    border         : 1px solid black;
+
+    &.outline-main {
+        border-color: $maincolor !important;
+        color       : $maincolor !important;
+    }
+
+    &.outline-red {
+        border-color: $redcolor !important;
+        color       : $redcolor !important;
+    }
+}
+
 .custom-menu {
     position     : absolute;
     left         : 16px;
@@ -119,5 +140,44 @@ ul {
     &:hover {
         border-radius   : 50% !important;
         background-color: $backgroundcolor !important;
+    }
+}
+
+// Slick slider custom
+.slick-list {
+    padding: 4px 0;
+}
+
+.slick-carousel-arrow {
+    position           : absolute;
+    width              : 36px;
+    height             : 36px;
+    top                : calc(50% - 10px) !important;
+    cursor             : pointer;
+    border-radius      : 50%;
+    z-index            : 2;
+    background-size    : 100%;
+    background-position: center center;
+    transition         : all .2s ease-in-out;
+
+    &:before {
+        content: '' !important;
+    }
+
+    &:hover {
+        transform: translate(0, -50%) scale(1.2) !important;
+    }
+
+
+    &.prev-arrow {
+        left: 0px;
+    }
+
+    &.next-arrow {
+        right: 0px;
+    }
+
+    &.slick-disabled {
+        display: none !important;
     }
 }

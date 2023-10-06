@@ -1,13 +1,13 @@
 @import "../../../styles/variables";
 
 .section-container {
-    background-color: $whitecolor;
-    margin          : 6px 300px;
-    border-radius   : 5px;
-    padding         : 8px 10px;
-    display         : flex;
-    flex-direction  : column;
-    overflow        : hidden;
+    background-color   : $whitecolor;
+    margin             : 6px 300px;
+    border-radius      : 5px;
+    padding            : 8px 10px;
+    display            : flex;
+    flex-direction     : column;
+    // overflow        : hidden;
 
     .section-title {
         font-weight  : bold;

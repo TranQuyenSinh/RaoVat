@@ -28,14 +28,14 @@ namespace App.Data
             builder.Entity<User>().HasIndex(x => x.Email).IsUnique();
 
 
-            // many to many: Genres - Users (Favorite Genres of User)
-            builder.Entity<Genre>()
-                .HasMany<User>(x => x.LikedUsers)
-                .WithMany(x => x.FavoriteGenres)
-                .UsingEntity<User_Genre_Favorite>(
-                    left => left.HasOne<User>().WithMany().OnDelete(DeleteBehavior.NoAction),
-                    right => right.HasOne<Genre>().WithMany().OnDelete(DeleteBehavior.NoAction)
-                ).ToTable("User_Genre_Favorite");
+            // many to many: Users - Users (Follow shop of User)
+            builder.Entity<User>()
+                .HasMany<User>(x => x.Followed)
+                .WithMany(x => x.Followers)
+                .UsingEntity<User_Shop_Follow>(
+                    left => left.HasOne<User>().WithMany().HasForeignKey(x => x.FollowedId).OnDelete(DeleteBehavior.NoAction),
+                    right => right.HasOne<User>().WithMany().HasForeignKey(x => x.FollowerId).OnDelete(DeleteBehavior.NoAction)
+                );
 
             // many to many: Ads - Users (Favorite Ads of User)
             builder.Entity<Ad>()

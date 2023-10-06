@@ -48,9 +48,9 @@ namespace App.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
 
-        public virtual ICollection<Genre>? FavoriteGenres { get; set; }
+        public virtual ICollection<User>? Followers { get; set; }
+        public virtual ICollection<User>? Followed { get; set; }
         public virtual ICollection<Ad>? FavoriteAds { get; set; }
-
         // Own ads
         public virtual ICollection<Ad>? OwnAds { get; set; }
 

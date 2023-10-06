@@ -28,8 +28,6 @@ namespace App.Models
 
         public virtual ICollection<Genre>? ChildrenGenres { get; set; }
 
-        public virtual ICollection<User>? LikedUsers { get; set; }
-
         public virtual ICollection<Ad>? Ads { get; set; }
     }
 }

@@ -3,4 +3,5 @@ export const adApi = {
     getCardAdsRelated: 'api/ad-view/card-ads',
     getDetailAd: 'api/ad-view/detail-ad',
     saveAdToFavorite: 'api/ad-view/save-ad-to-favorite',
+    followShop: 'api/ad-view/follow-shop',
 }

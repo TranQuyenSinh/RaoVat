@@ -4,6 +4,7 @@ using App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231016025905_ChangeName_UserShopFollow")]
+    partial class ChangeName_UserShopFollow
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,7 +82,7 @@ namespace Server.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Ad", (string)null);
+                    b.ToTable("Ad");
                 });
 
             modelBuilder.Entity("App.Models.AdGenre", b =>
@@ -102,7 +105,7 @@ namespace Server.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("AdGenre", (string)null);
+                    b.ToTable("AdGenre");
                 });
 
             modelBuilder.Entity("App.Models.AdImage", b =>
@@ -125,7 +128,7 @@ namespace Server.Migrations
 
                     b.HasIndex("AdId");
 
-                    b.ToTable("AdImage", (string)null);
+                    b.ToTable("AdImage");
                 });
 
             modelBuilder.Entity("App.Models.Genre", b =>
@@ -165,7 +168,7 @@ namespace Server.Migrations
                     b.HasIndex("Slug")
                         .IsUnique();
 
-                    b.ToTable("Genre", (string)null);
+                    b.ToTable("Genre");
 
                     b.HasData(
                         new
@@ -263,7 +266,7 @@ namespace Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role", (string)null);
+                    b.ToTable("Role");
 
                     b.HasData(
                         new
@@ -354,7 +357,7 @@ namespace Server.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("User");
 
                     b.HasData(
                         new
@@ -436,7 +439,7 @@ namespace Server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("User_Ad_Favorite", (string)null);
+                    b.ToTable("User_Ad_Favorite");
                 });
 
             modelBuilder.Entity("App.Models.User_Shop_Follow", b =>
@@ -459,7 +462,7 @@ namespace Server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("User_Shop_Follow", (string)null);
+                    b.ToTable("User_Shop_Follow");
                 });
 
             modelBuilder.Entity("App.Models.Ad", b =>

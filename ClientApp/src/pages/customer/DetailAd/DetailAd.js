@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { getDetailAd, saveAdToFavorite } from '../../../services'
+import { getDetailAd, saveAdToFavorite, followShop } from '../../../services'
 import Section from '../../../components/customer/Section/Section'
 import './DetailAd.scss'
 import { formatNumber } from '../../../utils'
@@ -13,6 +13,7 @@ import OtherAds from './OtherAds'
 import SimilarAds from './SimilarAds'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
+
 const DetailAd = () => {
     const { adId } = useParams()
     const navigate = useNavigate()
@@ -21,7 +22,7 @@ const DetailAd = () => {
     const [detailAd, setDetailAd] = useState()
     const [shop, setShop] = useState()
 
-    const [isFollow, setIsFollow] = useState(false)
+    const [isFollowed, setIsFollowed] = useState(false)
     const [isFavorite, setIsFavorite] = useState(false)
 
     const [isOpenLightBox, setIsOpenLightBox] = useState(false)
@@ -35,6 +36,7 @@ const DetailAd = () => {
             setDetailAd(ad)
             setShop(shop)
             setIsFavorite(ad.isFavorite)
+            setIsFollowed(shop.isFollowed)
             window.scrollTo(0, 0)
         }
         fetchAds()
@@ -62,6 +64,19 @@ const DetailAd = () => {
         }
     }
 
+    const handleFollowShop = async isFollowed => {
+        if (!isLoggedIn) {
+            navigate('/login')
+            return
+        }
+        try {
+            await followShop(currentUser.id, shop.id)
+            setIsFollowed(isFollowed)
+        } catch (e) {
+            toast.error('Có lỗi xảy ra, vui lòng thử lại')
+        }
+    }
+
     return (
         <div className='ad-detail-container'>
             {/* Detail Ad */}
@@ -80,17 +95,21 @@ const DetailAd = () => {
                             <div className='ad-title'>{detailAd.title}</div>
                             <div className='ad-price'>
                                 <span>{formatNumber(detailAd.price)} đ</span>
-                                {isFavorite ? (
-                                    <div onClick={() => handleSaveAd(!isFavorite)} className='save-ad-btn btn-outline'>
-                                        <span>Đã lưu</span>
-                                        <i className='fa-solid fa-heart'></i>
-                                    </div>
-                                ) : (
-                                    <div onClick={() => handleSaveAd(!isFavorite)} className='save-ad-btn btn-outline'>
-                                        <span>Lưu tin</span>
-                                        <i className='fa-regular fa-heart'></i>
-                                    </div>
-                                )}
+
+                                <div onClick={() => handleSaveAd(!isFavorite)} className='save-ad-btn btn-outline'>
+                                    {isFavorite ? (
+                                        <>
+                                            <span>Đã lưu</span>
+                                            <i className='fa-solid fa-heart'></i>
+                                        </>
+                                    ) : (
+                                        <>
+                                            {' '}
+                                            <span>Lưu tin</span>
+                                            <i className='fa-regular fa-heart'></i>
+                                        </>
+                                    )}
+                                </div>
                             </div>
                             <p className='ad-description'>{detailAd.description}</p>
                             <div className='ad-param-container'>
@@ -131,13 +150,17 @@ const DetailAd = () => {
                                 </div>
                             </div>
                             <div className='mt-3'>
-                                {isFollow ? (
-                                    <div onClick={() => setIsFollow(!isFollow)} className='btn-outline outline-red'>
+                                {isFollowed ? (
+                                    <div
+                                        onClick={() => handleFollowShop(!isFollowed)}
+                                        className='btn-outline outline-red'>
                                         <i className='fa-solid fa-xmark'></i>
                                         Bỏ theo dõi
                                     </div>
                                 ) : (
-                                    <div onClick={() => setIsFollow(!isFollow)} className='btn-outline outline-main '>
+                                    <div
+                                        onClick={() => handleFollowShop(!isFollowed)}
+                                        className='btn-outline outline-main '>
                                         <i className='fa-solid fa-check'></i>
                                         Theo dõi shop
                                     </div>

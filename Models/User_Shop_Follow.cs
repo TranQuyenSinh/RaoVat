@@ -6,7 +6,7 @@ public class User_Shop_Follow
 {
     public int Id { get; set; }
 
-    public int FollowerId { get; set; }
+    public int UserId { get; set; }
 
-    public int FollowedId { get; set; }
+    public int ShopId { get; set; }
 }

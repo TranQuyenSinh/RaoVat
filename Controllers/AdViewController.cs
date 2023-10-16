@@ -54,7 +54,7 @@ public class AdViewController : ControllerBase
             var user = _context.Users.Find(model.UserId);
 
             if (user == null)
-                throw new Exception();
+                return NotFound("User not found");
 
             var favorite_record = _context.User_Ad_Favorite.Where(x => x.UserId == model.UserId && x.AdId == model.AdId).FirstOrDefault();
             if (favorite_record == null)
@@ -76,6 +76,46 @@ public class AdViewController : ControllerBase
         catch (Exception e)
         {
             return BadRequest();
+        }
+    }
+
+
+    [HttpPut("follow-shop")]
+    public IActionResult FollowShop(FollowShopModel model)
+    {
+        try
+        {
+            var user = _context.Users.Find(model.UserId);
+            var shop = _context.Users.Find(model.ShopId);
+
+            if (user == null || shop == null)
+            {
+                return NotFound("User not found");
+            }
+
+            var followRecord = _context.User_Shop_Follow
+            .Where(x => x.UserId == model.UserId && x.ShopId == model.ShopId)
+            .FirstOrDefault();
+
+            if (followRecord == null)
+            {
+                _context.User_Shop_Follow.Add(new User_Shop_Follow()
+                {
+                    UserId = model.UserId,
+                    ShopId = model.ShopId
+                });
+            }
+            else
+            {
+                _context.User_Shop_Follow.Remove(followRecord);
+            }
+
+            _context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e);
         }
     }
 

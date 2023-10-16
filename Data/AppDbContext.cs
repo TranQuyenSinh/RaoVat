@@ -30,11 +30,11 @@ namespace App.Data
 
             // many to many: Users - Users (Follow shop of User)
             builder.Entity<User>()
-                .HasMany<User>(x => x.Followed)
-                .WithMany(x => x.Followers)
+                .HasMany<User>(x => x.Followers)
+                .WithMany(x => x.Followed)
                 .UsingEntity<User_Shop_Follow>(
-                    left => left.HasOne<User>().WithMany().HasForeignKey(x => x.FollowedId).OnDelete(DeleteBehavior.NoAction),
-                    right => right.HasOne<User>().WithMany().HasForeignKey(x => x.FollowerId).OnDelete(DeleteBehavior.NoAction)
+                    left => left.HasOne<User>().WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.NoAction),
+                    right => right.HasOne<User>().WithMany().HasForeignKey(x => x.ShopId).OnDelete(DeleteBehavior.NoAction)
                 );
 
             // many to many: Ads - Users (Favorite Ads of User)

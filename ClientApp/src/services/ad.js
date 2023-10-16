@@ -16,3 +16,7 @@ export const getDetailAd = (adId, userId = null) => {
 export const saveAdToFavorite = (userId, adId) => {
     return axios.put(adApi.saveAdToFavorite, { userId, adId })
 }
+
+export const followShop = (userId, shopId) => {
+    return axios.put(adApi.followShop, { userId, shopId })
+}

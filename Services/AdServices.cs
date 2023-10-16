@@ -97,7 +97,8 @@ public class AdServices
                 Phone = ad.Author.Phone,
                 District = ad.Author.District,
                 Province = ad.Author.Province,
-                TotalFollowers = ad.Author.Followers.Count()
+                TotalFollowers = ad.Author.Followers.Count(),
+                IsFollowed = userId.HasValue ? ad.Author.Followers.Any(x => x.Id == userId.Value) : false
             }
         });
 

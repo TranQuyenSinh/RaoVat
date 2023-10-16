@@ -13,6 +13,7 @@ import OtherAds from './OtherAds'
 import SimilarAds from './SimilarAds'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
+import { BouncingBalls } from 'react-cssfx-loading'
 
 const DetailAd = () => {
     const { adId } = useParams()
@@ -21,6 +22,7 @@ const DetailAd = () => {
 
     const [detailAd, setDetailAd] = useState()
     const [shop, setShop] = useState()
+    const [isLoadingDetail, setIsLoadingDetail] = useState(false)
 
     const [isFollowed, setIsFollowed] = useState(false)
     const [isFavorite, setIsFavorite] = useState(false)
@@ -30,6 +32,8 @@ const DetailAd = () => {
 
     useEffect(() => {
         const fetchAds = async () => {
+            window.scrollTo(0, 0)
+            setIsLoadingDetail(true)
             let {
                 data: { ad, shop },
             } = await getDetailAd(adId, currentUser?.id)
@@ -37,7 +41,7 @@ const DetailAd = () => {
             setShop(shop)
             setIsFavorite(ad.isFavorite)
             setIsFollowed(shop.isFollowed)
-            window.scrollTo(0, 0)
+            setIsLoadingDetail(false)
         }
         fetchAds()
     }, [adId])
@@ -80,7 +84,8 @@ const DetailAd = () => {
     return (
         <div className='ad-detail-container'>
             {/* Detail Ad */}
-            {detailAd && shop && (
+
+            {detailAd && shop && !isLoadingDetail ? (
                 <>
                     <Section className='ad-detail-section'>
                         {/* Infor */}
@@ -187,6 +192,13 @@ const DetailAd = () => {
                         isOpen={isOpenLightBox}
                         toggle={toggleLightBox}
                     />
+                </>
+            ) : (
+                <>
+                    <div className='loading-wrapper'>
+                        <BouncingBalls color='#FF8800' />
+                        <span>Đang tải...</span>
+                    </div>
                 </>
             )}
 

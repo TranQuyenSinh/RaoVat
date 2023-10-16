@@ -1,32 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import Section from '../../../components/customer/Section/Section'
-import GridAd from '../../../components/customer/AdCard/GridAd'
-import { getLatestCardAds } from '../../../services'
+import { getRelatedCardAds } from '../../../services'
 import { gridAdCarouselConfigs } from '../../../components/carousel/carouselConfig'
 import './OtherAds.scss'
 import Slider from 'react-slick'
 import AdCard from '../../../components/customer/AdCard/AdCard'
 import { Link } from 'react-router-dom'
 
-const OtherAds = ({ shopId }) => {
-    // Test code
-    const [latestAds, setLatestAds] = useState([])
-    const fetchMoreLatestAds = async () => {
-        let { data } = await getLatestCardAds({ currentIndex: 0, province: 'Tỉnh An Giang' })
-        setLatestAds(data)
-    }
+const OtherAds = ({ shopId, shopName }) => {
+    const [adCards, setAdCards] = useState([])
+
     useEffect(() => {
-        fetchMoreLatestAds()
-    }, [])
-    // Test code
+        const fetchRelatedAds = async () => {
+            let { data } = await getRelatedCardAds(shopId)
+            console.log(data)
+            setAdCards(data)
+        }
+        fetchRelatedAds()
+    }, [shopId])
 
     return (
         <Section className='mt-4'>
-            <div className='section-title'>Tin rao khác của Hồ Minh Nguyên ({shopId})</div>
+            <div className='section-title'>Tin rao khác của {shopName}</div>
             <Slider {...gridAdCarouselConfigs}>
-                {latestAds &&
-                    latestAds.length > 0 &&
-                    latestAds.map((item, index) => (
+                {adCards &&
+                    adCards.length > 0 &&
+                    adCards.map((item, index) => (
                         <div key={item.id}>
                             <AdCard ad={item} />
                         </div>

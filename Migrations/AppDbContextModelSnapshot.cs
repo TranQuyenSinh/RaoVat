@@ -79,7 +79,7 @@ namespace Server.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Ad");
+                    b.ToTable("Ad", (string)null);
                 });
 
             modelBuilder.Entity("App.Models.AdGenre", b =>
@@ -102,7 +102,7 @@ namespace Server.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("AdGenre");
+                    b.ToTable("AdGenre", (string)null);
                 });
 
             modelBuilder.Entity("App.Models.AdImage", b =>
@@ -125,7 +125,7 @@ namespace Server.Migrations
 
                     b.HasIndex("AdId");
 
-                    b.ToTable("AdImage");
+                    b.ToTable("AdImage", (string)null);
                 });
 
             modelBuilder.Entity("App.Models.Genre", b =>
@@ -165,7 +165,7 @@ namespace Server.Migrations
                     b.HasIndex("Slug")
                         .IsUnique();
 
-                    b.ToTable("Genre");
+                    b.ToTable("Genre", (string)null);
 
                     b.HasData(
                         new
@@ -263,7 +263,7 @@ namespace Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role");
+                    b.ToTable("Role", (string)null);
 
                     b.HasData(
                         new
@@ -354,7 +354,7 @@ namespace Server.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("User");
+                    b.ToTable("User", (string)null);
 
                     b.HasData(
                         new
@@ -436,7 +436,7 @@ namespace Server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("User_Ad_Favorite");
+                    b.ToTable("User_Ad_Favorite", (string)null);
                 });
 
             modelBuilder.Entity("App.Models.User_Shop_Follow", b =>
@@ -459,7 +459,7 @@ namespace Server.Migrations
 
                     b.HasIndex("FollowerId");
 
-                    b.ToTable("User_Shop_Follow");
+                    b.ToTable("User_Shop_Follow", (string)null);
                 });
 
             modelBuilder.Entity("App.Models.Ad", b =>

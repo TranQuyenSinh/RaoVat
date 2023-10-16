@@ -5,6 +5,14 @@ export const getLatestCardAds = ({ currentIndex, province }) => {
     return axios.get(adApi.getCardAds, { params: { type: 'latest', p: province, i: currentIndex } })
 }
 
-export const getDetailAd = adId => {
-    return axios.get(adApi.getDetailAd, { params: { id: adId } })
+export const getRelatedCardAds = shopId => {
+    return axios.get(adApi.getCardAdsRelated, { params: { type: 'related', shopId } })
+}
+
+export const getDetailAd = (adId, userId = null) => {
+    return axios.get(adApi.getDetailAd, { params: { id: adId, userId } })
+}
+
+export const saveAdToFavorite = (userId, adId) => {
+    return axios.put(adApi.saveAdToFavorite, { userId, adId })
 }

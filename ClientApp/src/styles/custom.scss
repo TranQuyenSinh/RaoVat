@@ -146,6 +146,11 @@ ul {
 // Slick slider custom
 .slick-list {
     padding: 4px 0;
+
+    .slick-track {
+        margin-left : 0;
+        margin-right: 0;
+    }
 }
 
 .slick-carousel-arrow {

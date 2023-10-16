@@ -3,6 +3,7 @@ using App.Models;
 using App.Data;
 using Microsoft.EntityFrameworkCore;
 using App.Services;
+using App.RequestModels;
 
 namespace App.Controllers;
 
@@ -21,10 +22,8 @@ public class AdViewController : ControllerBase
         _adService = adService;
     }
 
-
-
-    [Route("card-ads")]
-    public IActionResult Index(string type, [FromQuery(Name = "i")] int currentIndex, [FromQuery(Name = "p")] string province)
+    [HttpGet("card-ads")]
+    public IActionResult Index(string type, [FromQuery(Name = "i")] int? currentIndex, [FromQuery(Name = "p")] string? province, [FromQuery(Name = "shopId")] int? shopId)
     {
         IEnumerable<object> result = null;
         switch (type)
@@ -32,10 +31,52 @@ public class AdViewController : ControllerBase
             case "latest":
                 result = _adService.GetCardAdsByProvince(currentIndex, province);
                 break;
-
+            case "related":
+                result = _adService.GetCardAdsRelated(shopId);
+                break;
         }
 
         return new JsonResult(result);
+    }
+
+    [HttpGet("detail-ad")]
+    public IActionResult DetailAd(int id, int? userId = null)
+    {
+        var result = _adService.GetDetailAd(id, userId);
+        return new JsonResult(result);
+    }
+
+    [HttpPut("save-ad-to-favorite")]
+    public IActionResult SaveAdToFavorite(SaveAdFavoriteModel model)
+    {
+        try
+        {
+            var user = _context.Users.Find(model.UserId);
+
+            if (user == null)
+                throw new Exception();
+
+            var favorite_record = _context.User_Ad_Favorite.Where(x => x.UserId == model.UserId && x.AdId == model.AdId).FirstOrDefault();
+            if (favorite_record == null)
+            {
+                _context.User_Ad_Favorite.Add(new User_Ad_Favorite()
+                {
+                    UserId = model.UserId,
+                    AdId = model.AdId
+                });
+            }
+            else
+            {
+                _context.User_Ad_Favorite.Remove(favorite_record);
+            }
+
+            _context.SaveChanges();
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return BadRequest();
+        }
     }
 
     [HttpGet]

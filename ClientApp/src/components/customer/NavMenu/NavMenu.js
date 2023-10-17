@@ -11,7 +11,7 @@ import {
     faComment,
     faSignOut,
 } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './NavMenu.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../../../redux/user/user.actions'
@@ -22,13 +22,11 @@ const NavMenu = () => {
     const dispatch = useDispatch()
     const { currentUser, isLoggedIn } = useSelector(state => state.user)
 
+    const navigate = useNavigate()
+
     const handleLogout = () => {
         dispatch(logoutUser())
         toast.success('Bạn đã đăng xuất khỏi hệ thống')
-    }
-
-    const testToast = () => {
-        toast.success('test toast' + new Date().getTime())
     }
     return (
         <div className='navmenu'>
@@ -84,7 +82,7 @@ const NavMenu = () => {
                     Đăng nhập
                 </Link>
             )}
-            <button onClick={testToast} className='navmenu__btn'>
+            <button onClick={() => navigate('dang-tin')} className='navmenu__btn'>
                 <FontAwesomeIcon className='me-2' icon={faEdit} />
                 Đăng tin
             </button>

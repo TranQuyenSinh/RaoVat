@@ -66,6 +66,31 @@ public class AdServices
 
         return qr.ToList();
     }
+    public IEnumerable<object> GetCardAdsSimilar(int? adId, int limit = 10)
+    {
+        var ad = _context.Ads.Include(x => x.Genres).FirstOrDefault(x => x.Id == adId.Value);
+        if (ad == null)
+            return null;
+
+        var qr = _context.Ads
+        .Include(x => x.Genres)
+        .Include(x => x.Author)
+        .Include(x => x.Images)
+        .Where(x => x.Genres.All(genre => ad.Genres.Contains(genre)))
+        .OrderByDescending(x => x.Genres.Count)
+        .Select(x => new
+        {
+            Id = x.Id,
+            Title = x.Title,
+            Price = x.Price,
+            Thumbnail = CombineImagePath(x.Images.FirstOrDefault().Image),
+            District = x.Author.District,
+            Province = x.Author.Province,
+            CreatedAt = x.CreatedAt,
+        }).Take(limit);
+
+        return qr.ToList();
+    }
 
     public object GetDetailAd(int adId, int? userId = null)
     {

@@ -5,19 +5,20 @@ import { gridAdCarouselConfigs } from '../../../components/carousel/carouselConf
 import './OtherAds.scss'
 import Slider from 'react-slick'
 import AdCard from '../../../components/customer/AdCard/AdCard'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 const OtherAds = ({ shopId, shopName }) => {
     const [adCards, setAdCards] = useState([])
+    const { adId } = useParams()
 
     useEffect(() => {
         const fetchRelatedAds = async () => {
             let { data } = await getRelatedCardAds(shopId)
-            console.log(data)
+            data = data?.filter(x => x.id !== +adId)
             setAdCards(data)
         }
         fetchRelatedAds()
-    }, [shopId])
+    }, [shopId, adId])
 
     return (
         <Section className='mt-4'>

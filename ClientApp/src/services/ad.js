@@ -9,6 +9,10 @@ export const getRelatedCardAds = shopId => {
     return axios.get(adApi.getCardAdsRelated, { params: { type: 'related', shopId } })
 }
 
+export const getSimilarAd = adId => {
+    return axios.get(adApi.getCardAdsSimilar, { params: { type: 'similar', adId } })
+}
+
 export const getDetailAd = (adId, userId = null) => {
     return axios.get(adApi.getDetailAd, { params: { id: adId, userId } })
 }

@@ -154,23 +154,25 @@ const DetailAd = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='mt-3'>
-                                {isFollowed ? (
-                                    <div
-                                        onClick={() => handleFollowShop(!isFollowed)}
-                                        className='btn-outline outline-red'>
-                                        <i className='fa-solid fa-xmark'></i>
-                                        Bỏ theo dõi
-                                    </div>
-                                ) : (
-                                    <div
-                                        onClick={() => handleFollowShop(!isFollowed)}
-                                        className='btn-outline outline-main '>
-                                        <i className='fa-solid fa-check'></i>
-                                        Theo dõi shop
-                                    </div>
-                                )}
-                            </div>
+                            {currentUser.id !== shop.id && (
+                                <div className='mt-3'>
+                                    {isFollowed ? (
+                                        <div
+                                            onClick={() => handleFollowShop(!isFollowed)}
+                                            className='btn-outline outline-red'>
+                                            <i className='fa-solid fa-xmark'></i>
+                                            Bỏ theo dõi
+                                        </div>
+                                    ) : (
+                                        <div
+                                            onClick={() => handleFollowShop(!isFollowed)}
+                                            className='btn-outline outline-main '>
+                                            <i className='fa-solid fa-check'></i>
+                                            Theo dõi shop
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                             <div className='ad-favorite-count'>
                                 <i className='fa-solid fa-user-group'></i>
                                 <span>{shop.totalFollowers} người theo dõi</span>
@@ -203,10 +205,10 @@ const DetailAd = () => {
             )}
 
             {/* Tin cùng shop */}
-            {shop && <OtherAds shopId={shop.id} shopName={shop.name} />}
+            {shop && !isLoadingDetail && <OtherAds shopId={shop.id} shopName={shop.name} />}
 
             {/* Tin tương tự */}
-            <SimilarAds shopId={3} />
+            {adId && !isLoadingDetail && <SimilarAds adId={adId} />}
 
             {/* Light box */}
         </div>

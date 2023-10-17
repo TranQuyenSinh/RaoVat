@@ -14,6 +14,7 @@ import SimilarAds from './SimilarAds'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 import { BouncingBalls } from 'react-cssfx-loading'
+import { moment } from '../../../utils'
 
 const DetailAd = () => {
     const { adId } = useParams()
@@ -109,7 +110,6 @@ const DetailAd = () => {
                                         </>
                                     ) : (
                                         <>
-                                            {' '}
                                             <span>Lưu tin</span>
                                             <i className='fa-regular fa-heart'></i>
                                         </>
@@ -150,7 +150,7 @@ const DetailAd = () => {
                                     <div className='shop-title'>{shop.name}</div>
                                     <div className='shop-publish-at'>
                                         <i className='fa-regular fa-clock me-2'></i>
-                                        Đăng 3 phút trước
+                                        Đăng {moment(detailAd.createdAt).locale('vi').fromNow()}
                                     </div>
                                 </div>
                             </div>
@@ -205,12 +205,10 @@ const DetailAd = () => {
             )}
 
             {/* Tin cùng shop */}
-            {shop && !isLoadingDetail && <OtherAds shopId={shop.id} shopName={shop.name} />}
+            {shop && <OtherAds shopId={shop.id} shopName={shop.name} />}
 
             {/* Tin tương tự */}
-            {adId && !isLoadingDetail && <SimilarAds adId={adId} />}
-
-            {/* Light box */}
+            {adId && <SimilarAds adId={adId} />}
         </div>
     )
 }

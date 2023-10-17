@@ -30,7 +30,7 @@ export const GenreGrid = ({ genreSlug }) => {
                 genres.length > 0 &&
                 genres.map((item, index) => (
                     <div key={item.id} className='genre-item'>
-                        <img src={'https://localhost:8080' + item.image} alt='' />
+                        <img src={item.image} alt='' />
                         <div className='genre-title'>{item.title}</div>
                     </div>
                 ))}

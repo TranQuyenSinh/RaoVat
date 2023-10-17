@@ -30,7 +30,7 @@ public class AdServices
             Id = x.Id,
             Title = x.Title,
             Price = x.Price,
-            Thumbnail = CombineImagePath(x.Images.FirstOrDefault().Image),
+            Thumbnail = AppPath.GenerateImagePath(AppPath.AD_IMAGE, x.Images.FirstOrDefault().Image),
             District = x.Author.District,
             Province = x.Author.Province,
             CreatedAt = x.CreatedAt,
@@ -58,7 +58,7 @@ public class AdServices
             Id = x.Id,
             Title = x.Title,
             Price = x.Price,
-            Thumbnail = CombineImagePath(x.Images.FirstOrDefault().Image),
+            Thumbnail = AppPath.GenerateImagePath(AppPath.AD_IMAGE, x.Images.FirstOrDefault().Image),
             District = x.Author.District,
             Province = x.Author.Province,
             CreatedAt = x.CreatedAt,
@@ -83,7 +83,7 @@ public class AdServices
             Id = x.Id,
             Title = x.Title,
             Price = x.Price,
-            Thumbnail = CombineImagePath(x.Images.FirstOrDefault().Image),
+            Thumbnail = AppPath.GenerateImagePath(AppPath.AD_IMAGE, x.Images.FirstOrDefault().Image),
             District = x.Author.District,
             Province = x.Author.Province,
             CreatedAt = x.CreatedAt,
@@ -108,7 +108,7 @@ public class AdServices
                 Title = ad.Title,
                 Price = ad.Price,
                 Description = ad.Description,
-                Images = ad.Images.Select(ad => CombineImagePath(ad.Image)),
+                Images = ad.Images.Select(ad => AppPath.GenerateImagePath(AppPath.AD_IMAGE, ad.Image)),
                 IsFavorite = userId.HasValue ? ad.LikedUsers.Any(x => x.Id == userId.Value) : false,
                 Status = ad.Status ? "Mới" : "Cũ",
                 Color = ad.Color,
@@ -130,10 +130,4 @@ public class AdServices
         return qr.FirstOrDefault();
     }
 
-    public static string CombineImagePath(string image)
-    {
-        return image is not null ?
-        Environment.GetEnvironmentVariable("ASPNETCORE_APPLICATION_URL") + Path.Combine(AppPath.AD_IMAGE_PATH, image) :
-        null;
-    }
 }

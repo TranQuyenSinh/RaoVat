@@ -53,7 +53,7 @@ public class AuthController : ControllerBase
             user.Id,
             user.FullName,
             user.Phone,
-            avatar = AppPath.GenerateUserAvatarUrl(user.Avatar),
+            avatar = AppPath.GenerateImagePath(AppPath.USER_AVATAR, user.Avatar),
             role = user.Role.RoleName,
             accessToken = token,
         });

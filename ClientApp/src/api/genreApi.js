@@ -1,4 +1,5 @@
 export const genreApi = {
-    getRootGenres: 'api/genre-management/genres',
-    getGenreBySlug: 'api/genre-management/genres',
+    getAllGenres: 'api/genre-view/all-genres',
+    getRootGenres: 'api/genre-view/root',
+    getGenreBySlug: 'api/genre-view',
 }

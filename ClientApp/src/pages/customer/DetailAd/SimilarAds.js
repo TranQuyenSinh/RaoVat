@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import Section from '../../../components/customer/Section/Section'
 import GridAd from '../../../components/customer/AdCard/GridAd'
 import { getSimilarAd } from '../../../services'
@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 import AdNotFound from '../../../components/notfound/AdNotFound/AdNotFound'
 const SimilarAds = ({ adId }) => {
     const [ads, setAds] = useState([])
-    useEffect(() => {
+    useLayoutEffect(() => {
         const fetchAd = async () => {
             let { data } = await getSimilarAd(adId)
             data = data?.filter(x => x.id !== +adId)

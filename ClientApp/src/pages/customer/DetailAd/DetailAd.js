@@ -15,6 +15,7 @@ import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 import { BouncingBalls } from 'react-cssfx-loading'
 import { moment } from '../../../utils'
+import ShopSideBar from './ShopSideBar'
 
 const DetailAd = () => {
     const { adId } = useParams()
@@ -22,10 +23,8 @@ const DetailAd = () => {
     const { isLoggedIn, currentUser } = useSelector(state => state.user)
 
     const [detailAd, setDetailAd] = useState()
-    const [shop, setShop] = useState()
     const [isLoadingDetail, setIsLoadingDetail] = useState(false)
 
-    const [isFollowed, setIsFollowed] = useState(false)
     const [isFavorite, setIsFavorite] = useState(false)
 
     const [isOpenLightBox, setIsOpenLightBox] = useState(false)
@@ -35,13 +34,9 @@ const DetailAd = () => {
         const fetchAds = async () => {
             window.scrollTo(0, 0)
             setIsLoadingDetail(true)
-            let {
-                data: { ad, shop },
-            } = await getDetailAd(adId, currentUser?.id)
-            setDetailAd(ad)
-            setShop(shop)
-            setIsFavorite(ad.isFavorite)
-            setIsFollowed(shop.isFollowed)
+            let { data } = await getDetailAd(adId, currentUser?.id)
+            setDetailAd(data)
+            setIsFavorite(data.isFavorite)
             setIsLoadingDetail(false)
         }
         fetchAds()
@@ -69,24 +64,11 @@ const DetailAd = () => {
         }
     }
 
-    const handleFollowShop = async isFollowed => {
-        if (!isLoggedIn) {
-            navigate('/login')
-            return
-        }
-        try {
-            await followShop(currentUser.id, shop.id)
-            setIsFollowed(isFollowed)
-        } catch (e) {
-            toast.error('Có lỗi xảy ra, vui lòng thử lại')
-        }
-    }
-
     return (
         <div className='ad-detail-container'>
             {/* Detail Ad */}
 
-            {detailAd && shop && !isLoadingDetail ? (
+            {detailAd && !isLoadingDetail ? (
                 <>
                     <Section className='ad-detail-section'>
                         {/* Infor */}
@@ -132,60 +114,12 @@ const DetailAd = () => {
                                 <div className='location-title'>Khu vực</div>
                                 <div className='location-content'>
                                     <i className='fa-solid fa-location-dot me-2'></i>
-                                    <span>{`${shop.district}, ${shop.province}`}</span>
+                                    {/* <span>{`${shop.district}, ${shop.province}`}</span> */}
                                 </div>
                             </div>
                         </div>
 
-                        {/* Side */}
-                        <div className='shop-sidebar'>
-                            <div className='shop-info'>
-                                <div className='shop-avatar'>
-                                    <img
-                                        src='https://localhost:8080/contents/customer/avatar/customerAvatar.jpg'
-                                        alt=''
-                                    />
-                                </div>
-                                <div style={{ flex: 1 }}>
-                                    <div className='shop-title'>{shop.name}</div>
-                                    <div className='shop-publish-at'>
-                                        <i className='fa-regular fa-clock me-2'></i>
-                                        Đăng {moment(detailAd.createdAt).locale('vi').fromNow()}
-                                    </div>
-                                </div>
-                            </div>
-                            {currentUser.id !== shop.id && (
-                                <div className='mt-3'>
-                                    {isFollowed ? (
-                                        <div
-                                            onClick={() => handleFollowShop(!isFollowed)}
-                                            className='btn-outline outline-red'>
-                                            <i className='fa-solid fa-xmark'></i>
-                                            Bỏ theo dõi
-                                        </div>
-                                    ) : (
-                                        <div
-                                            onClick={() => handleFollowShop(!isFollowed)}
-                                            className='btn-outline outline-main '>
-                                            <i className='fa-solid fa-check'></i>
-                                            Theo dõi shop
-                                        </div>
-                                    )}
-                                </div>
-                            )}
-                            <div className='ad-favorite-count'>
-                                <i className='fa-solid fa-user-group'></i>
-                                <span>{shop.totalFollowers} người theo dõi</span>
-                            </div>
-                            <div className='shop-contact'>
-                                <i className='fa-solid fa-phone'></i>
-                                <span>{shop.phone}</span>
-                            </div>
-                            <div className='shop-all-ad'>
-                                <i className='fa-solid fa-store'></i>
-                                <span>Xem sản phẩm khác của Shop</span>
-                            </div>
-                        </div>
+                        <ShopSideBar shopId={detailAd.shopId} />
                     </Section>
                     <CustomLightBox
                         images={detailAd.images}
@@ -194,6 +128,11 @@ const DetailAd = () => {
                         isOpen={isOpenLightBox}
                         toggle={toggleLightBox}
                     />
+                    {/* Tin cùng shop */}
+                    {detailAd.shopId && <OtherAds shopId={detailAd.shopId} />}
+
+                    {/* Tin tương tự */}
+                    {adId && <SimilarAds adId={adId} />}
                 </>
             ) : (
                 <>
@@ -203,12 +142,6 @@ const DetailAd = () => {
                     </div>
                 </>
             )}
-
-            {/* Tin cùng shop */}
-            {shop && <OtherAds shopId={shop.id} shopName={shop.name} />}
-
-            {/* Tin tương tự */}
-            {adId && <SimilarAds adId={adId} />}
         </div>
     )
 }

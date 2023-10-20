@@ -15,10 +15,10 @@ public class AuthController : ControllerBase
 {
     private readonly ILogger<AuthController> _logger;
     private readonly AppDbContext _context;
-    private readonly AuthServices _authService;
+    private readonly AuthService _authService;
     private readonly IConfiguration _configuration;
 
-    public AuthController(ILogger<AuthController> logger, AppDbContext context, AuthServices authService, IConfiguration configuration)
+    public AuthController(ILogger<AuthController> logger, AppDbContext context, AuthService authService, IConfiguration configuration)
     {
         _logger = logger;
         _context = context;

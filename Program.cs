@@ -57,7 +57,8 @@ builder.Services.AddAuthorization();
 // Đăng ký my services
 builder.Services.AddTransient<GenreService>();
 builder.Services.AddTransient<AdServices>();
-builder.Services.AddTransient<AuthServices>();
+builder.Services.AddTransient<AuthService>();
+builder.Services.AddTransient<UserService>();
 
 
 var app = builder.Build();

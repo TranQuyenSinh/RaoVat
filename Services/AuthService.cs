@@ -10,12 +10,12 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace App.Services;
 
-public class AuthServices
+public class AuthService
 {
     private readonly AppDbContext _context;
     private readonly IConfiguration _configuration;
 
-    public AuthServices(IConfiguration configuration, AppDbContext context)
+    public AuthService(IConfiguration configuration, AppDbContext context)
     {
         _configuration = configuration;
         _context = context;

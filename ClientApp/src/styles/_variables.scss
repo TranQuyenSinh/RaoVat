@@ -1,3 +1,5 @@
+@import "./mixin";
+
 $maincolor       : #ffba00;
 $maincolor-dark  : #FF8800;
 $maincolor-darker: #E56700;
@@ -17,6 +19,7 @@ $textcolor             : #222;
 $textgraycolor         : #777777;
 $backgroundcolor       : #f4f4f4;
 $backgroundcolor-darker: #e8e8e8;
+$backgroundcolor-red   : #ffe9c2;
 
 $background-gradient-login: to right,
 #F2C94C,

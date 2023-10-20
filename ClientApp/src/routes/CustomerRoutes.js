@@ -1,7 +1,7 @@
 import { Counter } from '../components/Counter'
 import { Home } from '../pages/customer/Home'
 import DetailAd from '../pages/customer/DetailAd/DetailAd'
-import PostAd from '../pages/customer/PostAd/PostAd'
+import PostAdForm from '../pages/customer/PostAd/PostAdForm'
 
 export const CustomerPublicRoutes = [
     {
@@ -21,6 +21,6 @@ export const CustomerPrivateRoutes = [
     },
     {
         path: 'dang-tin',
-        element: <PostAd />,
+        element: <PostAdForm />,
     },
 ]

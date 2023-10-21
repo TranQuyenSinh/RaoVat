@@ -42,20 +42,41 @@ const PostAdForm = () => {
     }
 
     const handleUploadImage = e => {
+        let allowType = ['image/jpeg', 'image/png', 'image/webp']
         let file = e.target.files[0]
+        resetErrorMessages('images')
         if (file)
-            setImages([
-                ...images,
-                {
-                    url: URL.createObjectURL(file),
-                    file: file,
-                },
-            ])
+            if (allowType.includes(file.type))
+                setImages([
+                    ...images,
+                    {
+                        url: URL.createObjectURL(file),
+                        file: file,
+                    },
+                ])
+            else
+                setErrorMessages({
+                    ...errorMessages,
+                    images: 'Vui lòng chọn hình có định dạng ' + allowType.join(', '),
+                })
     }
 
     const handleRemoveImage = image => {
         setImages(images.filter(x => x !== image))
         URL.revokeObjectURL(image.url)
+    }
+
+    const resetErrorMessages = type => {
+        if (type) {
+            setErrorMessages({
+                ...errorMessages,
+                [type]: '',
+            })
+        } else {
+            setErrorMessages({
+                ...Object.keys(errorMessages).map(key => ({ [key]: '' })),
+            })
+        }
     }
 
     const onChangeInput = e => {
@@ -83,13 +104,11 @@ const PostAdForm = () => {
             title: 'Vui lòng chọn tiêu đề',
             color: 'Vui lòng chọn màu sắc',
             origin: 'Vui lòng chọn xuất xứ',
-            description: 'Vui lòng thêm vài dòng mô tả',
+            description: 'Vui lòng thêm vài dòng mô tả về sản phẩm',
             images: 'Vui lòng chọn từ 1 đến 6 ảnh sản phẩm',
         }
 
-        setErrorMessages({
-            ...Object.keys(errorMessages).map(key => ({ [key]: '' })),
-        })
+        resetErrorMessages()
 
         // required
         Object.keys(cpyFormData).forEach(key => {

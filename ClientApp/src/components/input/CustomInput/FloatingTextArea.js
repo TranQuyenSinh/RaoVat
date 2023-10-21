@@ -8,7 +8,7 @@ const FloatingTextArea = ({ label, className, required, height = '150px', errorM
         <div className='form-floating mb-3'>
             <textarea
                 style={{ height: height }}
-                className={`form-control ${className}`}
+                className={`form-control ${errorMessage ? 'is-invalid' : ''} ${className}`}
                 id={id}
                 {...others}
                 placeholder='123'></textarea>

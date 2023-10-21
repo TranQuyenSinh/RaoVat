@@ -1,7 +1,7 @@
 import React, { useId, useRef, useState } from 'react'
 import './FloatingTextArea.scss'
 
-const FloatingTextArea = ({ label, className, required, height = '150px', ...others }) => {
+const FloatingTextArea = ({ label, className, required, height = '150px', errorMessage, ...others }) => {
     const id = useId()
 
     return (
@@ -15,6 +15,7 @@ const FloatingTextArea = ({ label, className, required, height = '150px', ...oth
             <label htmlFor={id}>
                 {label} {required ? <span className='text-danger'>*</span> : ''}
             </label>
+            {errorMessage && <div className='invalid-feedback'>{errorMessage}.</div>}
         </div>
     )
 }

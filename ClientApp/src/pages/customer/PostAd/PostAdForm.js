@@ -16,8 +16,15 @@ const PostAdForm = () => {
         title: '',
         color: '',
         origin: '',
-        title: '',
         description: '',
+    })
+    const [errorMessages, setErrorMessages] = useState({
+        price: '',
+        title: '',
+        color: '',
+        origin: '',
+        description: '',
+        images: '',
     })
     const [genres, setGenres] = useState([])
     const [images, setImages] = useState([])
@@ -62,8 +69,65 @@ const PostAdForm = () => {
     const onChangePrice = e => {
         let { name, value } = e.target
         setFormData({
+            ...formData,
             [name]: value.replace(/\D/g, ''),
         })
+    }
+
+    const validateForm = () => {
+        let isValid = true
+        let { status, ...cpyFormData } = formData
+        let errMsg = {
+            price: 'Vui lòng chọn giá bán',
+            price2: 'Vui lòng chọn giá hơn 15.000 đồng',
+            title: 'Vui lòng chọn tiêu đề',
+            color: 'Vui lòng chọn màu sắc',
+            origin: 'Vui lòng chọn xuất xứ',
+            description: 'Vui lòng thêm vài dòng mô tả',
+            images: 'Vui lòng chọn từ 1 đến 6 ảnh sản phẩm',
+        }
+
+        setErrorMessages({
+            ...Object.keys(errorMessages).map(key => ({ [key]: '' })),
+        })
+
+        // required
+        Object.keys(cpyFormData).forEach(key => {
+            if (!cpyFormData[key]) {
+                isValid = false
+                setErrorMessages(prev => ({
+                    ...prev,
+                    [key]: errMsg[key],
+                }))
+            }
+        })
+
+        // price
+        if (+formData.price < 15000) {
+            isValid = false
+            setErrorMessages(prev => ({
+                ...prev,
+                price: errMsg.price2,
+            }))
+        }
+
+        // images
+        if (images.length === 0) {
+            isValid = false
+            setErrorMessages(prev => ({
+                ...prev,
+                images: errMsg.images,
+            }))
+        }
+
+        return isValid
+    }
+
+    const handleSubmitForm = () => {
+        let isValidForm = validateForm()
+        if (isValidForm) {
+            console.log({ ...formData, genres, images: [...images.map(item => item.file)] })
+        }
     }
     return (
         <>
@@ -100,6 +164,7 @@ const PostAdForm = () => {
                             </div>
                         </>
                     )}
+                    {errorMessages.images && <div className='invalid-feedback'>{errorMessages.images}</div>}
                 </div>
 
                 {/* Detail ad */}
@@ -147,6 +212,7 @@ const PostAdForm = () => {
                                     value={formatNumber(formData.price)}
                                     name='price'
                                     onChange={onChangePrice}
+                                    errorMessage={errorMessages.price}
                                     required={true}
                                 />
                                 <FloatingInput
@@ -154,6 +220,7 @@ const PostAdForm = () => {
                                     value={formData.color}
                                     name='color'
                                     onChange={onChangeInput}
+                                    errorMessage={errorMessages.color}
                                     required={true}
                                 />
                                 <FloatingInput
@@ -161,6 +228,7 @@ const PostAdForm = () => {
                                     value={formData.origin}
                                     name='origin'
                                     onChange={onChangeInput}
+                                    errorMessage={errorMessages.origin}
                                     required={true}
                                 />
 
@@ -170,6 +238,7 @@ const PostAdForm = () => {
                                     value={formData.title}
                                     name='title'
                                     onChange={onChangeInput}
+                                    errorMessage={errorMessages.title}
                                     required={true}
                                 />
 
@@ -180,9 +249,12 @@ const PostAdForm = () => {
                                     required={true}
                                     rows={10}
                                     label={'Mô tả chi tiết'}
+                                    errorMessage={errorMessages.description}
                                 />
 
-                                <button className='btn btn-main w-100'>Đăng tin</button>
+                                <div onClick={handleSubmitForm} className='btn btn-main w-100'>
+                                    Đăng tin
+                                </div>
                             </div>
                         </>
                     )}

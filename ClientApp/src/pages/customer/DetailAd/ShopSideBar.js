@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { followShop, getDetailShop } from '../../../services'
 import { toast } from 'react-toastify'
+import no_avatar from '../../../assets/images/no_avatar.png'
 
 const ShopSideBar = ({ shopId }) => {
     const navigate = useNavigate()
@@ -38,7 +39,7 @@ const ShopSideBar = ({ shopId }) => {
                 <div className='shop-sidebar'>
                     <div className='shop-info'>
                         <div className='shop-avatar'>
-                            <img src='https://localhost:8080/contents/customer/avatar/customerAvatar.jpg' alt='' />
+                            <img src={shop.avatar || no_avatar} alt='' />
                         </div>
                         <div style={{ flex: 1 }}>
                             <div className='shop-title'>{shop.name}</div>

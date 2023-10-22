@@ -7,9 +7,16 @@ import FloatingInput from '../../../components/input/CustomInput/FloatingInput'
 import OutlineRadioButton from '../../../components/input/CustomRadio/OutlineRadioButton'
 import { formatNumber } from '../../../utils/FormatUtils'
 import FloatingTextArea from '../../../components/input/CustomInput/FloatingTextArea'
-
+import { postAd } from '../../../services'
+import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 const PostAdForm = () => {
+    const navigate = useNavigate()
     const fileInput = useRef()
+    const {
+        currentUser: { id },
+    } = useSelector(state => state.user)
     const [formData, setFormData] = useState({
         status: 0,
         price: '',
@@ -142,10 +149,23 @@ const PostAdForm = () => {
         return isValid
     }
 
-    const handleSubmitForm = () => {
+    const handleSubmitForm = async () => {
         let isValidForm = validateForm()
         if (isValidForm) {
-            console.log({ ...formData, genres, images: [...images.map(item => item.file)] })
+            let data = {
+                ...formData,
+                authorId: id,
+                genreIds: [...genres.map(genre => genre.id)],
+                images: [...images.map(item => item.file)],
+            }
+            console.log(data)
+            try {
+                await postAd(data)
+                toast.success('Đăng tin thành công')
+                navigate('/')
+            } catch (e) {
+                toast.error('Đăng tin không thành công, vui lòng thử lại')
+            }
         }
     }
     return (

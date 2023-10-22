@@ -18,7 +18,7 @@ public class AdCardModel
         Id = ad.Id;
         Title = ad.Title;
         Price = ad.Price;
-        Thumbnail = AppPath.GenerateImagePath(AppPath.AD_IMAGE, ad.Images?.FirstOrDefault()?.Image);
+        Thumbnail = AppPath.GenerateImagePath(AppPath.AD_IMAGE, ad.Images?.FirstOrDefault()?.FileName);
         District = ad.Author?.District;
         Province = ad.Author?.Province;
         CreatedAt = ad.CreatedAt;

@@ -11,7 +11,7 @@ namespace App.Models
 
         [StringLength(255)]
         [Required]
-        public string Image { get; set; }
+        public string FileName { get; set; }
 
         public int AdId { get; set; }
 

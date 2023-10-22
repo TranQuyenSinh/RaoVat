@@ -97,7 +97,7 @@ public class Test : ControllerBase
                 ad.Images.Add(new AdImage()
                 {
                     AdId = ad.Id,
-                    Image = images[randomIndexImg],
+                    FileName = images[randomIndexImg],
                 });
                 addedImage.Add(randomIndexImg);
                 x++;

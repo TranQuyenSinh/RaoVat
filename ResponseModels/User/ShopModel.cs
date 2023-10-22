@@ -12,6 +12,7 @@ public class ShopModel
     public string Province { get; set; }
     public int TotalFollowers { get; set; }
     public bool IsFollowed { get; set; }
+    public string Avatar { get; set; }
 
     public ShopModel(User shop, int? userId = null)
     {
@@ -22,5 +23,6 @@ public class ShopModel
         Province = shop.Province;
         TotalFollowers = shop.Followers.Count;
         IsFollowed = userId.HasValue && shop.Followers.Any(x => x.Id == userId.Value);
+        Avatar = AppPath.GenerateImagePath(AppPath.USER_AVATAR, shop.Avatar);
     }
 }

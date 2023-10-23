@@ -43,9 +43,10 @@ public class AdServices
     public ICollection<AdCardModel> GetCardAdsRelated(int? shopId, int limit = 10)
     {
         var qr = _context.Ads
+        .Where(x => x.AuthorId == shopId)
         .Include(x => x.Author)
         .Include(x => x.Images)
-        .Where(x => x.Author.Id == shopId)
+        .AsSplitQuery()
         .OrderByDescending(x => x.CreatedAt)
         .Select(ad => new AdCardModel(ad))
         .Take(limit);
@@ -60,9 +61,10 @@ public class AdServices
 
         var qr = _context.Ads
         .Include(x => x.Genres)
+        .Where(x => x.Genres.All(genre => ad.Genres.Contains(genre)))
         .Include(x => x.Author)
         .Include(x => x.Images)
-        .Where(x => x.Genres.All(genre => ad.Genres.Contains(genre)))
+        .AsSplitQuery()
         .OrderByDescending(x => x.Genres.Count)
         .Select(ad => new AdCardModel(ad)).Take(limit);
 

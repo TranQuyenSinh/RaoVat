@@ -6,9 +6,6 @@
     padding-top: 16px;
     border-top : 1px solid $graycolor;
 
-    .sticky {
-        top: 90px !important;
-    }
 
     .shop-info {
         display    : flex;
@@ -27,22 +24,28 @@
             font-weight: 600;
         }
 
-        .shop-publish-at {
-            font-size : 12px;
-            margin-top: 2px;
-            color     : $mutedcolor;
+        .shop-location {
+            color    : $mutedcolor;
+            font-size: 14px;
 
+            span {
+                font-size: 14px;
+            }
         }
+
     }
 
     .ad-favorite-count {
-        display      : flex;
-        align-items  : center;
-        gap          : 4px;
-        color        : $maincolor;
-        padding      : 12px;
-        border-bottom: 1px solid $maincolor;
-        margin-top   : 8px;
+        display    : flex;
+        align-items: center;
+        gap        : 4px;
+        color      : $maincolor;
+        margin-top : 8px;
+    }
+
+    .shop-follow-btn-wrapper {
+        padding-bottom: 12px;
+        border-bottom : 1px solid $graycolor;
     }
 
     .shop-contact {

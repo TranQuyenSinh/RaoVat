@@ -43,33 +43,33 @@ const ShopSideBar = ({ shopId }) => {
                         </div>
                         <div style={{ flex: 1 }}>
                             <div className='shop-title'>{shop.name}</div>
-                            {/* <div className='shop-publish-at'>
-                    <i className='fa-regular fa-clock me-2'></i>
-                    Đăng {moment(detailAd.createdAt).locale('vi').fromNow()}
-                </div> */}
+                            <div className='shop-location'>
+                                <i className='fa-solid fa-location-dot fa-sm me-1'></i>
+                                <span>{`${shop.district}, ${shop.province}`}</span>
+                            </div>
                         </div>
                     </div>
+                    <div className='ad-favorite-count'>
+                        <i className='fa-solid fa-user-group'></i>
+                        <span>{shop.totalFollowers} người theo dõi</span>
+                    </div>
                     {currentUser.id !== shop.id && (
-                        <div className='mt-3'>
+                        <div className='shop-follow-btn-wrapper mt-3'>
                             {isFollowed ? (
-                                <div onClick={() => handleFollowShop(!isFollowed)} className='btn-outline outline-red'>
-                                    <i className='fa-solid fa-xmark'></i>
-                                    Bỏ theo dõi
+                                <div onClick={() => handleFollowShop(!isFollowed)} className='btn-solid solid-blue'>
+                                    <i className='fa-solid fa-user-check'></i>
+                                    Đang theo dõi
                                 </div>
                             ) : (
                                 <div
                                     onClick={() => handleFollowShop(!isFollowed)}
-                                    className='btn-outline outline-main '>
+                                    className='btn-outline outline-blue '>
                                     <i className='fa-solid fa-check'></i>
                                     Theo dõi shop
                                 </div>
                             )}
                         </div>
                     )}
-                    <div className='ad-favorite-count'>
-                        <i className='fa-solid fa-user-group'></i>
-                        <span>{shop.totalFollowers} người theo dõi</span>
-                    </div>
                     <div className='shop-contact'>
                         <i className='fa-solid fa-phone'></i>
                         <span>{shop.phone}</span>

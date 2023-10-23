@@ -86,15 +86,15 @@
                 }
             }
 
-            .ad-location {
 
-                .location-title {
-                    color      : $textgraycolor;
-                    font-weight: bold;
-                }
-
-                .location-content {}
+            .ad-createdAt {
+                color      : $textgraycolor;
+                font-size  : 14px;
+                padding-top: 6px;
+                margin-top : 40px;
+                border-top : 1px solid $graycolor;
             }
+
 
         }
 

@@ -110,13 +110,7 @@ const DetailAd = () => {
                                     <i className='fa-solid fa-globe'></i> Xuất xứ: {detailAd.origin}
                                 </div>
                             </div>
-                            <div className='ad-location'>
-                                <div className='location-title'>Khu vực</div>
-                                <div className='location-content'>
-                                    <i className='fa-solid fa-location-dot me-2'></i>
-                                    {/* <span>{`${shop.district}, ${shop.province}`}</span> */}
-                                </div>
-                            </div>
+                            <div className='ad-createdAt'>Tin được đăng {moment(detailAd.createdAt).fromNow()}</div>
                         </div>
 
                         <ShopSideBar shopId={detailAd.shopId} />

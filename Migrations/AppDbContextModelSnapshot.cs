@@ -79,7 +79,7 @@ namespace Server.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Ad", (string)null);
+                    b.ToTable("Ad");
                 });
 
             modelBuilder.Entity("App.Models.AdGenre", b =>
@@ -102,7 +102,7 @@ namespace Server.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("AdGenre", (string)null);
+                    b.ToTable("AdGenre");
                 });
 
             modelBuilder.Entity("App.Models.AdImage", b =>
@@ -116,7 +116,7 @@ namespace Server.Migrations
                     b.Property<int>("AdId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Image")
+                    b.Property<string>("FileName")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
@@ -125,7 +125,7 @@ namespace Server.Migrations
 
                     b.HasIndex("AdId");
 
-                    b.ToTable("AdImage", (string)null);
+                    b.ToTable("AdImage");
                 });
 
             modelBuilder.Entity("App.Models.Genre", b =>
@@ -165,7 +165,7 @@ namespace Server.Migrations
                     b.HasIndex("Slug")
                         .IsUnique();
 
-                    b.ToTable("Genre", (string)null);
+                    b.ToTable("Genre");
 
                     b.HasData(
                         new
@@ -263,7 +263,7 @@ namespace Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role", (string)null);
+                    b.ToTable("Role");
 
                     b.HasData(
                         new
@@ -354,7 +354,7 @@ namespace Server.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("User");
 
                     b.HasData(
                         new
@@ -362,14 +362,14 @@ namespace Server.Migrations
                             Id = 1,
                             Address = "5M2",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 10, 16, 9, 59, 5, 278, DateTimeKind.Local).AddTicks(1570),
+                            CreatedAt = new DateTime(2023, 10, 22, 18, 50, 33, 547, DateTimeKind.Local).AddTicks(7265),
                             DateOfBirth = new DateTime(2002, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "ABC",
                             District = "Thành phố Long Xuyên",
                             Email = "admin@gmail.com",
                             FullName = "Trần Quyền Sinh",
                             Gender = true,
-                            Password = "TxyUkDC+mIYvLYG2uApOPT3HbEj2oPn/tQMdEOJokF/BpzvJ",
+                            Password = "fEHE5Pf8jTS33tI8O8CTuVOxU/qBX2G9UqQYUTpv/FnzGbBc",
                             Phone = "0818283714",
                             Province = "Tỉnh An Giang",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -381,14 +381,14 @@ namespace Server.Migrations
                             Id = 2,
                             Address = "60C",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 10, 16, 9, 59, 5, 281, DateTimeKind.Local).AddTicks(8838),
+                            CreatedAt = new DateTime(2023, 10, 22, 18, 50, 33, 551, DateTimeKind.Local).AddTicks(6775),
                             DateOfBirth = new DateTime(2002, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "XYZ",
                             District = "Thành phố Long Xuyên",
                             Email = "censor@gmail.com",
                             FullName = "Hồ Minh Nguyên",
                             Gender = true,
-                            Password = "I2i2mwglJP1bWa9nU1ya2w2iYHH/oILTrTThQCTr5Huodsom",
+                            Password = "wGPt51zlNtKGgNAMOy3s6jzM5+iPVRCZ+cBy0KpAgR+V2R05",
                             Phone = "0913615294",
                             Province = "Tỉnh An Giang",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -400,14 +400,14 @@ namespace Server.Migrations
                             Id = 3,
                             Address = "30/12A",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 10, 16, 9, 59, 5, 285, DateTimeKind.Local).AddTicks(9088),
+                            CreatedAt = new DateTime(2023, 10, 22, 18, 50, 33, 555, DateTimeKind.Local).AddTicks(3657),
                             DateOfBirth = new DateTime(2002, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "ABCXYZ",
                             District = "Thành phố Rạch Giá",
                             Email = "guest@gmail.com",
                             FullName = "Nguyễn Thị Kim Nguyệt",
                             Gender = false,
-                            Password = "ZKI8QPAUfoiS0E4LOP33LHtsZvNPUrOxXH953uwo/4V6mYJ+",
+                            Password = "RscuPQrDt7rYYYLf3SdCu3Y1bWzGwGCCPTzdkmA1qFTIx0dj",
                             Phone = "0941482144",
                             Province = "Tỉnh Kiên Giang",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -436,7 +436,7 @@ namespace Server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("User_Ad_Favorite", (string)null);
+                    b.ToTable("User_Ad_Favorite");
                 });
 
             modelBuilder.Entity("App.Models.User_Shop_Follow", b =>
@@ -459,7 +459,7 @@ namespace Server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("User_Shop_Follow", (string)null);
+                    b.ToTable("User_Shop_Follow");
                 });
 
             modelBuilder.Entity("App.Models.Ad", b =>

@@ -3,6 +3,8 @@
     ".vscode": true,
     "bin": true,
     "obj": true,
-    "Properties": true
+    "Properties": true,
+    "Seeder": true,
+    "Pages": true
   }
 }

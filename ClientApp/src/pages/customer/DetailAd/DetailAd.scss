@@ -28,9 +28,11 @@
 
                 .slider-item {
                     img {
-                        height: 450px;
-                        margin: 0 auto;
-                        cursor: zoom-in;
+                        height    : 450px;
+                        width     : 100%;
+                        object-fit: contain;
+                        margin    : 0 auto;
+                        cursor    : zoom-in;
                     }
                 }
             }
@@ -84,94 +86,19 @@
                 }
             }
 
-            .ad-location {
 
-                .location-title {
-                    color      : $textgraycolor;
-                    font-weight: bold;
-                }
-
-                .location-content {}
+            .ad-createdAt {
+                color      : $textgraycolor;
+                font-size  : 14px;
+                padding-top: 6px;
+                margin-top : 40px;
+                border-top : 1px solid $graycolor;
             }
+
 
         }
 
-        .shop-sidebar {
-            width      : 30%;
-            margin-left: 12px;
-            padding-top: 16px;
-            border-top : 1px solid $graycolor;
 
-            .sticky {
-                top: 90px !important;
-            }
-
-            .shop-info {
-                display    : flex;
-                align-items: start;
-                gap        : 12px;
-
-                .shop-avatar {
-                    img {
-                        width        : 40px;
-                        height       : 40px;
-                        border-radius: 50%;
-                    }
-                }
-
-                .shop-title {
-                    font-weight: 600;
-                }
-
-                .shop-publish-at {
-                    font-size : 12px;
-                    margin-top: 2px;
-                    color     : $mutedcolor;
-
-                }
-            }
-
-            .ad-favorite-count {
-                display      : flex;
-                align-items  : center;
-                gap          : 4px;
-                color        : $maincolor;
-                padding      : 12px;
-                border-bottom: 1px solid $maincolor;
-                margin-top   : 8px;
-            }
-
-            .shop-contact {
-                display         : flex;
-                gap             : 12px;
-                align-items     : center;
-                padding         : 12px;
-                color           : $whitecolor;
-                margin-top      : 12px;
-                background-color: $greencolor;
-                width           : 100%;
-                border-radius   : 5px;
-            }
-
-            .shop-all-ad {
-                display         : flex;
-                align-items     : center;
-                gap             : 12px;
-                padding         : 12px;
-                border-radius   : 5px;
-                color           : $bluecolor;
-                background-color: $whitecolor;
-                border          : 1px solid $bluecolor;
-                margin-top      : 8px;
-                cursor          : pointer;
-                transition      : all .2s ease-in-out;
-
-                &:hover {
-                    color           : $whitecolor;
-                    background-color: $bluecolor;
-                }
-            }
-        }
     }
 
 }

@@ -85,6 +85,39 @@ ul {
         border-color: $redcolor !important;
         color       : $redcolor !important;
     }
+
+    &.outline-blue {
+        border-color: $bluecolor !important;
+        color       : $bluecolor !important;
+    }
+}
+
+.btn-solid {
+    display         : flex;
+    align-items     : center;
+    justify-content : center;
+    gap             : 4px;
+    cursor          : pointer;
+    padding         : 4px 8px;
+    border-radius   : 30px;
+    border          : 1px solid $bluecolor;
+    background-color: $bluecolor;
+    color           : $whitecolor;
+
+    &.solid-main {
+        border-color    : $maincolor !important;
+        background-color: $maincolor !important;
+    }
+
+    &.solid-red {
+        border-color    : $redcolor !important;
+        background-color: $redcolor !important;
+    }
+
+    &.solid-blue {
+        border-color    : $bluecolor !important;
+        background-color: $bluecolor !important;
+    }
 }
 
 .custom-menu {
@@ -141,6 +174,10 @@ ul {
         border-radius   : 50% !important;
         background-color: $backgroundcolor !important;
     }
+}
+
+.invalid-feedback {
+    display: block;
 }
 
 // Slick slider custom

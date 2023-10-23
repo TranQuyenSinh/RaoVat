@@ -10,3 +10,7 @@ export const getGenreBySlug = slug => {
         params: { slug: slug },
     })
 }
+
+export const getAllGenres = () => {
+    return axios.get(genreApi.getAllGenres)
+}

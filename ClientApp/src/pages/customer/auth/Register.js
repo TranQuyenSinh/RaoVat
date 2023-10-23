@@ -6,7 +6,7 @@ import './Register.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/images/logo.png'
-import CustomInput from '../../../components/input/CustomInput/CustomInput'
+import FloatingInput from '../../../components/input/CustomInput/FloatingInput'
 
 export const Register = props => {
     const [formData, setFormData] = useState({
@@ -72,7 +72,7 @@ export const Register = props => {
                         {/* Input */}
                         <div className='register-title'>Đăng ký tài khoản</div>
                         <div className='form-group'>
-                            <CustomInput
+                            <FloatingInput
                                 label={'Họ và tên'}
                                 value={formData.fullname}
                                 onChange={handleChangeInput}
@@ -81,7 +81,7 @@ export const Register = props => {
                             />
                         </div>
                         <div className='form-group'>
-                            <CustomInput
+                            <FloatingInput
                                 label={'Email'}
                                 value={formData.email}
                                 onChange={handleChangeInput}
@@ -91,7 +91,7 @@ export const Register = props => {
                         </div>
                         <div className=' form-group'>
                             <div className='password-input-container'>
-                                <CustomInput
+                                <FloatingInput
                                     label={'Mật khẩu'}
                                     value={formData.password}
                                     onChange={handleChangeInput}

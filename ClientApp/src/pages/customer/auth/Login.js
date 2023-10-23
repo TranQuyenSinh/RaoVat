@@ -6,7 +6,7 @@ import './Login.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../../assets/images/logo.png'
-import CustomInput from '../../../components/input/CustomInput/CustomInput'
+import FloatingInput from '../../../components/input/CustomInput/FloatingInput'
 
 export const Login = props => {
     const [formData, setFormData] = useState({
@@ -67,7 +67,7 @@ export const Login = props => {
                     {/* Input */}
                     <div className='col-12 login-title'>Đăng nhập</div>
                     <div className='col-12 form-group'>
-                        <CustomInput
+                        <FloatingInput
                             label={'Email'}
                             value={formData.email}
                             onChange={handleChangeInput}
@@ -77,7 +77,7 @@ export const Login = props => {
                     </div>
                     <div className='col-12 form-group'>
                         <div className='password-input-container'>
-                            <CustomInput
+                            <FloatingInput
                                 label={'Mật khẩu'}
                                 value={formData.password}
                                 onChange={handleChangeInput}

@@ -12,3 +12,7 @@
     opacity    : 1 !important;
     font-weight: bold;
 }
+
+.form-control:focus {
+    box-shadow: none;
+}

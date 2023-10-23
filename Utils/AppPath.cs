@@ -2,17 +2,20 @@ namespace App.Utils;
 
 public static class AppPath
 {
-    public static string GENRE_IMAGE_PATH = "/contents/genre/image/";
-    public static string AD_IMAGE_PATH = "/contents/ad/";
-    public static string USER_AVATAR_PATH = "/contents/customer/avatar/";
+    public const string GENRE_IMAGE = "/contents/genre/image/";
+    public const string AD_IMAGE = "/contents/ad/";
+    public const string USER_AVATAR = "/contents/customer/avatar/";
 
-    public static string GenerateUserAvatarUrl(string? image)
+    public const string AD_IMAGE_FOLDER = "Uploads/Ad/";
+
+    public static string GenerateImagePath(string type, string? image)
     {
         if (string.IsNullOrEmpty(image))
             return null;
 
-        return Environment
-            .GetEnvironmentVariable("ASPNETCORE_APPLICATION_URL") +
-            Path.Combine(USER_AVATAR_PATH, image);
+        string rootPath = Environment.GetEnvironmentVariable("ASPNETCORE_APPLICATION_URL");
+        string imagePath = Path.Combine(type, image);
+
+        return rootPath + imagePath;
     }
 }

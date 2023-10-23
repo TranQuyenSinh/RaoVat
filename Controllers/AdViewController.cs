@@ -74,7 +74,7 @@ public class AdViewController : ControllerBase
             }
 
             _context.SaveChanges();
-            return Ok();
+            return Ok("Save to favorite list successfully");
         }
         catch (Exception e)
         {
@@ -114,7 +114,7 @@ public class AdViewController : ControllerBase
             }
 
             _context.SaveChanges();
-            return Ok();
+            return Ok("Follow successfully");
         }
         catch (Exception e)
         {

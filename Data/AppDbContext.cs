@@ -71,6 +71,7 @@ namespace App.Data
         public DbSet<Genre> Genres { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Ad> Ads { get; set; }
+        public DbSet<AdGenre> AdGenre { get; set; }
         public DbSet<User_Ad_Favorite> User_Ad_Favorite { get; set; }
         public DbSet<User_Shop_Follow> User_Shop_Follow { get; set; }
 

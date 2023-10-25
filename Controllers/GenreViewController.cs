@@ -34,7 +34,7 @@ public class GenreViewController : ControllerBase
     }
 
     [HttpGet("{slug?}")]
-    public IActionResult GetGenrebySlug(string slug)
+    public IActionResult GetGenrebySlug([FromQuery] string? slug)
     {
         return new JsonResult(_genreService.GetGenreBySlug(slug));
     }

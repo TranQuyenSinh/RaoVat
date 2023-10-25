@@ -1,8 +1,8 @@
 import { axios } from '../axios'
 import { adApi } from '../api'
 
-export const getLatestCardAds = ({ currentIndex, province }) => {
-    return axios.get(adApi.getCardAds, { params: { type: 'latest', p: province, i: currentIndex } })
+export const getLatestCardAds = (index, province, genreSlug) => {
+    return axios.get(adApi.getCardAds, { params: { type: 'latest', p: province, i: index, genreSlug: genreSlug } })
 }
 
 export const getRelatedCardAds = shopId => {

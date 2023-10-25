@@ -23,13 +23,19 @@ public class AdViewController : ControllerBase
     }
 
     [HttpGet("card-ads")]
-    public IActionResult Index(string type, [FromQuery(Name = "i")] int? currentIndex, [FromQuery(Name = "p")] string? province, [FromQuery(Name = "shopId")] int? shopId, int? adId)
+    public IActionResult Index(
+        string type,
+        [FromQuery(Name = "i")] int? index,
+        [FromQuery(Name = "p")] string? province,
+        [FromQuery] string? genreSlug,
+        [FromQuery(Name = "shopId")] int? shopId,
+        int? adId)
     {
         IEnumerable<object> result = null;
         switch (type)
         {
             case "latest":
-                result = _adService.GetCardAdsByProvince(currentIndex, province);
+                result = _adService.GetCardAdsByProvince(index, province, genreSlug);
                 break;
             case "related":
                 result = _adService.GetCardAdsRelated(shopId);

@@ -1,6 +1,5 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import Section from '../../../components/customer/Section/Section'
-import GridAd from '../../../components/customer/AdCard/GridAd'
 import { getSimilarAd } from '../../../services'
 import './SimilarAds.scss'
 import { gridAdCarouselConfigs } from '../../../components/carousel/carouselConfig'

@@ -24,7 +24,7 @@ public class DetailAdModel
         Description = ad.Description;
         Price = ad.Price;
         Images = ad.Images?.Select(i => AppPath.GenerateImagePath(AppPath.AD_IMAGE, i.FileName)).ToList();
-        IsFavorite = userId.HasValue && ad.LikedUsers.Any(x => x.Id == userId.Value);
+        IsFavorite = userId.HasValue && ad.UserAd.Any(x => x.UserId == userId.Value);
         Status = ad.Status ? "Mới" : "Cũ";
         Color = ad.Color;
         Origin = ad.Origin;

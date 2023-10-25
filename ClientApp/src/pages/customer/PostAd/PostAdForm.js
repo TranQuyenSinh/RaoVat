@@ -216,7 +216,7 @@ const PostAdForm = () => {
                         )}
                         <i className='fa-solid fa-caret-down'></i>
                     </div>
-                    {genres.length == 0 ? (
+                    {genres.length === 0 ? (
                         <div className='placeholder-img-wrapper'>
                             <img className='placeholder-img' src={postAdImg} alt='' />
                             <h5 className='text-uppercase fw-bold text-center'>Đăng tin nhanh</h5>
@@ -234,7 +234,7 @@ const PostAdForm = () => {
                                         name='status'
                                         value={0}
                                         onChange={onChangeInput}
-                                        checked={formData.status == 0}>
+                                        checked={formData.status === 0}>
                                         Đã sử dụng
                                     </OutlineRadioButton>
                                     <OutlineRadioButton
@@ -242,7 +242,7 @@ const PostAdForm = () => {
                                         name='status'
                                         value={1}
                                         onChange={onChangeInput}
-                                        checked={formData.status == 1}>
+                                        checked={formData.status === 1}>
                                         Mới
                                     </OutlineRadioButton>
                                 </div>

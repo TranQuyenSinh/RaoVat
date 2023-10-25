@@ -7,7 +7,7 @@ export const getRootGenres = () => {
 
 export const getGenreBySlug = slug => {
     return axios.get(genreApi.getGenreBySlug, {
-        params: { slug: slug },
+        params: { slug },
     })
 }
 

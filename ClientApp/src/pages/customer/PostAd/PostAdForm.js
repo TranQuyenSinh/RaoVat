@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './PostAdForm.scss'
 import Section from '../../../components/customer/Section/Section'
 import postAdImg from '../../../assets/images/post-ad.svg'
@@ -8,11 +8,13 @@ import OutlineRadioButton from '../../../components/input/CustomRadio/OutlineRad
 import { formatNumber } from '../../../utils/FormatUtils'
 import FloatingTextArea from '../../../components/input/CustomInput/FloatingTextArea'
 import { postAd } from '../../../services'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import { checkUserIsLoggedIn } from '../../../redux/user/user.actions'
 const PostAdForm = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const fileInput = useRef()
     const {
         currentUser: { id },
@@ -37,6 +39,10 @@ const PostAdForm = () => {
     const [images, setImages] = useState([])
 
     const [isOpenGenreModal, setIsOpenGenreModal] = useState(false)
+
+    useEffect(() => {
+        dispatch(checkUserIsLoggedIn())
+    }, [])
 
     const toggleGenreModal = () => {
         setIsOpenGenreModal(!isOpenGenreModal)
@@ -235,9 +241,7 @@ const PostAdForm = () => {
                                         name='status'
                                         value={0}
                                         onChange={onChangeInput}
-
                                         checked={formData.status === 0}>
-
                                         Đã sử dụng
                                     </OutlineRadioButton>
                                     <OutlineRadioButton
@@ -245,7 +249,6 @@ const PostAdForm = () => {
                                         name='status'
                                         value={1}
                                         onChange={onChangeInput}
-
                                         checked={formData.status === 1}>
                                         Mới
                                     </OutlineRadioButton>

@@ -6,6 +6,7 @@ import './GenreGrid.scss'
 import { genreCarouselConfigs } from '../../../components/carousel/carouselConfig'
 import { getRootGenres, getGenreBySlug } from '../../../services'
 import { useNavigate } from 'react-router-dom'
+import Section from '../Section/Section'
 
 export const GenreGrid = ({ genreSlug }) => {
     const navigate = useNavigate()
@@ -14,7 +15,6 @@ export const GenreGrid = ({ genreSlug }) => {
     useEffect(() => {
         const fetchGenre = async () => {
             if (genreSlug) {
-                console.log(genreSlug)
                 let {
                     data: { childGenres },
                 } = await getGenreBySlug(genreSlug)
@@ -28,17 +28,22 @@ export const GenreGrid = ({ genreSlug }) => {
     }, [genreSlug])
 
     return (
-        <Slider {...genreCarouselConfigs} className='genres-container'>
-            {genres &&
-                genres.length > 0 &&
-                genres.map((item, index) => (
-
-                    <div onClick={() => navigate('/' + item.slug)} key={item.id} className='genre-item'>
-
-                        <img src={item.image} alt='' />
-                        <div className='genre-title'>{item.title}</div>
+        <>
+            {genres && genres.length > 0 && (
+                <Section>
+                    <div className='section-title'>Danh mục nổi bật</div>
+                    <div className='section-content '>
+                        <Slider {...genreCarouselConfigs} className='genres-container'>
+                            {genres.map((item, index) => (
+                                <div onClick={() => navigate('/' + item.slug)} key={item.id} className='genre-item'>
+                                    <img src={item.image} alt='' />
+                                    <div className='genre-title'>{item.title}</div>
+                                </div>
+                            ))}
+                        </Slider>
                     </div>
-                ))}
-        </Slider>
+                </Section>
+            )}
+        </>
     )
 }

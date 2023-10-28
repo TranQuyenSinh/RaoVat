@@ -34,7 +34,6 @@ export const SpecifyGenre = () => {
 
     const fetchMoreAds = async () => {
         if (index !== -1) {
-            console.log(genreSlug)
             let { data } = await getLatestCardAds(index, currentLocation, genreSlug)
             if (data && data.length > 0) {
                 index === 0 ? setLatestAds(data) : setLatestAds([...latestAds, ...data])
@@ -67,12 +66,7 @@ export const SpecifyGenre = () => {
                     <Carousel id='top-carousel' data={carouselData} />
                 </div>
             </Section>
-            <Section>
-                <div className='section-title'>Danh mục nổi bật</div>
-                <div className='section-content '>
-                    <GenreGrid genreSlug={genreSlug} />
-                </div>
-            </Section>
+            <GenreGrid genreSlug={genreSlug} />
             <Section>
                 <div className='section-title'>Tin đăng mới</div>
                 <div className='section-content '>

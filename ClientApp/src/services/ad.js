@@ -1,4 +1,4 @@
-import { axios } from '../axios'
+import { authAxios, axios } from '../axios'
 import { adApi } from '../api'
 
 export const getLatestCardAds = (index, province, genreSlug) => {
@@ -18,9 +18,9 @@ export const getDetailAd = (adId, userId = null) => {
 }
 
 export const saveAdToFavorite = (userId, adId) => {
-    return axios.put(adApi.saveAdToFavorite, { userId, adId })
+    return authAxios.put(adApi.saveAdToFavorite, { userId, adId })
 }
 
 export const followShop = (userId, shopId) => {
-    return axios.put(adApi.followShop, { userId, shopId })
+    return authAxios.put(adApi.followShop, { userId, shopId })
 }

@@ -3,6 +3,7 @@ import { Home } from '../pages/customer/Home'
 import DetailAd from '../pages/customer/DetailAd/DetailAd'
 import PostAdForm from '../pages/customer/PostAd/PostAdForm'
 import { SpecifyGenre } from '../pages/customer/SpecifyGenre/SpecifyGenre'
+import SearchAd from '../pages/customer/SearchAd/SearchAd'
 
 export const CustomerPublicRoutes = [
     {
@@ -16,6 +17,10 @@ export const CustomerPublicRoutes = [
     {
         path: ':genreSlug',
         element: <SpecifyGenre />,
+    },
+    {
+        path: 'search',
+        element: <SearchAd />,
     },
 ]
 

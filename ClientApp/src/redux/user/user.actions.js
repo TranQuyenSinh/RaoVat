@@ -1,7 +1,7 @@
 import { userTypes } from './user.types'
-import { axios } from '../../axios'
+import { authAxios, axios } from '../../axios'
 import { authApi } from '../../api'
-
+import { store } from '../store'
 // Login
 export const loginUser = (email, password) => {
     return async dispatch => {
@@ -79,4 +79,24 @@ export const logoutUser = () => {
 export const refreshAccessToken = newToken => ({
     type: userTypes.REFRESH_ACCESS_TOKEN,
     payload: newToken,
+})
+
+// User is logged in
+export const checkUserIsLoggedIn = () => {
+    return async dispatch => {
+        try {
+            await authAxios.get(authApi.checkIsLoggedIn)
+            dispatch(checkUserIsLoggedInSuccess())
+        } catch (e) {
+            dispatch(checkUserIsLoggedInFailure())
+        }
+    }
+}
+
+export const checkUserIsLoggedInSuccess = () => ({
+    type: userTypes.CHECKISLOGGEDINSUCCESS,
+})
+
+export const checkUserIsLoggedInFailure = () => ({
+    type: userTypes.CHECKISLOGGEDINFAILURE,
 })

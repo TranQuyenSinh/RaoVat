@@ -40,11 +40,10 @@ public class AuthController : ControllerBase
 
         var cookieOptions = new CookieOptions()
         {
+            Domain = "localhost:3000",
             Expires = DateTime.Now.AddDays(2),
-            Path = "/",
-            HttpOnly = true,
-            SameSite = SameSiteMode.Strict,
-            Secure = true,
+            SameSite = SameSiteMode.Lax,
+            Secure = true
         };
 
         Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
@@ -88,10 +87,12 @@ public class AuthController : ControllerBase
 
     [HttpPost]
     [Route("refresh-token")]
-    public IActionResult RefreshToken(string? accessToken)
+    public IActionResult RefreshToken([FromBody] RefreshTokenModel model)
     {
-        string? refreshToken = Request.Cookies["refreshToken"];
-
+        string accessToken = model.AccessToken;
+        string refreshToken = model.RefreshToken;
+        Console.WriteLine("Access token: {0}", accessToken);
+        Console.WriteLine("Refresh token: {0}", refreshToken);
         if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(refreshToken))
         {
             return BadRequest("Invalid client request");
@@ -117,6 +118,13 @@ public class AuthController : ControllerBase
         {
             accessToken = newAccessToken,
         });
+    }
+
+    [Authorize]
+    [HttpGet("check-is-logged-in")]
+    public IActionResult CheckUserIsLoggedIn()
+    {
+        return Ok();
     }
 
     [Authorize(Roles = nameof(RoleName.Administrator))]

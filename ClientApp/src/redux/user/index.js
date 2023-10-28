@@ -12,6 +12,7 @@ const initialState = {
 
 const userReducer = (state = initialState, { type, payload }) => {
     switch (type) {
+        // Login
         case userTypes.LOGIN_START:
             return {
                 ...state,
@@ -46,6 +47,16 @@ const userReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 isLoading: false,
                 registerErrorMessage: null,
+            }
+
+        // check user is logged in
+        case userTypes.CHECKISLOGGEDINSUCCESS:
+            return state
+        case userTypes.CHECKISLOGGEDINFAILURE:
+            return {
+                ...state,
+                isLoggedIn: false,
+                currentUser: {},
             }
 
         // failure cases

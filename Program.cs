@@ -60,7 +60,6 @@ builder.Services.AddTransient<AdServices>();
 builder.Services.AddTransient<AuthService>();
 builder.Services.AddTransient<UserService>();
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -4,6 +4,7 @@ using App.Data;
 using Microsoft.EntityFrameworkCore;
 using App.Services;
 using App.RequestModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App.Controllers;
 
@@ -56,6 +57,7 @@ public class AdViewController : ControllerBase
     }
 
     [HttpPut("save-ad-to-favorite")]
+    [Authorize]
     public IActionResult SaveAdToFavorite(SaveAdFavoriteModel model)
     {
         try
@@ -90,6 +92,7 @@ public class AdViewController : ControllerBase
 
 
     [HttpPut("follow-shop")]
+    [Authorize]
     public IActionResult FollowShop(FollowShopModel model)
     {
         try

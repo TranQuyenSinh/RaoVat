@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faClock } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { axios } from '../../../axios'
 import './SearchBar.scss'
 
@@ -9,15 +9,7 @@ const SearchBar = () => {
     const [isShowRecentSearch, setIsShowRecentSearch] = useState(false)
     const [searchInput, setSearchInput] = useState('')
     const [searchResult, setSearchResult] = useState([])
-
-    useEffect(() => {
-        const controller = new AbortController()
-        // axios.get('/test/checkdb', { signal: controller.signal }).then(res => setSearchResult(res.data))
-
-        return () => {
-            controller.abort()
-        }
-    }, [searchInput])
+    const navigate = useNavigate()
 
     return (
         <div className='searchbar-container'>
@@ -32,14 +24,14 @@ const SearchBar = () => {
                     type='search'
                     placeholder='Tìm kiếm sản phẩm'
                 />
-                <div className='searchbar--btn'>
+                <div onClick={() => navigate(`search?q=${searchInput}`)} className='searchbar--btn'>
                     <FontAwesomeIcon icon={faSearch} />
                 </div>
                 {isShowRecentSearch && (
                     <div className='recent-search'>
                         {searchInput ? (
                             <>
-                                <Link to='/' className='recent-search__item'>
+                                <Link to={`search?q=${searchInput}`} className='recent-search__item'>
                                     Tìm kiếm từ khóa "{searchInput}"
                                 </Link>
 

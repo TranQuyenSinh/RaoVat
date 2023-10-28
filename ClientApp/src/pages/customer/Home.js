@@ -66,12 +66,7 @@ export const Home = () => {
                     <Carousel id='top-carousel' data={carouselData} />
                 </div>
             </Section>
-            <Section>
-                <div className='section-title'>Danh mục nổi bật</div>
-                <div className='section-content '>
-                    <GenreGrid />
-                </div>
-            </Section>
+            <GenreGrid />
             <Section>
                 <div className='section-title'>Tin đăng mới</div>
                 <div className='section-content '>

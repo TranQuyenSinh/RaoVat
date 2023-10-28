@@ -35,9 +35,13 @@ const DetailAd = () => {
             window.scrollTo(0, 0)
             setIsLoadingDetail(true)
             let { data } = await getDetailAd(adId, currentUser?.id)
-            setDetailAd(data)
-            setIsFavorite(data.isFavorite)
-            setIsLoadingDetail(false)
+            if (data) {
+                setDetailAd(data)
+                console.log(data)
+                setIsFavorite(data.isFavorite)
+                setIsLoadingDetail(false)
+            } else {
+            }
         }
         fetchAds()
     }, [adId])

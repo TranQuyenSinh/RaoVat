@@ -2,6 +2,7 @@ import baseAxios from 'axios'
 import { store } from './redux/store'
 import { logoutUser, refreshAccessToken } from './redux/user/user.actions'
 import { authApi } from './api'
+import { getCookie } from './utils'
 const axios = baseAxios.create({
     baseURL: process.env.ASPNET_SERVER_URL || 'https://localhost:8080',
     timeout: 10000,
@@ -26,11 +27,12 @@ authAxios.interceptors.response.use(
     error => {
         const originalRequest = error.config
         let accessToken = store.getState().user.currentUser?.accessToken
+        let refreshToken = getCookie('refreshToken') || ''
         let { status } = error.response
         if (status == 401) {
             // xin token
             authAxios
-                .post(authApi.refreshToken, {}, { params: { accessToken }, withCredentials: true })
+                .post(authApi.refreshToken, { accessToken, refreshToken })
                 .then(tokenRefreshResponse => {
                     let newToken = tokenRefreshResponse.data.accessToken
                     store.dispatch(refreshAccessToken(newToken))

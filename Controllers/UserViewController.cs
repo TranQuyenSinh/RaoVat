@@ -49,7 +49,6 @@ public class UserViewController : ControllerBase
             Price = model.Price,
             CreatedAt = DateTime.Now,
         };
-
         model.GenreIds.ToList().ForEach(id =>
         {
             var genre = _context.Genres.Find(id);
@@ -63,6 +62,7 @@ public class UserViewController : ControllerBase
         var adImages = new List<AdImage>();
         imageNames.ForEach(name => adImages.Add(new AdImage() { FileName = name }));
         newAd.Images = adImages;
+
 
         try
         {

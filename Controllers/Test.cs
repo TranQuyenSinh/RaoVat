@@ -25,6 +25,7 @@ public class Test : ControllerBase
         return Ok(_dbContext.Users.ToList());
     }
 
+
     // [HttpGet("seed-ads")]
     // public string SeedAds()
     // {

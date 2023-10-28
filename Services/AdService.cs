@@ -22,7 +22,9 @@ public class AdServices
         _logger = logger;
     }
 
+
     public ICollection<AdCardModel> GetCardAdsByProvince(int? index, string province, string genreSlug, int limit = 10)
+
     {
         var qr = _context.Ads
         .Include(x => x.Author)
@@ -31,6 +33,7 @@ public class AdServices
 
         if (province != "Toàn quốc")
             qr = qr.Where(x => x.Author.Province == province);
+
 
         var test1 = qr.ToList().Count();
 
@@ -50,6 +53,7 @@ public class AdServices
         var result = qr.OrderByDescending(x => x.CreatedAt)
                         .Skip(index.Value * limit)
                         .Take(limit)
+
                         .Select(ad => new AdCardModel(ad))
                         .ToList();
 
@@ -70,10 +74,12 @@ public class AdServices
     }
     public ICollection<AdCardModel> GetCardAdsSimilar(int? adId, int limit = 10)
     {
+
         var ad = _context.Ads
                 .Include(x => x.AdGenre)
                 .ThenInclude(x => x.Genre)
                 .FirstOrDefault(x => x.Id == adId.Value);
+
         if (ad == null)
             return null;
 
@@ -84,6 +90,7 @@ public class AdServices
         .Include(x => x.Images)
         .AsSplitQuery()
         .OrderByDescending(x => x.AdGenre.Count)
+
         .Select(ad => new AdCardModel(ad)).Take(limit);
 
         return qr.ToList();

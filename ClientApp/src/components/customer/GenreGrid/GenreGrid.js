@@ -32,7 +32,9 @@ export const GenreGrid = ({ genreSlug }) => {
             {genres &&
                 genres.length > 0 &&
                 genres.map((item, index) => (
+
                     <div onClick={() => navigate('/' + item.slug)} key={item.id} className='genre-item'>
+
                         <img src={item.image} alt='' />
                         <div className='genre-title'>{item.title}</div>
                     </div>

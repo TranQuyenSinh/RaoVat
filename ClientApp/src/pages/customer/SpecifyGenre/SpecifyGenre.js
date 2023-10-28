@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import Section from '../../components/customer/Section/Section'
-import Carousel from '../../components/customer/Carousel/Carousel'
-import { GenreGrid } from '../../components/customer/GenreGrid/GenreGrid'
-import LocationSelect from '../../components/customer/LocationSelect/LocationSelect'
+import Section from '../../../components/customer/Section/Section'
+import Carousel from '../../../components/customer/Carousel/Carousel'
+import { GenreGrid } from '../../../components/customer/GenreGrid/GenreGrid'
+import LocationSelect from '../../../components/customer/LocationSelect/LocationSelect'
 
 import { useSelector } from 'react-redux'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import GridAd from '../../components/customer/AdCard/GridAd'
-import { getLatestCardAds } from '../../services'
+import GridAd from '../../../components/customer/AdCard/GridAd'
+import { getLatestCardAds } from '../../../services'
 
-export const Home = () => {
+import { useParams } from 'react-router-dom'
+
+export const SpecifyGenre = () => {
     const carouselData = [
         {
             image: 'https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg',
@@ -28,13 +30,16 @@ export const Home = () => {
     const [index, setIndex] = useState(0)
 
     const { currentLocation } = useSelector(state => state.app)
+    const { genreSlug } = useParams()
 
     const fetchMoreAds = async () => {
         if (index !== -1) {
-            let { data } = await getLatestCardAds(index, currentLocation)
+            console.log(genreSlug)
+            let { data } = await getLatestCardAds(index, currentLocation, genreSlug)
             if (data && data.length > 0) {
                 index === 0 ? setLatestAds(data) : setLatestAds([...latestAds, ...data])
             } else {
+                // Hết data
                 setIndex(-1)
                 index === 0 && setLatestAds([])
             }
@@ -49,10 +54,6 @@ export const Home = () => {
         if (index === 0) fetchMoreAds()
         else setIndex(0)
     }, [currentLocation])
-
-    const loadMoreAd = () => {
-        setIndex(index + 1)
-    }
 
     return (
         <>
@@ -69,7 +70,7 @@ export const Home = () => {
             <Section>
                 <div className='section-title'>Danh mục nổi bật</div>
                 <div className='section-content '>
-                    <GenreGrid />
+                    <GenreGrid genreSlug={genreSlug} />
                 </div>
             </Section>
             <Section>
@@ -78,7 +79,7 @@ export const Home = () => {
                     <GridAd data={latestAds} />
                 </div>
                 {index !== -1 && (
-                    <div onClick={loadMoreAd} className='section-link'>
+                    <div onClick={() => setIndex(index + 1)} className='section-link'>
                         Xem thêm
                     </div>
                 )}

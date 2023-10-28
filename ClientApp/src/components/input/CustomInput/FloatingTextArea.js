@@ -1,4 +1,4 @@
-import React, { useId, useRef, useState } from 'react'
+import React, { useId } from 'react'
 import './FloatingTextArea.scss'
 
 const FloatingTextArea = ({ label, className, required, height = '150px', errorMessage, ...others }) => {

@@ -51,7 +51,7 @@ namespace App.Models
         public virtual ICollection<User>? Followers { get; set; }
         public virtual ICollection<User>? Followed { get; set; }
 
-        public virtual ICollection<Ad>? FavoriteAds { get; set; }
+        public virtual ICollection<User_Ad_Favorite>? UserAd { get; set; }
         // Own ads
         public virtual ICollection<Ad>? OwnAds { get; set; }
 

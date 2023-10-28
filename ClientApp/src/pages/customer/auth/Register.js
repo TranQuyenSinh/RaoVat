@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { registerGuest, registerGuestInit } from '../../../redux/user/user.actions'
@@ -22,7 +22,7 @@ export const Register = props => {
 
     useEffect(() => {
         if (isLoggedIn) navigate('/')
-    }, [isLoggedIn])
+    }, [isLoggedIn, navigate])
 
     useEffect(() => {
         dispatch(registerGuestInit())
@@ -31,7 +31,7 @@ export const Register = props => {
         return () => {
             document.removeEventListener('keydown', handleKeyDown)
         }
-    }, [])
+    }, [dispatch])
 
     const handleRegister = async () => {
         let { fullname, email, password } = formData
@@ -65,7 +65,7 @@ export const Register = props => {
                         {registerErrorMessage && (
                             <div className='my-2 error-box'>
                                 <FontAwesomeIcon className='danger-icon' icon={faExclamationTriangle} />
-                                <span>{registerErrorMessage}</span>
+                                <span>{typeof registerErrorMessage === 'string' && registerErrorMessage}</span>
                             </div>
                         )}
 

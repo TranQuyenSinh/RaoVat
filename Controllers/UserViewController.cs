@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using App.Services;
 using App.RequestModels;
 using App.Utils;
+using System.Data.SqlClient;
 
 namespace App.Controllers;
 
@@ -48,17 +49,30 @@ public class UserViewController : ControllerBase
             Price = model.Price,
             CreatedAt = DateTime.Now,
         };
-
-        var genres = _context.Genres.Where(x => model.GenreIds.Contains(x.Id)).ToList();
-        newAd.Genres = genres;
+        model.GenreIds.ToList().ForEach(id =>
+        {
+            var genre = _context.Genres.Find(id);
+            if (genre != null)
+            {
+                _context.AdGenre.Add(new AdGenre() { Genre = genre, Ad = newAd });
+            }
+        });
 
         List<string> imageNames = CommonUtils.UploadImage(model.Images);
         var adImages = new List<AdImage>();
         imageNames.ForEach(name => adImages.Add(new AdImage() { FileName = name }));
         newAd.Images = adImages;
 
-        _context.Ads.Add(newAd);
-        _context.SaveChanges();
+
+        try
+        {
+            _context.Ads.Add(newAd);
+            _context.SaveChanges();
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Lỗi dữ liệu, vui lòng thử lại!");
+        }
 
         return Ok("Success!");
     }

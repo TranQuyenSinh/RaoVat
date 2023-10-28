@@ -40,8 +40,8 @@ namespace App.Models
 
         public byte AprovedStatus { get; set; } = 0;
 
-        public virtual ICollection<Genre> Genres { get; set; }
-        public virtual ICollection<User>? LikedUsers { get; set; }
+        public virtual ICollection<AdGenre> AdGenre { get; set; }
+        public virtual ICollection<User_Ad_Favorite>? UserAd { get; set; }
         public virtual ICollection<AdImage>? Images { get; set; }
 
     }

@@ -4,6 +4,7 @@ using App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231023104559_deletebahavior_user_ad_favor")]
+    partial class deletebahavior_user_ad_favor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -362,18 +365,14 @@ namespace Server.Migrations
                             Id = 1,
                             Address = "5M2",
                             Avatar = "customerAvatar.jpg",
-
                             CreatedAt = new DateTime(2023, 10, 23, 17, 45, 59, 489, DateTimeKind.Local).AddTicks(2391),
-
                             DateOfBirth = new DateTime(2002, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "ABC",
                             District = "Thành phố Long Xuyên",
                             Email = "admin@gmail.com",
                             FullName = "Trần Quyền Sinh",
                             Gender = true,
-
                             Password = "SAsBA+VWn6ugXQTEo4q9fNJgyohrMtUaYn5I3lj7dtiMlCvN",
-
                             Phone = "0818283714",
                             Province = "Tỉnh An Giang",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -385,18 +384,14 @@ namespace Server.Migrations
                             Id = 2,
                             Address = "60C",
                             Avatar = "customerAvatar.jpg",
-
                             CreatedAt = new DateTime(2023, 10, 23, 17, 45, 59, 493, DateTimeKind.Local).AddTicks(6229),
-
                             DateOfBirth = new DateTime(2002, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "XYZ",
                             District = "Thành phố Long Xuyên",
                             Email = "censor@gmail.com",
                             FullName = "Hồ Minh Nguyên",
                             Gender = true,
-
                             Password = "xU1KfgXlMVrEPMSNqG5Ozq4RB+NcRoDCZ/C04N54NIW55qUr",
-
                             Phone = "0913615294",
                             Province = "Tỉnh An Giang",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -408,18 +403,14 @@ namespace Server.Migrations
                             Id = 3,
                             Address = "30/12A",
                             Avatar = "customerAvatar.jpg",
-
                             CreatedAt = new DateTime(2023, 10, 23, 17, 45, 59, 498, DateTimeKind.Local).AddTicks(2868),
-
                             DateOfBirth = new DateTime(2002, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "ABCXYZ",
                             District = "Thành phố Rạch Giá",
                             Email = "guest@gmail.com",
                             FullName = "Nguyễn Thị Kim Nguyệt",
                             Gender = false,
-
                             Password = "xlpuOHJ01/WOfEN8y+e26Ic2a7YRmctv46X0hscxNQ8qi/k3",
-
                             Phone = "0941482144",
                             Province = "Tỉnh Kiên Giang",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),

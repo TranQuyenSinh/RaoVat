@@ -22,7 +22,9 @@ public class AdServices
         _logger = logger;
     }
 
-    public ICollection<AdCardModel> GetCardAdsByProvince(int? currentIndex, string province, int limit = 10)
+
+    public ICollection<AdCardModel> GetCardAdsByProvince(int? index, string province, string genreSlug, int limit = 10)
+
     {
         var qr = _context.Ads
         .Include(x => x.Author)
@@ -32,9 +34,26 @@ public class AdServices
         if (province != "Toàn quốc")
             qr = qr.Where(x => x.Author.Province == province);
 
-        var result = qr.Skip(currentIndex.Value * limit)
+
+        var test1 = qr.ToList().Count();
+
+        if (!string.IsNullOrEmpty(genreSlug))
+        {
+            var genre = _context.Genres.Where(x => x.Slug == genreSlug).FirstOrDefault();
+
+            if (genre != null)
+            {
+                qr = qr.Include(x => x.AdGenre)
+                        .Where(x => x.AdGenre.Any(ag => ag.GenreId == genre.Id));
+            }
+        }
+
+        var test2 = qr.ToList().Count();
+
+        var result = qr.OrderByDescending(x => x.CreatedAt)
+                        .Skip(index.Value * limit)
                         .Take(limit)
-                        .OrderByDescending(x => x.CreatedAt)
+
                         .Select(ad => new AdCardModel(ad))
                         .ToList();
 
@@ -55,17 +74,23 @@ public class AdServices
     }
     public ICollection<AdCardModel> GetCardAdsSimilar(int? adId, int limit = 10)
     {
-        var ad = _context.Ads.Include(x => x.Genres).FirstOrDefault(x => x.Id == adId.Value);
+
+        var ad = _context.Ads
+                .Include(x => x.AdGenre)
+                .ThenInclude(x => x.Genre)
+                .FirstOrDefault(x => x.Id == adId.Value);
+
         if (ad == null)
             return null;
 
         var qr = _context.Ads
-        .Include(x => x.Genres)
-        .Where(x => x.Genres.All(genre => ad.Genres.Contains(genre)))
+        .Include(x => x.AdGenre)
+        .Where(x => x.AdGenre.All(genre => ad.AdGenre.Contains(genre)))
         .Include(x => x.Author)
         .Include(x => x.Images)
         .AsSplitQuery()
-        .OrderByDescending(x => x.Genres.Count)
+        .OrderByDescending(x => x.AdGenre.Count)
+
         .Select(ad => new AdCardModel(ad)).Take(limit);
 
         return qr.ToList();
@@ -76,7 +101,7 @@ public class AdServices
         var qr = _context.Ads
         .Where(x => x.Id == adId)
         .Include(x => x.Images)
-        .Include(x => x.LikedUsers)
+        .Include(x => x.UserAd)
         .Include(x => x.Author)
         .ThenInclude(author => author.Followers)
         .Select(ad => new DetailAdModel(ad, userId));

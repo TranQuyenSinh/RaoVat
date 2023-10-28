@@ -38,21 +38,28 @@ namespace App.Data
                 );
 
             // many to many: Ads - Users (Favorite Ads of User)
-            builder.Entity<Ad>()
-                .HasMany<User>(a => a.LikedUsers)
-                .WithMany(c => c.FavoriteAds)
-                .UsingEntity<User_Ad_Favorite>(
-                    left => left.HasOne<User>().WithMany().OnDelete(DeleteBehavior.NoAction),
-                    right => right.HasOne<Ad>().WithMany().OnDelete(DeleteBehavior.NoAction)
-                );
+            builder.Entity<User_Ad_Favorite>()
+                .HasOne(ua => ua.Ad)
+                .WithMany(a => a.UserAd)
+                .HasForeignKey(ua => ua.AdId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<User_Ad_Favorite>()
+                .HasOne(ua => ua.User)
+                .WithMany(g => g.UserAd)
+                .HasForeignKey(ua => ua.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             // many to many: Ads - Genres (Genres of Ad)
-            builder.Entity<Ad>()
-                .HasMany<Genre>(x => x.Genres)
-                .WithMany(x => x.Ads)
-                .UsingEntity<AdGenre>(
-                    left => left.HasOne<Genre>().WithMany(),
-                    right => right.HasOne<Ad>().WithMany());
+            builder.Entity<AdGenre>()
+               .HasOne(ag => ag.Ad)
+               .WithMany(a => a.AdGenre)
+               .HasForeignKey(ag => ag.AdId);
+
+            builder.Entity<AdGenre>()
+                .HasOne(ag => ag.Genre)
+                .WithMany(g => g.AdGenre)
+                .HasForeignKey(ag => ag.GenreId);
 
             // one to many: User - Ads (Ads of User)
             builder.Entity<User>()

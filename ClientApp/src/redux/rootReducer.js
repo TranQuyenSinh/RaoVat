@@ -2,7 +2,6 @@ import { combineReducers } from 'redux'
 import persistReducer from 'redux-persist/es/persistReducer'
 import storage from 'redux-persist/lib/storage'
 
-import test from './test'
 import app from './app'
 import user from './user'
 
@@ -24,7 +23,6 @@ const userPersistConfig = {
 }
 
 export default combineReducers({
-    test,
     app: persistReducer(appPersistConfig, app),
     user: persistReducer(userPersistConfig, user),
 })

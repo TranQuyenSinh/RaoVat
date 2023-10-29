@@ -91,8 +91,6 @@ public class AuthController : ControllerBase
     {
         string accessToken = model.AccessToken;
         string refreshToken = model.RefreshToken;
-        Console.WriteLine("Access token: {0}", accessToken);
-        Console.WriteLine("Refresh token: {0}", refreshToken);
         if (string.IsNullOrEmpty(accessToken) || string.IsNullOrEmpty(refreshToken))
         {
             return BadRequest("Invalid client request");

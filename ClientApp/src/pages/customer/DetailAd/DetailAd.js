@@ -37,7 +37,6 @@ const DetailAd = () => {
             let { data } = await getDetailAd(adId, currentUser?.id)
             if (data) {
                 setDetailAd(data)
-                console.log(data)
                 setIsFavorite(data.isFavorite)
                 setIsLoadingDetail(false)
             } else {

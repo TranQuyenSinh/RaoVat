@@ -88,8 +88,8 @@ public class AuthService
         var token = new JwtSecurityToken(
             issuer: issuer,
             audience: audience,
-            // expires: DateTime.UtcNow.Add(TimeSpan.FromHours(accessTokenValidityInHours)),
-            expires: DateTime.UtcNow.Add(TimeSpan.FromSeconds(10)),
+            expires: DateTime.UtcNow.Add(TimeSpan.FromHours(accessTokenValidityInHours)),
+            // expires: DateTime.UtcNow.Add(TimeSpan.FromSeconds(10)),
             claims: claims,
             signingCredentials: creds
         );
@@ -105,8 +105,8 @@ public class AuthService
         var refreshToken = Convert.ToBase64String(randomNumber);
 
         user.RefreshToken = refreshToken;
-        // user.RefreshTokenExpiryTime = DateTime.Now.AddDays(refreshTokenValidityInDays);
-        user.RefreshTokenExpiryTime = DateTime.Now.AddSeconds(30);
+        user.RefreshTokenExpiryTime = DateTime.Now.AddDays(refreshTokenValidityInDays);
+        // user.RefreshTokenExpiryTime = DateTime.Now.AddSeconds(30);
         _context.SaveChanges();
 
         return refreshToken;

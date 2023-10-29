@@ -11,6 +11,12 @@ const SearchBar = () => {
     const [searchResult, setSearchResult] = useState([])
     const navigate = useNavigate()
 
+    const handleSearch = e => {
+        if (e.keyCode === 13) {
+            navigate(`search?q=${searchInput}`)
+        }
+    }
+
     return (
         <div className='searchbar-container'>
             <div
@@ -20,6 +26,7 @@ const SearchBar = () => {
                 <input
                     value={searchInput}
                     onChange={e => setSearchInput(e.target.value)}
+                    onKeyDown={handleSearch}
                     autoComplete='off'
                     type='search'
                     placeholder='Tìm kiếm sản phẩm'
@@ -49,7 +56,7 @@ const SearchBar = () => {
                                     <FontAwesomeIcon className='me-2' icon={faClock} />
                                     <strong>Tìm kiếm gần đây</strong>
                                 </div>
-                                <Link to='/' className='recent-search__item'>
+                                <Link to={`search?q=sach`} className='recent-search__item'>
                                     Sách
                                 </Link>
                             </>

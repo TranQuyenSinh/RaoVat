@@ -241,7 +241,7 @@ const PostAdForm = () => {
                                         name='status'
                                         value={0}
                                         onChange={onChangeInput}
-                                        checked={formData.status === 0}>
+                                        checked={+formData.status === 0}>
                                         Đã sử dụng
                                     </OutlineRadioButton>
                                     <OutlineRadioButton
@@ -249,7 +249,7 @@ const PostAdForm = () => {
                                         name='status'
                                         value={1}
                                         onChange={onChangeInput}
-                                        checked={formData.status === 1}>
+                                        checked={+formData.status === 1}>
                                         Mới
                                     </OutlineRadioButton>
                                 </div>

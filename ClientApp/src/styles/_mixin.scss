@@ -9,3 +9,8 @@
     align-items    : center;
     justify-content: space-between;
 }
+
+@mixin price-font {
+    color      : $redcolor !important;
+    font-weight: bold !important;
+}

@@ -30,10 +30,10 @@ const NavMenu = () => {
     }
     return (
         <div className='navmenu'>
-            <div className='navmenu__item'>
+            <Link to={'/quan-ly-tin'} className='navmenu__item'>
                 <FontAwesomeIcon icon={faNewspaper} />
                 <span>Tin của bạn</span>
-            </div>
+            </Link>
             {isLoggedIn ? (
                 <div className='navmenu__item user_info dropdown'>
                     <div data-bs-toggle='dropdown' className=''>

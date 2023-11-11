@@ -104,7 +104,7 @@ const SearchAd = () => {
                                         <div className='title'>
                                             <span>{item.title}</span>
                                         </div>
-                                        <div className='price'>{formatNumber(item.price)} đ</div>
+                                        <div className='price'>{formatNumber(item.price)}</div>
                                     </div>
                                     <div className='bottom'>
                                         <div className='location'>

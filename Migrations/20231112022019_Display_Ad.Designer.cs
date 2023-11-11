@@ -4,6 +4,7 @@ using App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231112022019_Display_Ad")]
+    partial class Display_Ad
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,9 +70,6 @@ namespace Server.Migrations
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
-
-                    b.Property<string>("RejectReason")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
@@ -368,14 +368,14 @@ namespace Server.Migrations
                             Id = 1,
                             Address = "5M2",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 11, 13, 18, 55, 2, 300, DateTimeKind.Local).AddTicks(3288),
+                            CreatedAt = new DateTime(2023, 11, 12, 9, 20, 18, 973, DateTimeKind.Local).AddTicks(7677),
                             DateOfBirth = new DateTime(2002, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "ABC",
                             District = "Thành phố Long Xuyên",
                             Email = "admin@gmail.com",
                             FullName = "Trần Quyền Sinh",
                             Gender = true,
-                            Password = "fZUXCj2fj3PrCxNsPAs7IIKSJ2o1HsqhIx7BrBJkc3Oiuc0w",
+                            Password = "8pdeBGbDfkR+1Cl0vb0KFIUkCBQM1hTrkYNPiXAarJDnB4fG",
                             Phone = "0818283714",
                             Province = "Tỉnh An Giang",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -387,14 +387,14 @@ namespace Server.Migrations
                             Id = 2,
                             Address = "60C",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 11, 13, 18, 55, 2, 304, DateTimeKind.Local).AddTicks(2373),
+                            CreatedAt = new DateTime(2023, 11, 12, 9, 20, 18, 977, DateTimeKind.Local).AddTicks(4806),
                             DateOfBirth = new DateTime(2002, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "XYZ",
                             District = "Thành phố Long Xuyên",
                             Email = "censor@gmail.com",
                             FullName = "Hồ Minh Nguyên",
                             Gender = true,
-                            Password = "0nL2jGwM1Vglzii98kXPtLf2zgvJFfBsJWugCf1Nh7aNz6nr",
+                            Password = "GMQ8CiRbnSN+6o7t5l8jqssKGfrTv/CLPilMEnbjhqCoJ7DD",
                             Phone = "0913615294",
                             Province = "Tỉnh An Giang",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -406,14 +406,14 @@ namespace Server.Migrations
                             Id = 3,
                             Address = "30/12A",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 11, 13, 18, 55, 2, 308, DateTimeKind.Local).AddTicks(782),
+                            CreatedAt = new DateTime(2023, 11, 12, 9, 20, 18, 981, DateTimeKind.Local).AddTicks(5420),
                             DateOfBirth = new DateTime(2002, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "ABCXYZ",
                             District = "Thành phố Rạch Giá",
                             Email = "guest@gmail.com",
                             FullName = "Nguyễn Thị Kim Nguyệt",
                             Gender = false,
-                            Password = "7w/RGRiFDGBDQg49Ri+yu8ZHEMuawsJtz+D+d85vcCcnOS0a",
+                            Password = "y0KR+bWoxA415hC6HowIvTMfelW4FhSn4U1VMP6j/INTBngR",
                             Phone = "0941482144",
                             Province = "Tỉnh Kiên Giang",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),

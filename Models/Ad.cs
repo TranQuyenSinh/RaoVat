@@ -27,18 +27,21 @@ namespace App.Models
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        public DateTime ExpireAt { get; set; } = DateTime.Now.AddDays(10);
+        public DateTime ExpireAt { get; set; } = DateTime.Now.AddDays(14);
 
         public int AuthorId { get; set; }
         public User Author { get; set; }
 
         /* ================ Aprove information ================ */
+        public string? RejectReason { get; set; }
         public int? AprovedUserId { get; set; }
         public User? ApovedUser { get; set; }
 
         public DateTime? AprovedAt { get; set; }
 
+        // 0: chưa kiểm duyệt, 1: đã kiểm duyệt, 2: đã từ chối
         public byte AprovedStatus { get; set; } = 0;
+        public bool Display { get; set; } = true;
 
         public virtual ICollection<AdGenre> AdGenre { get; set; }
         public virtual ICollection<User_Ad_Favorite>? UserAd { get; set; }

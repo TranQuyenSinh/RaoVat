@@ -34,9 +34,8 @@
             }
 
             &--price {
-                color      : $redcolor !important;
-                font-weight: bold;
-                margin-top : 3px;
+                @include price-font();
+                margin-top: 3px;
             }
         }
 

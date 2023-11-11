@@ -1,5 +1,5 @@
 @import './base';
-
+@import './customBootstrap';
 
 * {
     font-family: Helvetica, Arial, sans-serif;
@@ -117,6 +117,11 @@ ul {
     &.solid-blue {
         border-color    : $bluecolor !important;
         background-color: $bluecolor !important;
+    }
+
+    &.solid-green {
+        border-color    : $greencolor !important;
+        background-color: $greencolor !important;
     }
 }
 
@@ -240,5 +245,32 @@ ul {
 
     &.slick-disabled {
         display: none !important;
+    }
+}
+
+// react-tabs custom
+.react-tabs {
+    &__tab-list {
+        border-bottom: 1px solid black;
+        margin-bottom: 20px;
+    }
+
+    &__tab {
+        color         : $graycolor;
+        padding       : 3px 12px;
+        font-size     : 13px;
+        font-weight   : bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+
+        &:focus::after {
+            background: none;
+        }
+
+        &--selected {
+            border       : none;
+            color        : $textcolor;
+            border-bottom: 5px solid $maincolor-dark;
+        }
     }
 }

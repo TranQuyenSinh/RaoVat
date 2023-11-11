@@ -13,4 +13,8 @@
 @mixin price-font {
     color      : $redcolor !important;
     font-weight: bold !important;
+
+    &::after {
+        content: ' đ';
+    }
 }

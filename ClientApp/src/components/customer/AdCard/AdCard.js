@@ -14,7 +14,7 @@ const AdCard = ({ ad }) => {
                         <div className='adcard__image' style={{ backgroundImage: `url(${ad.thumbnail})` }}></div>
                         <div className='adcard__content'>
                             <div className='adcard__content--title'>{ad.title}</div>
-                            <div className='adcard__content--price'>{formatNumber(ad.price)} đ</div>
+                            <div className='adcard__content--price'>{formatNumber(ad.price)}</div>
                         </div>
                         <div className='adcard__footer'>
                             <FontAwesomeIcon icon={faLocationDot} size='sm' className='me-1' />

@@ -4,14 +4,23 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import Section from '../../../components/customer/Section/Section'
 
+import no_avatar from '../../../assets/images/no_avatar.png'
+
 import './ManageAd.scss'
+import { useDispatch, useSelector } from 'react-redux'
+import DisplayAds from './DisplayAds'
 const ManageAd = () => {
+    const dispatch = useDispatch()
+    const { currentUser, isLoggedIn } = useSelector(state => state.user)
     return (
         <Section className='manage-ad-container'>
-            <div className='user-info'></div>
+            <div className='user'>
+                <img src={currentUser?.avatar || no_avatar} className='user__avatar' alt='' />
+                <span className='fw-bold ms-2 fs-5'>{currentUser?.fullName}</span>
+            </div>
             <Tabs>
                 <TabList>
-                    <Tab>Đang hiển thị (1)</Tab>
+                    <Tab>Tin đang hiển thị (1)</Tab>
                     <Tab>Hết hạn (0)</Tab>
                     <Tab>Bị từ chối (0)</Tab>
                     <Tab>Chờ duyệt (0)</Tab>
@@ -19,7 +28,7 @@ const ManageAd = () => {
                 </TabList>
 
                 <TabPanel>
-                    <h2>Danh sách tin Đang hiển thị</h2>
+                    <DisplayAds />
                 </TabPanel>
                 <TabPanel>
                     <h2>Danh sách tin Hết hạn</h2>

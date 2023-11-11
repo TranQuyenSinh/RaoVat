@@ -1,0 +1,51 @@
+@import '../../../styles/variables';
+
+.display-ads-container {
+    .ad-list {
+        .ad-item {
+            padding      : 12px 0;
+            border-bottom: 1px solid grey;
+
+            &:last-child {
+                border: none;
+            }
+
+            .ad-item-info {
+                display       : flex;
+                flex-direction: column;
+                gap           : 5px;
+            }
+
+            &__image {
+                width        : 150px;
+                height       : 150px;
+                border-radius: 5px;
+            }
+
+            &__title {
+                font-weight: bold;
+            }
+
+            &__price {
+                @include price-font();
+            }
+
+            &__location,
+            &__createdAt,
+            &__expireAt {
+                color    : $mutedcolor;
+                font-size: 13px !important;
+
+                &--black {
+                    color    : $textcolor;
+                    font-size: 13px;
+                }
+            }
+
+            .btn {
+                box-shadow: none !important;
+            }
+
+        }
+    }
+}

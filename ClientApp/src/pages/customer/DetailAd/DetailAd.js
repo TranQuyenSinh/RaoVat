@@ -35,7 +35,7 @@ const DetailAd = () => {
     const [photoIndex, setPhotoIndex] = useState(0)
 
     useEffect(() => {
-        const fetchAds = async () => {
+        ;(async () => {
             window.scrollTo(0, 0)
             setIsLoadingDetail(true)
             let { data } = await getDetailAd(adId, currentUser?.id)
@@ -43,10 +43,11 @@ const DetailAd = () => {
                 setDetailAd(data)
                 setIsFavorite(data.isFavorite)
                 setIsLoadingDetail(false)
+                document.title = data.title
+                console.log(data)
             } else {
             }
-        }
-        fetchAds()
+        })()
     }, [adId])
 
     const toggleLightBox = () => {

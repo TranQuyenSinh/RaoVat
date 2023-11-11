@@ -29,6 +29,10 @@ export const Home = () => {
 
     const { currentLocation } = useSelector(state => state.app)
 
+    useEffect(() => {
+        document.title = 'Rao vặt - Website mua bán, đăng tin rao'
+    })
+
     const fetchMoreAds = async () => {
         if (index !== -1) {
             let { data } = await getLatestCardAds(index, currentLocation)

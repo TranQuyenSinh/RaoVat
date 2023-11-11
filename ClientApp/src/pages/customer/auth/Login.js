@@ -24,6 +24,7 @@ export const Login = props => {
     }, [isLoggedIn])
 
     useEffect(() => {
+        document.title = 'Rao vặt - Đăng nhập'
         document.addEventListener('keydown', handleKeyDown)
         return () => {
             document.removeEventListener('keydown', handleKeyDown)
@@ -53,7 +54,7 @@ export const Login = props => {
             <div className='login-container'>
                 <div className='login-content row'>
                     {/* Logo App */}
-                    <div className='col-12 text-center'>
+                    <div onClick={() => navigate('/')} className='col-12 text-center' style={{ cursor: 'pointer' }}>
                         <img src={logo} className=' w-25 my-2' />
                     </div>
                     {/* Error message */}

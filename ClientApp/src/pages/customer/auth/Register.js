@@ -21,6 +21,10 @@ export const Register = props => {
     const { isLoggedIn, registerErrorMessage } = useSelector(state => state.user)
 
     useEffect(() => {
+        document.title = 'Rao vặt - Đăng ký'
+    }, [])
+
+    useEffect(() => {
         if (isLoggedIn) navigate('/')
     }, [isLoggedIn, navigate])
 
@@ -57,7 +61,7 @@ export const Register = props => {
                 <div className='register-container'>
                     <div className='register-content'>
                         {/* Logo App */}
-                        <div className='text-center'>
+                        <div onClick={() => navigate('/')} style={{ cursor: 'pointer' }} className='text-center'>
                             <img src={logo} className='w-25 my-2' />
                         </div>
 

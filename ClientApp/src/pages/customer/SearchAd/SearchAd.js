@@ -66,6 +66,11 @@ const SearchAd = () => {
     useEffect(() => {
         searchProduct()
     }, [filter, currentLocation, currentPage, keyword])
+
+    useEffect(() => {
+        document.title = 'Tìm kiếm: ' + keyword
+    }, [keyword])
+
     return (
         <>
             <FilterBar onSubmit={handleFilter} />

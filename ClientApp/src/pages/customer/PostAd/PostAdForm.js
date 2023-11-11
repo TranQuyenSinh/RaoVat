@@ -41,6 +41,7 @@ const PostAdForm = () => {
     const [isOpenGenreModal, setIsOpenGenreModal] = useState(false)
 
     useEffect(() => {
+        document.title = 'Rao vặt - Đăng tin'
         dispatch(checkUserIsLoggedIn())
     }, [])
 

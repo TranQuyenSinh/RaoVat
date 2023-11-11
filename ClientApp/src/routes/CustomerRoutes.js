@@ -4,6 +4,7 @@ import DetailAd from '../pages/customer/DetailAd/DetailAd'
 import PostAdForm from '../pages/customer/PostAd/PostAdForm'
 import { SpecifyGenre } from '../pages/customer/SpecifyGenre/SpecifyGenre'
 import SearchAd from '../pages/customer/SearchAd/SearchAd'
+import ManageAd from '../pages/customer/ManageAd/ManageAd'
 
 export const CustomerPublicRoutes = [
     {
@@ -32,5 +33,9 @@ export const CustomerPrivateRoutes = [
     {
         path: 'dang-tin',
         element: <PostAdForm />,
+    },
+    {
+        path: 'quan-ly-tin',
+        element: <ManageAd />,
     },
 ]

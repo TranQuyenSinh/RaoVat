@@ -14,7 +14,6 @@ export const postAd = data => {
             formData.append([key], data[key])
         }
     })
-    console.log(data.images)
     return axios.post(userApi.postAd, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',

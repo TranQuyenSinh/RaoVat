@@ -164,7 +164,6 @@ const PostAdForm = () => {
                 genreIds: [...genres.map(genre => genre.id)],
                 images: [...images.map(item => item.file)],
             }
-            console.log(data)
             try {
                 await postAd(data)
                 toast.success('Đăng tin thành công')

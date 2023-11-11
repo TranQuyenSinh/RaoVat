@@ -61,13 +61,15 @@ authAxios.interceptors.response.use(
 axios.interceptors.response.use(
     response => response,
     error => {
-        let { data } = error.response
+        let data = error.response?.data
+        if (!data) return Promise.reject(error)
+
         if (typeof data === 'string') {
             return Promise.reject(data)
         }
         if (typeof data === 'object') {
             let { errors, status } = data
-            if (Object.keys(errors).length > 0 && status === 400) {
+            if (errors && Object.keys(errors).length > 0 && status === 400) {
                 let errorMessage = Object.keys(errors)
                     .map(key => errors[key].join('\r\n'))
                     .join(`\r\n`)

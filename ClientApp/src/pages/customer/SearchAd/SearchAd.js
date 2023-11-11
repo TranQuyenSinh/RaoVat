@@ -1,53 +1,122 @@
-import React, { useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import './SearchAd.scss'
 import FilterBar from './FilterBar'
 import Section from '../../../components/customer/Section/Section'
-import { formatNumber } from '../../../utils'
+import { formatNumber, moment } from '../../../utils'
+import { searchAd } from '../../../services'
+import { useSelector } from 'react-redux'
+import Pagination from '../../../components/pagination/Pagination'
+import { saveAdToFavorite } from '../../../services'
+import { toast } from 'react-toastify'
+
 const SearchAd = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     const keyword = searchParams.get('q') || ''
+    const [filter, setFilter] = useState()
+    const { currentLocation } = useSelector(state => state.app)
+    const { isLoggedIn, currentUser } = useSelector(state => state.user)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [totalCount, setTotalCount] = useState(0)
+    const navigate = useNavigate()
 
     const [ads, setAds] = useState([])
 
-    const searchProduct = async () => {}
+    const searchProduct = async () => {
+        let search
+        if (filter) {
+            let { genres, prices, order } = filter
+            search = { keyword, prices, location: currentLocation, order, genres }
+        } else {
+            search = { keyword, location: currentLocation }
+        }
+        let {
+            data: { data, totalCount },
+        } = await searchAd(search, currentPage - 1, currentUser?.id)
+        setTotalCount(totalCount)
+        setAds(data)
+    }
 
     const handleFilter = filter => {
-        console.log(filter)
+        setFilter(filter)
     }
+
+    const handleSaveAd = async (e, item, isFavorite) => {
+        e.stopPropagation()
+        if (!isLoggedIn) {
+            navigate('/login')
+            return
+        }
+        try {
+            await saveAdToFavorite(currentUser?.id, item.id)
+            const index = ads.findIndex(ad => ad.id === item.id)
+            const cpyAds = [...ads]
+            cpyAds[index].isFavorite = isFavorite
+            setAds(cpyAds)
+            toast.success(isFavorite ? 'Đã lưu tin' : 'Đã bỏ lưu tin')
+        } catch (e) {
+            toast.error('Có lỗi xảy ra, vui lòng thử lại')
+        }
+    }
+
+    useEffect(() => {
+        setCurrentPage(1)
+    }, [filter])
+
+    useEffect(() => {
+        searchProduct()
+    }, [filter, currentLocation, currentPage, keyword])
     return (
         <>
             <FilterBar onSubmit={handleFilter} />
+            <Pagination
+                className='pagination'
+                currentPage={currentPage}
+                totalCount={totalCount}
+                pageSize={10}
+                siblingCount={2}
+                onPageChange={page => setCurrentPage(page)}
+            />
             <div className='search-container'>
                 <div className='mt-2 mb-3 fw-bold'>Tìm kiếm với từ khóa: {keyword}</div>
                 <Section className='search-list-container'>
-                    {[...Array(10)].map(item => (
-                        <div className='product-item'>
-                            <div className='product-image-wrapper'>
-                                <img src='https://cdn.chotot.com/6MAungRig4jsZVlBjLRqJk5ObXUctpBtJFjoFBQopa4/preset:listing/plain/c201aeca4a8a680733743e68a4c482e2-2850289871203688576.webp' />
-                                {/* <span className='status badge bg-warning'>Đã sử dụng</span> */}
-                                <span className='status badge bg-success'>Mới</span>
-                            </div>
-                            <div className='product-info'>
-                                <div className='top'>
-                                    <div className='title'>
-                                        <span>
-                                            loa it sd còn mới nguyên thùng, mackie dlm8 cs lớn 3 loa it sd còn mới
-                                            nguyên thùng, mackie dlm8 cs lớn
-                                        </span>
-                                    </div>
-                                    <div className='price'>{formatNumber('9500000')} đ</div>
+                    {ads?.length > 0 &&
+                        ads.map(item => (
+                            <div
+                                key={item.id}
+                                className='product-item'
+                                onClick={() => navigate('/tin-dang/' + item.id)}>
+                                <div className='product-image-wrapper'>
+                                    <img src={item.thumbnail} />
+                                    {item.status ? (
+                                        <span className='status badge bg-success'>Mới</span>
+                                    ) : (
+                                        <span className='status badge bg-warning'>Đã sử dụng</span>
+                                    )}
                                 </div>
-                                <div className='bottom'>
-                                    <div className='location'>
-                                        <i className='fa-regular fa-clock me-2'></i>6 Giờ Trước . Phường Mỹ Long
+                                <div className='product-info'>
+                                    <div className='top'>
+                                        <div className='title'>
+                                            <span>{item.title}</span>
+                                        </div>
+                                        <div className='price'>{formatNumber(item.price)} đ</div>
                                     </div>
-                                    {/* <i className='fa-solid fa-heart favorite-icon'></i> */}
-                                    <i className='fa-regular fa-heart favorite-icon'></i>
+                                    <div className='bottom'>
+                                        <div className='location'>
+                                            <i className='fa-regular fa-clock me-2'></i>
+                                            {moment(item.createdAt).fromNow()} . {item.district} - {item.province}
+                                        </div>
+                                        <i
+                                            onClick={e => handleSaveAd(e, item, !item.isFavorite)}
+                                            className={
+                                                item.isFavorite
+                                                    ? 'fa-solid fa-heart favorite-icon'
+                                                    : 'fa-regular fa-heart favorite-icon'
+                                            }></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
                 </Section>
             </div>
         </>

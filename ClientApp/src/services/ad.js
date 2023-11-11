@@ -24,3 +24,7 @@ export const saveAdToFavorite = (userId, adId) => {
 export const followShop = (userId, shopId) => {
     return authAxios.put(adApi.followShop, { userId, shopId })
 }
+
+export const searchAd = (filter, currentPage, userId = null) => {
+    return axios.post(adApi.searchAd, { ...filter, userId, currentPage })
+}

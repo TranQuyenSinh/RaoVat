@@ -52,7 +52,7 @@ export const SpecifyGenre = () => {
     useEffect(() => {
         if (index === 0) fetchMoreAds()
         else setIndex(0)
-    }, [currentLocation])
+    }, [currentLocation, genreSlug])
 
     return (
         <>

@@ -6,7 +6,6 @@ import { axios } from '../../axios'
 
 export function* login(email, password) {
     try {
-        console.log('Hello')
         const { data } = yield axios.post('/api/login', {
             email,
             password,
@@ -19,7 +18,6 @@ export function* login(email, password) {
 
 // watcher/worker
 export function* onLogin(payload) {
-    console.log('hello')
     yield takeLatest(userTypes.LOGIN_START, login, payload)
 }
 

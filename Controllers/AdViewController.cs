@@ -1,10 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using App.Models;
 using App.Data;
-using Microsoft.EntityFrameworkCore;
 using App.Services;
 using App.RequestModels;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using SearchAdResponse = App.ResponseModels.SearchAdModel;
+using SearchAdRequest = App.RequestModels.SearchAdModel;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 
 namespace App.Controllers;
 
@@ -54,6 +59,19 @@ public class AdViewController : ControllerBase
     {
         var result = _adService.GetDetailAd(id, userId);
         return new JsonResult(result);
+    }
+
+    [HttpPost("search-ad")]
+    public IActionResult SearchAd([FromBody] SearchAdRequest model)
+    {
+        var (result, totalCount) = _adService.SearchAds(model, model.CurrentPage);
+
+        return new JsonResult(new
+        {
+            data = result,
+            currentPage = model.CurrentPage,
+            totalCount,
+        });
     }
 
     [HttpPut("save-ad-to-favorite")]

@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { getDetailAd, saveAdToFavorite, followShop } from '../../../services'
-import Section from '../../../components/customer/Section/Section'
-import './DetailAd.scss'
-import { formatNumber } from '../../../utils'
+
 import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import { adImagesCarouselConfigs } from '../../../components/carousel/carouselConfig'
-import CustomLightBox from '../../../components/customer/CustomLightBox/CustomLightBox'
-import OtherAds from './OtherAds'
-import SimilarAds from './SimilarAds'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
 import { BouncingBalls } from 'react-cssfx-loading'
+import { useParams, useNavigate } from 'react-router-dom'
+
+import OtherAds from './OtherAds'
+import SimilarAds from './SimilarAds'
 import { moment } from '../../../utils'
 import ShopSideBar from './ShopSideBar'
+import { formatNumber } from '../../../utils'
+import Section from '../../../components/customer/Section/Section'
+import { followShop, getDetailAd, saveAdToFavorite } from '../../../services'
+import { adImagesCarouselConfigs } from '../../../components/carousel/carouselConfig'
+import CustomLightBox from '../../../components/customer/CustomLightBox/CustomLightBox'
+
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+
+import './DetailAd.scss'
 
 const DetailAd = () => {
     const { adId } = useParams()

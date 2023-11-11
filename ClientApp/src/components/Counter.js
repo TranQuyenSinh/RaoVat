@@ -3,7 +3,6 @@ import { authAxios } from '../axios'
 export class Counter extends Component {
     async fetchData() {
         let { data } = await authAxios.get('/api/auth/users')
-        console.log(data)
     }
 
     render() {

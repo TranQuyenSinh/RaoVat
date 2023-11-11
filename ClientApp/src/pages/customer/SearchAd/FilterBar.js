@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
 import './FilterBar.scss'
 import LocationSelectModal from '../../../components/customer/LocationSelect/LocationSelectModal'
 import { useSelector } from 'react-redux'
@@ -12,7 +11,6 @@ const FilterBar = ({ onSubmit }) => {
     const [filter, setFilter] = useState({
         genres: undefined,
         order: undefined,
-        location: undefined,
         prices: undefined,
     })
 
@@ -22,10 +20,6 @@ const FilterBar = ({ onSubmit }) => {
     const [isOpenOrderModal, setIsOpenOrderModal] = useState(false)
 
     const { currentLocation } = useSelector(state => state.app)
-
-    useEffect(() => {
-        setFilter({ ...filter, location: currentLocation })
-    }, [currentLocation])
 
     const toggleLocationModal = () => {
         setIsOpenLocationModal(!isOpenLocationModal)

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
@@ -9,12 +9,27 @@ import no_avatar from '../../../assets/images/no_avatar.png'
 import './ManageAd.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import DisplayAds from './DisplayAds'
+import HiddenAds from './HiddenAds'
+import { getAdStatusCount } from '../../../services'
 const ManageAd = () => {
-    const dispatch = useDispatch()
-    const { currentUser, isLoggedIn } = useSelector(state => state.user)
+    const [statusCount, setStatusCount] = useState({
+        display: 0,
+        expired: 0,
+        rejected: 0,
+        waiting: 0,
+        hidden: 0,
+    })
 
+    const [hiddenAdCount, setHiddenAdCount] = useState(0)
+
+    const { currentUser, isLoggedIn } = useSelector(state => state.user)
+    const resetCount = async () => {
+        let { data } = await getAdStatusCount()
+        setStatusCount(data)
+    }
     useEffect(() => {
         document.title = 'Rao vặt - Quản lý tin'
+        resetCount()
     }, [])
     return (
         <Section className='manage-ad-container'>
@@ -24,15 +39,15 @@ const ManageAd = () => {
             </div>
             <Tabs>
                 <TabList>
-                    <Tab>Tin đang hiển thị (1)</Tab>
-                    <Tab>Hết hạn (0)</Tab>
-                    <Tab>Bị từ chối (0)</Tab>
-                    <Tab>Chờ duyệt (0)</Tab>
-                    <Tab>Đã ẩn (0)</Tab>
+                    <Tab>Tin đang hiển thị ({statusCount.display})</Tab>
+                    <Tab>Hết hạn ({statusCount.expired})</Tab>
+                    <Tab>Bị từ chối ({statusCount.rejected})</Tab>
+                    <Tab>Chờ duyệt ({statusCount.waiting})</Tab>
+                    <Tab>Đã ẩn ({statusCount.hidden})</Tab>
                 </TabList>
 
                 <TabPanel>
-                    <DisplayAds />
+                    <DisplayAds resetCount={resetCount} />
                 </TabPanel>
                 <TabPanel>
                     <h2>Danh sách tin Hết hạn</h2>
@@ -44,7 +59,7 @@ const ManageAd = () => {
                     <h2>Danh sách tin Chờ duyệt</h2>
                 </TabPanel>
                 <TabPanel>
-                    <h2>Danh sách tin Đã ẩn</h2>
+                    <HiddenAds resetCount={resetCount} />
                 </TabPanel>
             </Tabs>
         </Section>

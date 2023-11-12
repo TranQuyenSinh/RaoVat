@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 
 import ConfirmHideModal from './ConfirmHideModal'
 import { moment, formatNumber } from '../../../utils'
-import { hideAd, getDisplayAds } from '../../../services'
 import LoadingBalls from '../../../components/loading/LoadingBalls'
+import { hideAd, getHiddenAds } from '../../../services'
 import NotHaveAd from '../../../components/notfound/AdNotFound/NotHaveAd'
 
 const initialState = {
@@ -31,34 +31,25 @@ const reducer = (state, action) => {
     }
 }
 
-const DisplayAds = ({ resetCount }) => {
+const HiddenAds = ({ resetCount }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
 
-    const [isOpenModal, setIsOpenModal] = useState(false)
-    const [selectedAd, setSelectedAd] = useState()
-
-    const toggleModal = () => {
-        setIsOpenModal(!isOpenModal)
-    }
-    const handleHideAd = async () => {
+    const handleShowAd = async adId => {
         try {
-            await hideAd(selectedAd.id, true)
-            await fetchDisplayAds()
+            await hideAd(adId, false)
+            await fetchHiddenAds()
         } catch (e) {}
     }
-    const handleShowModal = item => {
-        toggleModal()
-        setSelectedAd(item)
-    }
-    const fetchDisplayAds = async () => {
+
+    const fetchHiddenAds = async () => {
         dispatch({ type: 'GET_AD_START' })
-        let { data } = await getDisplayAds()
+        let { data } = await getHiddenAds()
         dispatch({ type: 'GET_AD_SUCCESS', payload: data })
         resetCount()
     }
 
     useEffect(() => {
-        fetchDisplayAds()
+        fetchHiddenAds()
     }, [])
 
     return (
@@ -95,14 +86,11 @@ const DisplayAds = ({ resetCount }) => {
                                         </div>
                                     </div>
                                     <div className='text-end'>
-                                        <button className='btn btn-outline-secondary btn-sm fw-bold me-2'>
-                                            <i className='fa-regular fa-pen-to-square me-2'></i>Sửa tin
-                                        </button>
                                         <button
-                                            onClick={() => handleShowModal(item)}
-                                            className='btn btn-outline-secondary btn-sm fw-bold'>
-                                            <i className='fa-solid fa-eye-slash me-2'></i>
-                                            Ẩn tin
+                                            onClick={() => handleShowAd(item.id)}
+                                            className='btn btn-success bg-green border-0 fw-bold'>
+                                            <i className='fa-solid fa-eye me-2'></i>
+                                            Hiện tin lại
                                         </button>
                                     </div>
                                 </div>
@@ -113,9 +101,8 @@ const DisplayAds = ({ resetCount }) => {
                     </>
                 )}
             </div>
-            <ConfirmHideModal isOpen={isOpenModal} toggle={toggleModal} handleSubmit={handleHideAd} />
         </div>
     )
 }
 
-export default DisplayAds
+export default HiddenAds

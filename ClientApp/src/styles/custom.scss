@@ -118,6 +118,11 @@ ul {
         border-color    : $bluecolor !important;
         background-color: $bluecolor !important;
     }
+
+    &.solid-green {
+        border-color    : $greencolor !important;
+        background-color: $greencolor !important;
+    }
 }
 
 .custom-menu {

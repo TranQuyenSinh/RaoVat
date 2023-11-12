@@ -11,6 +11,7 @@ public class DisplayAdModel
     public string Thumbnail { get; set; }
     public string District { get; set; }
     public string Province { get; set; }
+    public int FavoriteCount { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime ExpireAt { get; set; }
 
@@ -23,6 +24,7 @@ public class DisplayAdModel
         Thumbnail = AppPath.GenerateImagePath(AppPath.AD_IMAGE, ad.Images?.FirstOrDefault()?.FileName);
         District = ad.Author?.District;
         Province = ad.Author?.Province;
+        FavoriteCount = ad.UserAd.Count;
         CreatedAt = ad.CreatedAt;
         ExpireAt = ad.ExpireAt;
     }

@@ -16,4 +16,7 @@ export const adApi = {
 
     // Manage ad
     displayAds: 'api/manage-ad/display-ads',
+    hideAd: 'api/manage-ad/hide-ad',
+    hiddenAds: 'api/manage-ad/hidden-ads',
+    statusCount: 'api/manage-ad/status-count',
 }

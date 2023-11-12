@@ -38,7 +38,9 @@ namespace App.Models
 
         public DateTime? AprovedAt { get; set; }
 
+        // 0: chưa kiểm duyệt, 1: đã kiểm duyệt, 2: đã từ chối
         public byte AprovedStatus { get; set; } = 0;
+        public bool Display { get; set; } = true;
 
         public virtual ICollection<AdGenre> AdGenre { get; set; }
         public virtual ICollection<User_Ad_Favorite>? UserAd { get; set; }

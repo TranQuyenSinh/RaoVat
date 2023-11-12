@@ -28,3 +28,7 @@ export const followShop = (userId, shopId) => {
 export const searchAd = (filter, currentPage, userId = null) => {
     return axios.post(adApi.searchAd, { ...filter, userId, currentPage })
 }
+
+export const getDisplayAds = () => {
+    return authAxios.get(adApi.displayAds)
+}

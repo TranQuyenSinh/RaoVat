@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
@@ -12,6 +12,10 @@ import DisplayAds from './DisplayAds'
 const ManageAd = () => {
     const dispatch = useDispatch()
     const { currentUser, isLoggedIn } = useSelector(state => state.user)
+
+    useEffect(() => {
+        document.title = 'Rao vặt - Quản lý tin'
+    }, [])
     return (
         <Section className='manage-ad-container'>
             <div className='user'>

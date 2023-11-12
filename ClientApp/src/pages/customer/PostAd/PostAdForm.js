@@ -168,7 +168,7 @@ const PostAdForm = () => {
             try {
                 await postAd(data)
                 toast.success('Đăng tin thành công')
-                navigate('/')
+                navigate('/quan-ly-tin')
             } catch (e) {
                 toast.error('Đăng tin không thành công, vui lòng thử lại')
             }

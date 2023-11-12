@@ -20,6 +20,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
 import './DetailAd.scss'
+import LoadingBalls from '../../../components/loading/LoadingBalls'
 
 const DetailAd = () => {
     const { adId } = useParams()
@@ -138,10 +139,7 @@ const DetailAd = () => {
                 </>
             ) : (
                 <>
-                    <div className='loading-wrapper'>
-                        <BouncingBalls color='#FF8800' />
-                        <span>Đang tải...</span>
-                    </div>
+                    <LoadingBalls />
                 </>
             )}
         </div>

@@ -1,9 +1,19 @@
 export const adApi = {
+    // common
+    saveAdToFavorite: 'api/ad-view/save-ad-to-favorite',
+    followShop: 'api/ad-view/follow-shop',
+
+    // home
     getCardAds: 'api/ad-view/card-ads',
+
+    // detail
     getCardAdsRelated: 'api/ad-view/card-ads',
     getCardAdsSimilar: 'api/ad-view/card-ads',
     getDetailAd: 'api/ad-view/detail-ad',
-    saveAdToFavorite: 'api/ad-view/save-ad-to-favorite',
-    followShop: 'api/ad-view/follow-shop',
+
+    // search
     searchAd: 'api/ad-view/search-ad',
+
+    // Manage ad
+    displayAds: 'api/manage-ad/display-ads',
 }

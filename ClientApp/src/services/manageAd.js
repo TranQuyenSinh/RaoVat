@@ -16,3 +16,7 @@ export const hideAd = (adId, isHide) => {
 export const getHiddenAds = () => {
     return authAxios.get(adApi.hiddenAds)
 }
+
+export const getExpiredAds = () => {
+    return authAxios.get(adApi.expiredAds)
+}

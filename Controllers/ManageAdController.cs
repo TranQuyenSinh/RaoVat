@@ -71,6 +71,26 @@ public class ManageAdController : ControllerBase
 
         return new JsonResult(hiddenAds);
     }
+    [HttpGet("expired-ads")]
+    public async Task<IActionResult> ExpiredAds()
+    {
+        var userId = GetUserId();
+        if (userId == -1) return Unauthorized("User not found");
+
+        var expiredAds = await _context.Ads
+        .Where(x => x.AuthorId == userId
+                && x.AprovedStatus == 1
+                && x.ExpireAt < DateTime.Now)
+        .Include(x => x.Images)
+        .Include(x => x.Author)
+        .Include(x => x.UserAd)
+        .AsSplitQuery()
+        .OrderByDescending(x => x.ExpireAt)
+        .Select(x => new DisplayAdModel(x))
+        .ToListAsync();
+
+        return new JsonResult(expiredAds);
+    }
 
     // HideAd(3, true) => Hide ad with id = 3
     // HideAd(3, false) => Show ad with id = 3

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import Section from '../../../components/customer/Section/Section'
-
+import ExpiredAds from './ExpiredAds'
 import no_avatar from '../../../assets/images/no_avatar.png'
 
 import './ManageAd.scss'
@@ -50,7 +50,7 @@ const ManageAd = () => {
                     <DisplayAds resetCount={resetCount} />
                 </TabPanel>
                 <TabPanel>
-                    <h2>Danh sách tin Hết hạn</h2>
+                    <ExpiredAds resetCount={resetCount} />
                 </TabPanel>
                 <TabPanel>
                     <h2>Danh sách tin Bị từ chối</h2>

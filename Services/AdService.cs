@@ -96,7 +96,7 @@ public class AdServices
     public DetailAdModel GetDetailAd(int adId, int? userId = null)
     {
         var qr = _context.Ads
-        .Where(x => x.Id == adId)
+        .Where(x => x.Id == adId && x.Display == true && x.ExpireAt > DateTime.Now && x.AprovedStatus == 1)
         .Include(x => x.Images)
         .Include(x => x.UserAd)
         .Include(x => x.Author)

@@ -75,4 +75,43 @@ public class ManageAdService
         return expiredAds;
     }
 
+    // HideAd(3, true) => Hide ad with id = 3
+    // HideAd(3, false) => Show ad with id = 3
+    public async Task<bool> HideAd(int userId, int adId, bool isHide)
+    {
+        var ad = await _context.Ads.Where(x => x.Id == adId && x.AuthorId == userId).FirstOrDefaultAsync();
+        if (ad == null)
+            return false;
+
+        ad.Display = !isHide;
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> DeleteAd(int userId, int adId)
+    {
+        var ad = await _context.Ads.Where(x => x.Id == adId && x.AuthorId == userId).FirstOrDefaultAsync();
+        if (ad == null)
+            return false;
+
+        _context.Ads.Remove(ad);
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<bool> ExtendAd(int userId, int adId)
+    {
+        var ad = await _context.Ads
+        .Where(x => x.Id == adId && x.AuthorId == userId && x.ExpireAt < DateTime.Now)
+        .FirstOrDefaultAsync();
+        if (ad == null)
+            return false;
+
+        ad.ExpireAt = DateTime.Now.AddDays(14);
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
 }

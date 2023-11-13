@@ -27,7 +27,7 @@ namespace App.Models
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        public DateTime ExpireAt { get; set; } = DateTime.Now.AddDays(10);
+        public DateTime ExpireAt { get; set; } = DateTime.Now.AddDays(14);
 
         public int AuthorId { get; set; }
         public User Author { get; set; }

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import ConfirmHideModal from './ConfirmHideModal'
 import { moment, formatNumber } from '../../../utils'
 import LoadingBalls from '../../../components/loading/LoadingBalls'
-import { hideAd, getHiddenAds } from '../../../services'
+import { showAd, getHiddenAds } from '../../../services'
 import NotHaveAd from '../../../components/notfound/AdNotFound/NotHaveAd'
 
 const initialState = {
@@ -36,7 +36,7 @@ const HiddenAds = ({ resetCount }) => {
 
     const handleShowAd = async adId => {
         try {
-            await hideAd(adId, false)
+            await showAd(adId)
             await fetchHiddenAds()
             resetCount()
         } catch (e) {}

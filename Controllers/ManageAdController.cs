@@ -56,21 +56,30 @@ public class ManageAdController : ControllerBase
         return new JsonResult(ads);
     }
 
-    // HideAd(3, true) => Hide ad with id = 3
-    // HideAd(3, false) => Show ad with id = 3
-    [HttpGet("hide-ad")]
-    public async Task<IActionResult> HideAd(int adId, bool isHide)
+    [HttpGet("handle")]
+    public async Task<IActionResult> HandleAd(string type, int adId)
     {
         var userId = GetUserId();
         if (userId == -1) return Unauthorized("User not found");
 
-        var ad = await _context.Ads.Where(x => x.Id == adId && x.AuthorId == userId).FirstOrDefaultAsync();
-        if (ad == null) return NotFound("Ad not found");
+        var result = false;
+        switch (type)
+        {
+            case "show":
+                result = await _manageAdService.HideAd(userId, adId, false);
+                break;
+            case "hide":
+                result = await _manageAdService.HideAd(userId, adId, true);
+                break;
+            case "extend":
+                result = await _manageAdService.ExtendAd(userId, adId);
+                break;
+            case "delete":
+                result = await _manageAdService.DeleteAd(userId, adId);
+                break;
+        }
 
-        ad.Display = !isHide;
-        await _context.SaveChangesAsync();
-
-        return Ok("Successfully");
+        return result ? Ok("Successfully") : BadRequest("Error has occurred, please try again!");
     }
 
     [HttpGet("status-count")]
@@ -115,11 +124,5 @@ public class ManageAdController : ControllerBase
             return int.Parse(userIdClaim);
         }
         return -1;
-    }
-    [HttpGet]
-    [Route("test")]
-    public string Test()
-    {
-        return "test successfully";
     }
 }

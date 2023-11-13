@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import ConfirmHideModal from './ConfirmHideModal'
 import { moment, formatNumber } from '../../../utils'
 import LoadingBalls from '../../../components/loading/LoadingBalls'
-import { hideAd, getExpiredAds } from '../../../services'
+import { getExpiredAds, extendAd, deleteAd } from '../../../services'
 import NotHaveAd from '../../../components/notfound/AdNotFound/NotHaveAd'
-
+import ConfirmHideModal from './ConfirmHideModal'
+import { useConfirmModal } from '../../../hooks'
 const initialState = {
     ads: [],
     isLoading: false,
@@ -33,10 +33,23 @@ const reducer = (state, action) => {
 
 const ExpiredAds = ({ resetCount }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
+    const [isOpenDeleteModal, toggleDeleteModal] = useConfirmModal()
+    const [selectedAd, setSelectedAd] = useState()
 
-    const handleResetAd = async adId => {
+    const handleConfirmDelete = item => {
+        toggleDeleteModal()
+        setSelectedAd(item)
+    }
+    const handleExtendAd = async adId => {
         try {
-            await hideAd(adId, false)
+            await extendAd(adId)
+            await fetchExpiredAds()
+            resetCount()
+        } catch (e) {}
+    }
+    const handleDeleteAd = async () => {
+        try {
+            await deleteAd(selectedAd.id)
             await fetchExpiredAds()
             resetCount()
         } catch (e) {}
@@ -87,13 +100,13 @@ const ExpiredAds = ({ resetCount }) => {
                                     </div>
                                     <div className='text-end'>
                                         <button
-                                            onClick={() => handleResetAd(item.id)}
+                                            onClick={() => handleExtendAd(item.id)}
                                             className='btn btn-success bg-green border-0 fw-bold me-2'>
                                             <i className='fa-solid fa-rotate me-2'></i>
-                                            Đăng lại
+                                            Gia hạn tin
                                         </button>
                                         <button
-                                            onClick={() => handleResetAd(item.id)}
+                                            onClick={() => handleConfirmDelete(item)}
                                             className='btn btn-outline-danger border-0 fw-bold'>
                                             <i className='fa-solid fa-trash me-2'></i>
                                             Xóa tin này
@@ -107,6 +120,14 @@ const ExpiredAds = ({ resetCount }) => {
                     </>
                 )}
             </div>
+            <ConfirmHideModal
+                title={'Xác nhận xóa tin'}
+                body={'Xác nhận xóa tin, thao tác này không thể phục hồi. Bạn có chắc muốn xóa tin này?'}
+                submitText={'Xóa tin'}
+                isOpen={isOpenDeleteModal}
+                toggle={toggleDeleteModal}
+                handleSubmit={handleDeleteAd}
+            />
         </div>
     )
 }

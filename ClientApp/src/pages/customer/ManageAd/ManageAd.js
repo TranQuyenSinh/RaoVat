@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
+import { useDispatch, useSelector } from 'react-redux'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import 'react-tabs/style/react-tabs.css'
-import Section from '../../../components/customer/Section/Section'
+
+import HiddenAds from './HiddenAds'
 import ExpiredAds from './ExpiredAds'
+import DisplayAds from './DisplayAds'
+import { getAdStatusCount } from '../../../services'
 import no_avatar from '../../../assets/images/no_avatar.png'
+import Section from '../../../components/customer/Section/Section'
+
+import 'react-tabs/style/react-tabs.css'
 
 import './ManageAd.scss'
-import { useDispatch, useSelector } from 'react-redux'
-import DisplayAds from './DisplayAds'
-import HiddenAds from './HiddenAds'
-import { getAdStatusCount } from '../../../services'
 const ManageAd = () => {
     const [statusCount, setStatusCount] = useState({
         display: 0,
@@ -19,8 +21,6 @@ const ManageAd = () => {
         waiting: 0,
         hidden: 0,
     })
-
-    const [hiddenAdCount, setHiddenAdCount] = useState(0)
 
     const { currentUser, isLoggedIn } = useSelector(state => state.user)
     const resetCount = async () => {

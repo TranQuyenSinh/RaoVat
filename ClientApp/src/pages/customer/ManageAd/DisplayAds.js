@@ -7,6 +7,7 @@ import { moment, formatNumber } from '../../../utils'
 import { hideAd, getDisplayAds } from '../../../services'
 import LoadingBalls from '../../../components/loading/LoadingBalls'
 import NotHaveAd from '../../../components/notfound/AdNotFound/NotHaveAd'
+import { useConfirmModal } from '../../../hooks'
 
 const initialState = {
     ads: [],
@@ -33,22 +34,18 @@ const reducer = (state, action) => {
 
 const DisplayAds = ({ resetCount }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
-
-    const [isOpenModal, setIsOpenModal] = useState(false)
+    const [isOpenHideModal, toggleHideModal] = useConfirmModal()
     const [selectedAd, setSelectedAd] = useState()
 
-    const toggleModal = () => {
-        setIsOpenModal(!isOpenModal)
-    }
     const handleHideAd = async () => {
         try {
-            await hideAd(selectedAd.id, true)
+            await hideAd(selectedAd.id)
             await fetchDisplayAds()
             resetCount()
         } catch (e) {}
     }
-    const handleShowModal = item => {
-        toggleModal()
+    const handleConfirmHide = item => {
+        toggleHideModal()
         setSelectedAd(item)
     }
     const fetchDisplayAds = async () => {
@@ -89,7 +86,8 @@ const DisplayAds = ({ resetCount }) => {
                                             <div className='ad-item__expireAt'>
                                                 Ngày hết hạn:
                                                 <span className='ad-item__expireAt--black'>
-                                                    {moment(item.expireAt).format('HH:mm DD/MM/YYYY')}
+                                                    {moment(item.expireAt).format('HH:mm DD/MM/YYYY')} (
+                                                    {moment(item.expireAt).fromNow()})
                                                 </span>
                                             </div>
                                         </div>
@@ -99,7 +97,7 @@ const DisplayAds = ({ resetCount }) => {
                                             <i className='fa-regular fa-pen-to-square me-2'></i>Sửa tin
                                         </button>
                                         <button
-                                            onClick={() => handleShowModal(item)}
+                                            onClick={() => handleConfirmHide(item)}
                                             className='btn btn-outline-secondary btn-sm fw-bold'>
                                             <i className='fa-solid fa-eye-slash me-2'></i>
                                             Ẩn tin
@@ -113,7 +111,14 @@ const DisplayAds = ({ resetCount }) => {
                     </>
                 )}
             </div>
-            <ConfirmHideModal isOpen={isOpenModal} toggle={toggleModal} handleSubmit={handleHideAd} />
+            <ConfirmHideModal
+                title={'Xác nhận ẩn tin'}
+                body={'Khi bạn đã bán được hàng, hoặc không muốn tin xuất hiện trên Rao vặt, hãy chọn "Ẩn tin".'}
+                submitText={'Ẩn tin'}
+                isOpen={isOpenHideModal}
+                toggle={toggleHideModal}
+                handleSubmit={handleHideAd}
+            />
         </div>
     )
 }

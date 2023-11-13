@@ -14,6 +14,7 @@ import 'react-tabs/style/react-tabs.css'
 
 import './ManageAd.scss'
 import WaitingAds from './WaitingAds'
+import RejectedAds from './RejectedAds'
 const ManageAd = () => {
     const [statusCount, setStatusCount] = useState({
         display: 0,
@@ -54,7 +55,7 @@ const ManageAd = () => {
                     <ExpiredAds resetCount={resetCount} />
                 </TabPanel>
                 <TabPanel>
-                    <h2>Danh sách tin Bị từ chối</h2>
+                    <RejectedAds />
                 </TabPanel>
                 <TabPanel>
                     <WaitingAds />

@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
-import ConfirmHideModal from './ConfirmHideModal'
 import { moment, formatNumber } from '../../../utils'
 import LoadingBalls from '../../../components/loading/LoadingBalls'
-import { showAd, getHiddenAds } from '../../../services'
+import { getRejectedAds, extendAd, deleteAd } from '../../../services'
 import NotHaveAd from '../../../components/notfound/AdNotFound/NotHaveAd'
-
+import ConfirmHideModal from './ConfirmHideModal'
+import { useConfirmModal } from '../../../hooks'
 const initialState = {
     ads: [],
     isLoading: false,
@@ -31,25 +31,18 @@ const reducer = (state, action) => {
     }
 }
 
-const HiddenAds = ({ resetCount }) => {
+const RejectedAds = ({ resetCount }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
+    const navigate = useNavigate()
 
-    const handleShowAd = async adId => {
-        try {
-            await showAd(adId)
-            await fetchHiddenAds()
-            resetCount()
-        } catch (e) {}
-    }
-
-    const fetchHiddenAds = async () => {
+    const fetchRejectedAds = async () => {
         dispatch({ type: 'GET_AD_START' })
-        let { data } = await getHiddenAds()
+        let { data } = await getRejectedAds()
         dispatch({ type: 'GET_AD_SUCCESS', payload: data })
     }
 
     useEffect(() => {
-        fetchHiddenAds()
+        fetchRejectedAds()
     }, [])
 
     return (
@@ -71,27 +64,36 @@ const HiddenAds = ({ resetCount }) => {
                                             <div className='ad-item__location'>
                                                 {item.district}, {item.province}
                                             </div>
-                                            <div className='ad-item__createdAt'>
+                                            {/* <div className='ad-item__createdAt'>
                                                 Ngày đăng tin:
                                                 <span className='ad-item__createdAt--black'>
                                                     {moment(item.createdAt).format('DD/MM/YYYY')}
                                                 </span>
                                             </div>
                                             <div className='ad-item__expireAt'>
-                                                Ngày hết hạn:
+                                                Hết hạn lúc:
                                                 <span className='ad-item__expireAt--black'>
-                                                    {moment(item.expireAt).format('HH:mm DD/MM/YYYY')}
+                                                    {moment(item.expireAt).fromNow()}
                                                 </span>
+                                            </div> */}
+                                        </div>
+                                        <div className='reject-container'>
+                                            <div className='reject-reason'>
+                                                <i className='fa-solid fa-triangle-exclamation text-danger me-2'></i>
+                                                <span>Tin đăng này bị từ chối vì:</span>
+                                                <div>{item.rejectReason}</div>
+                                            </div>
+                                            <div className='reject-action'>
+                                                <button className='btn btn-sm btn-outline-warning'>
+                                                    Chỉnh sửa lại tin
+                                                </button>
+                                                <button
+                                                    onClick={() => navigate('/dang-tin')}
+                                                    className='btn btn-sm btn-success bg-green border-0'>
+                                                    Đăng tin mới
+                                                </button>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className='text-end'>
-                                        <button
-                                            onClick={() => handleShowAd(item.id)}
-                                            className='btn btn-sm btn-success bg-green border-0 fw-bold'>
-                                            <i className='fa-solid fa-eye me-2'></i>
-                                            Hiện tin lại
-                                        </button>
                                     </div>
                                 </div>
                             ))
@@ -105,4 +107,4 @@ const HiddenAds = ({ resetCount }) => {
     )
 }
 
-export default HiddenAds
+export default RejectedAds

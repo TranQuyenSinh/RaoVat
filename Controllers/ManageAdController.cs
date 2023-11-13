@@ -36,7 +36,7 @@ public class ManageAdController : ControllerBase
         var userId = GetUserId();
         if (userId == -1) return Unauthorized("User not found");
 
-        var ads = new List<ManageAdModel>();
+        dynamic ads = new List<object>();
         switch (type)
         {
             case "display":
@@ -52,6 +52,7 @@ public class ManageAdController : ControllerBase
                 ads = await _manageAdService.GetWaitingAds(userId);
                 break;
             case "rejected":
+                ads = await _manageAdService.GetRejectedAds(userId);
                 break;
         }
         return new JsonResult(ads);

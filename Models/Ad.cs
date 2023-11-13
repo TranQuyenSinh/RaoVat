@@ -33,6 +33,7 @@ namespace App.Models
         public User Author { get; set; }
 
         /* ================ Aprove information ================ */
+        public string? RejectReason { get; set; }
         public int? AprovedUserId { get; set; }
         public User? ApovedUser { get; set; }
 

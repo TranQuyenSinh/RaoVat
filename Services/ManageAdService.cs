@@ -75,7 +75,7 @@ public class ManageAdService
         return expiredAds;
     }
 
-    public async Task<List<ManageAdModel>> GetWaitingAds(int userId)
+    public async Task<List<WaitingAdModel>> GetWaitingAds(int userId)
     {
         var waitingAds = await _context.Ads
          .Where(x => x.AuthorId == userId
@@ -83,10 +83,24 @@ public class ManageAdService
          .Include(x => x.Images)
          .Include(x => x.Author)
          .AsSplitQuery()
-         .Select(x => new ManageAdModel(x))
+         .Select(x => new WaitingAdModel(x))
          .ToListAsync();
 
         return waitingAds;
+    }
+
+    public async Task<List<RejectedAdModel>> GetRejectedAds(int userId)
+    {
+        var rejectedAds = await _context.Ads
+         .Where(x => x.AuthorId == userId
+                 && x.AprovedStatus == 2)
+         .Include(x => x.Images)
+         .Include(x => x.Author)
+         .AsSplitQuery()
+         .Select(x => new RejectedAdModel(x))
+         .ToListAsync();
+
+        return rejectedAds;
     }
 
     // HideAd(3, true) => Hide ad with id = 3

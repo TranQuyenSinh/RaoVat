@@ -3,7 +3,7 @@ using App.Utils;
 
 namespace App.ResponseModels;
 
-public class DisplayAdModel
+public class ManageAdModel
 {
     public int Id { get; set; }
     public string Title { get; set; }
@@ -16,7 +16,7 @@ public class DisplayAdModel
     public DateTime ExpireAt { get; set; }
 
 
-    public DisplayAdModel(Ad ad)
+    public ManageAdModel(Ad ad)
     {
         Id = ad.Id;
         Title = ad.Title;

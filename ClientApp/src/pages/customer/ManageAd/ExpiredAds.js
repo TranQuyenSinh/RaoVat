@@ -38,6 +38,7 @@ const ExpiredAds = ({ resetCount }) => {
         try {
             await hideAd(adId, false)
             await fetchExpiredAds()
+            resetCount()
         } catch (e) {}
     }
 
@@ -45,7 +46,6 @@ const ExpiredAds = ({ resetCount }) => {
         dispatch({ type: 'GET_AD_START' })
         let { data } = await getExpiredAds()
         dispatch({ type: 'GET_AD_SUCCESS', payload: data })
-        resetCount()
     }
 
     useEffect(() => {

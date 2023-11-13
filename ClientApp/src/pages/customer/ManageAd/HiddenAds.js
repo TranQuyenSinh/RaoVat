@@ -38,6 +38,7 @@ const HiddenAds = ({ resetCount }) => {
         try {
             await hideAd(adId, false)
             await fetchHiddenAds()
+            resetCount()
         } catch (e) {}
     }
 
@@ -45,7 +46,6 @@ const HiddenAds = ({ resetCount }) => {
         dispatch({ type: 'GET_AD_START' })
         let { data } = await getHiddenAds()
         dispatch({ type: 'GET_AD_SUCCESS', payload: data })
-        resetCount()
     }
 
     useEffect(() => {

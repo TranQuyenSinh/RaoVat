@@ -44,6 +44,7 @@ const DisplayAds = ({ resetCount }) => {
         try {
             await hideAd(selectedAd.id, true)
             await fetchDisplayAds()
+            resetCount()
         } catch (e) {}
     }
     const handleShowModal = item => {
@@ -54,7 +55,6 @@ const DisplayAds = ({ resetCount }) => {
         dispatch({ type: 'GET_AD_START' })
         let { data } = await getDisplayAds()
         dispatch({ type: 'GET_AD_SUCCESS', payload: data })
-        resetCount()
     }
 
     useEffect(() => {

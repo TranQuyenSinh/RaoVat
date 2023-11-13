@@ -21,75 +21,39 @@ public class ManageAdController : ControllerBase
 {
     private readonly ILogger<ManageAdController> _logger;
     private readonly AppDbContext _context;
+    private readonly ManageAdService _manageAdService;
 
-    public ManageAdController(ILogger<ManageAdController> logger, AppDbContext context)
+    public ManageAdController(ILogger<ManageAdController> logger, AppDbContext context, ManageAdService manageAdService)
     {
         _logger = logger;
         _context = context;
+        _manageAdService = manageAdService;
     }
 
-    [HttpGet("display-ads")]
-    public async Task<IActionResult> DisplayAds()
+    [HttpGet("ads")]
+    public async Task<IActionResult> Index(string type)
     {
         var userId = GetUserId();
         if (userId == -1) return Unauthorized("User not found");
 
-        var displayAds = await _context.Ads
-        .Where(x => x.AuthorId == userId
-                && x.AprovedStatus == 1
-                && x.Display == true
-                && x.ExpireAt > DateTime.Now)
-        .Include(x => x.Images)
-        .Include(x => x.Author)
-        .Include(x => x.UserAd)
-        .AsSplitQuery()
-        .OrderByDescending(x => x.CreatedAt)
-        .Select(x => new DisplayAdModel(x))
-        .ToListAsync();
-
-        return new JsonResult(displayAds);
-    }
-
-    [HttpGet("hidden-ads")]
-    public async Task<IActionResult> HiddenAds()
-    {
-        var userId = GetUserId();
-        if (userId == -1) return Unauthorized("User not found");
-
-        var hiddenAds = await _context.Ads
-        .Where(x => x.AuthorId == userId
-                && x.AprovedStatus == 1
-                && x.Display == false
-                && x.ExpireAt > DateTime.Now)
-        .Include(x => x.Images)
-        .Include(x => x.Author)
-        .Include(x => x.UserAd)
-        .AsSplitQuery()
-        .OrderByDescending(x => x.CreatedAt)
-        .Select(x => new DisplayAdModel(x))
-        .ToListAsync();
-
-        return new JsonResult(hiddenAds);
-    }
-    [HttpGet("expired-ads")]
-    public async Task<IActionResult> ExpiredAds()
-    {
-        var userId = GetUserId();
-        if (userId == -1) return Unauthorized("User not found");
-
-        var expiredAds = await _context.Ads
-        .Where(x => x.AuthorId == userId
-                && x.AprovedStatus == 1
-                && x.ExpireAt < DateTime.Now)
-        .Include(x => x.Images)
-        .Include(x => x.Author)
-        .Include(x => x.UserAd)
-        .AsSplitQuery()
-        .OrderByDescending(x => x.ExpireAt)
-        .Select(x => new DisplayAdModel(x))
-        .ToListAsync();
-
-        return new JsonResult(expiredAds);
+        var ads = new List<ManageAdModel>();
+        switch (type)
+        {
+            case "display":
+                ads = await _manageAdService.GetDisplayAds(userId);
+                break;
+            case "expired":
+                ads = await _manageAdService.GetExpiredAds(userId);
+                break;
+            case "hidden":
+                ads = await _manageAdService.GetHiddenAds(userId);
+                break;
+            case "waiting":
+                break;
+            case "rejected":
+                break;
+        }
+        return new JsonResult(ads);
     }
 
     // HideAd(3, true) => Hide ad with id = 3

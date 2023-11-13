@@ -40,6 +40,7 @@ const DetailAd = () => {
         ;(async () => {
             window.scrollTo(0, 0)
             setIsLoadingDetail(true)
+            setError(false)
             let { data } = await getDetailAd(adId, currentUser?.id)
             if (data) {
                 document.title = data.title

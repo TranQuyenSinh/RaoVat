@@ -13,6 +13,7 @@ import Section from '../../../components/customer/Section/Section'
 import 'react-tabs/style/react-tabs.css'
 
 import './ManageAd.scss'
+import WaitingAds from './WaitingAds'
 const ManageAd = () => {
     const [statusCount, setStatusCount] = useState({
         display: 0,
@@ -56,7 +57,7 @@ const ManageAd = () => {
                     <h2>Danh sách tin Bị từ chối</h2>
                 </TabPanel>
                 <TabPanel>
-                    <h2>Danh sách tin Chờ duyệt</h2>
+                    <WaitingAds />
                 </TabPanel>
                 <TabPanel>
                     <HiddenAds resetCount={resetCount} />

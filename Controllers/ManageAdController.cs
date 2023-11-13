@@ -49,6 +49,7 @@ public class ManageAdController : ControllerBase
                 ads = await _manageAdService.GetHiddenAds(userId);
                 break;
             case "waiting":
+                ads = await _manageAdService.GetWaitingAds(userId);
                 break;
             case "rejected":
                 break;

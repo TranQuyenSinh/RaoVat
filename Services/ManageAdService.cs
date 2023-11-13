@@ -75,6 +75,20 @@ public class ManageAdService
         return expiredAds;
     }
 
+    public async Task<List<ManageAdModel>> GetWaitingAds(int userId)
+    {
+        var waitingAds = await _context.Ads
+         .Where(x => x.AuthorId == userId
+                 && x.AprovedStatus == 0)
+         .Include(x => x.Images)
+         .Include(x => x.Author)
+         .AsSplitQuery()
+         .Select(x => new ManageAdModel(x))
+         .ToListAsync();
+
+        return waitingAds;
+    }
+
     // HideAd(3, true) => Hide ad with id = 3
     // HideAd(3, false) => Show ad with id = 3
     public async Task<bool> HideAd(int userId, int adId, bool isHide)

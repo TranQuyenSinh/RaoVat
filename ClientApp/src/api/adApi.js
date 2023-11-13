@@ -18,6 +18,7 @@ export const adApi = {
     displayAds: 'api/manage-ad/ads?type=display',
     hiddenAds: 'api/manage-ad/ads?type=hidden',
     expiredAds: 'api/manage-ad/ads?type=expired',
+    waitingAds: 'api/manage-ad/ads?type=waiting',
 
     hideAd: 'api/manage-ad/handle?type=hide',
     showAd: 'api/manage-ad/handle?type=show',

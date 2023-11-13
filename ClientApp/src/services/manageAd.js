@@ -13,6 +13,10 @@ export const getHiddenAds = () => {
     return authAxios.get(adApi.hiddenAds)
 }
 
+export const getWaitingAds = () => {
+    return authAxios.get(adApi.waitingAds)
+}
+
 export const getExpiredAds = () => {
     return authAxios.get(adApi.expiredAds)
 }

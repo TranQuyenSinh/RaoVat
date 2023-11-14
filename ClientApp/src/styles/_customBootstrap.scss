@@ -3,3 +3,10 @@
 .btn-outline-warning:focus {
     color: white !important;
 }
+
+// floating input, show placeholder
+.form-control:focus {
+    &::placeholder {
+        color: $mutedcolor !important;
+    }
+}

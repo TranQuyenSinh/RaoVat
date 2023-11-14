@@ -56,7 +56,7 @@ const NavMenu = () => {
                         </li>
                         <li className='menu-title'>Cài đặt</li>
                         <li>
-                            <Link to='/'>
+                            <Link to='/settings'>
                                 <FontAwesomeIcon className='menu-icon bg-gray' icon={faCog} />
                                 Cài đặt tài khoản
                             </Link>

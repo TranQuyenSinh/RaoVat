@@ -6,7 +6,9 @@ namespace App.Utils;
 
 public static class CommonUtils
 {
-    public static List<string> UploadImage(IFormFile[] files)
+    public const string AD_IMAGE = "Uploads/Ad/";
+    public const string USER_AVATAR = "Uploads/Customer/Avatar/";
+    public static List<string> UploadImage(string type, IFormFile[] files)
     {
         List<string> fileNames = new List<string>();
         foreach (var image in files)
@@ -15,7 +17,7 @@ public static class CommonUtils
             if (image != null)
             {
                 imgName = Path.GetFileName(Path.GetRandomFileName()) + Path.GetExtension(image.FileName);
-                var uploadPath = Path.Combine(AppPath.AD_IMAGE_FOLDER, imgName);
+                var uploadPath = Path.Combine(type, imgName);
 
                 // resize the image
                 // var width = Const.STORY_THUMB_WIDTH;
@@ -25,11 +27,9 @@ public static class CommonUtils
 
                 try
                 {
-                    using (var fs = new FileStream(uploadPath, FileMode.Create))
-                    {
-                        image.CopyTo(fs);
-                        fileNames.Add(imgName);
-                    }
+                    using var fs = new FileStream(uploadPath, FileMode.Create);
+                    image.CopyTo(fs);
+                    fileNames.Add(imgName);
                 }
                 catch (Exception e)
                 {
@@ -40,5 +40,19 @@ public static class CommonUtils
         }
 
         return fileNames;
+    }
+
+    public static void DeleteImage(string type, string fileName)
+    {
+        var removeFilePath = Path.Combine(type, fileName);
+        try
+        {
+            File.Delete(removeFilePath);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error when delete the file: {0}", removeFilePath);
+            Console.WriteLine("Error message: {0}", e.Message);
+        }
     }
 }

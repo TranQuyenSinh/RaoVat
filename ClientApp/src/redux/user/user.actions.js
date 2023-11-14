@@ -100,3 +100,14 @@ export const checkUserIsLoggedInSuccess = () => ({
 export const checkUserIsLoggedInFailure = () => ({
     type: userTypes.CHECKISLOGGEDINFAILURE,
 })
+
+// Setting user
+export const changeUserAvatar = avatar => ({
+    type: userTypes.CHANGE_USER_AVATAR,
+    payload: avatar,
+})
+
+export const updateUserInfo = userInfo => ({
+    type: userTypes.UPDATE_USER_INFO,
+    payload: userInfo,
+})

@@ -59,6 +59,26 @@ const userReducer = (state = initialState, { type, payload }) => {
                 currentUser: {},
             }
 
+        // setting user
+        case userTypes.CHANGE_USER_AVATAR:
+            return {
+                ...state,
+                currentUser: {
+                    ...state.currentUser,
+                    avatar: payload,
+                },
+            }
+
+        case userTypes.UPDATE_USER_INFO:
+            return {
+                ...state,
+                currentUser: {
+                    ...state.currentUser,
+                    fullName: payload.fullName,
+                    phone: payload.phone,
+                },
+            }
+
         // failure cases
         case userTypes.LOGIN_FAILURE:
             return {

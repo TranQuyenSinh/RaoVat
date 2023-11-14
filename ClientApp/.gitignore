@@ -1,5 +1,8 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+# Template
+/Template
+
 # dependencies
 /node_modules
 
@@ -15,6 +18,10 @@
 .env.development.local
 .env.test.local
 .env.production.local
+
+# zip
+*.zip
+*.rar
 
 npm-debug.log*
 yarn-debug.log*

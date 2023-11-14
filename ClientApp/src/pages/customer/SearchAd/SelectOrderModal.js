@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap'
-import './SelectOrderModal.scss'
+import React, { useState, useEffect } from 'react'
+
 import RangeSlider from 'react-range-slider-input'
-import 'react-range-slider-input/dist/style.css'
+import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap'
+
 import { formatNumber } from '../../../utils'
 import CustomRadio from '../../../components/input/CustomRadio/CustomRadio'
+
+import 'react-range-slider-input/dist/style.css'
+
+import './SelectOrderModal.scss'
 
 const SelectOrderModal = ({ isOpen, toggle, onSubmit }) => {
     const [value, setValue] = useState()

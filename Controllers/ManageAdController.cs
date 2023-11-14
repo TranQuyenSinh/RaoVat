@@ -1,16 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using App.Models;
 using App.Data;
 using App.Services;
-using App.RequestModels;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SearchAdResponse = App.ResponseModels.SearchAdModel;
-using SearchAdRequest = App.RequestModels.SearchAdModel;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
-using App.ResponseModels;
+using App.Utils;
 
 namespace App.Controllers;
 
@@ -104,8 +98,8 @@ public class ManageAdController : ControllerBase
         // đã bị từ chối
         var rejected = ads.Where(x => x.AprovedStatus == 2).Count();
 
-        // đã hết hạn
-        var expired = ads.Where(x => x.ExpireAt < DateTime.Now).Count();
+        // đã kiểm duyệt và đã hết hạn
+        var expired = ads.Where(x => x.ExpireAt < DateTime.Now && x.AprovedStatus == 1).Count();
 
         return new JsonResult(new
         {

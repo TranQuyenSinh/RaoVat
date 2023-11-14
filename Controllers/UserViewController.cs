@@ -58,7 +58,7 @@ public class UserViewController : ControllerBase
             }
         });
 
-        List<string> imageNames = CommonUtils.UploadImage(model.Images);
+        List<string> imageNames = CommonUtils.UploadImage(CommonUtils.AD_IMAGE, model.Images);
         var adImages = new List<AdImage>();
         imageNames.ForEach(name => adImages.Add(new AdImage() { FileName = name }));
         newAd.Images = adImages;

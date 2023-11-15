@@ -7,7 +7,7 @@ const FloatingTextArea = ({
     required,
     height = '150px',
     errorMessage,
-    placeHolder = 'Aa',
+    placeholder = 'Aa',
     ...others
 }) => {
     const id = useId()
@@ -18,7 +18,7 @@ const FloatingTextArea = ({
                 id={id}
                 style={{ height: height }}
                 className={`form-control ${errorMessage ? 'is-invalid' : ''} ${className}`}
-                placeHolder={placeHolder}
+                placeholder={placeholder}
                 {...others}></textarea>
             <label htmlFor={id}>
                 {label} {required ? <span className='text-danger'>*</span> : ''}

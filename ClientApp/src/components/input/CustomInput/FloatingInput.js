@@ -1,6 +1,6 @@
 import React, { useId } from 'react'
 import './FloatingInput.scss'
-const FloatingInput = ({ label, className = '', required, errorMessage, placeHolder = 'Aa', ...others }) => {
+const FloatingInput = ({ label, className = '', required, errorMessage, placeholder = 'Aa', ...others }) => {
     const id = useId()
     return (
         <div className='form-floating mb-3'>
@@ -8,7 +8,7 @@ const FloatingInput = ({ label, className = '', required, errorMessage, placeHol
                 className={`form-control ${errorMessage ? 'is-invalid' : ''} ${className}`}
                 id={id}
                 {...others}
-                placeHolder={placeHolder}
+                placeholder={placeholder}
             />
             <label htmlFor={id}>
                 {label} {required ? <span className='text-danger'>*</span> : ''}

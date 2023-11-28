@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import Pagination from '../../../components/pagination/Pagination'
 import { saveAdToFavorite } from '../../../services'
 import { toast } from 'react-toastify'
+import SearchNotFound from '../../../components/notfound/AdNotFound/SearchNotFound'
 
 const SearchAd = () => {
     const [searchParams, setSearchParams] = useSearchParams()
@@ -122,6 +123,7 @@ const SearchAd = () => {
                                 </div>
                             </div>
                         ))}
+                    {ads.length == 0 && <SearchNotFound className={'py-5'} />}
                 </Section>
             </div>
         </>

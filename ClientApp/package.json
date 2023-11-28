@@ -37,6 +37,7 @@
     "redux-saga": "^1.2.3",
     "redux-thunk": "^2.4.2",
     "rimraf": "^3.0.2",
+    "rsuite": "^5.46.0",
     "sass": "^1.67.0",
     "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4",

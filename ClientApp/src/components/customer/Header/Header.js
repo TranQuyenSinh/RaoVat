@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
+
 import { Link } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import logo from '../../../assets/images/logo_2.png'
-import SearchBar from '../SearchBar/SearchBar'
-import './Header.scss'
+
 import NavMenu from '../NavMenu/NavMenu'
+import SearchBar from '../SearchBar/SearchBar'
+import logo from '../../../assets/images/logo_2.png'
+import GenreDropdown from '../GenreDropdown/GenreDropdown'
+
+import './Header.scss'
 
 export class Header extends Component {
     static displayName = Header.name
@@ -33,25 +35,7 @@ export class Header extends Component {
                     </Link>
 
                     {/* Danh mục */}
-                    <div className='header__category'>
-                        <div className='header__category--btn'>
-                            <FontAwesomeIcon icon={faBars} />
-                            <span className='mx-2'>Danh mục</span>
-                            <FontAwesomeIcon icon={faChevronDown} />
-                        </div>
-
-                        <ul className='header__category--dropdown custom-menu'>
-                            <li>
-                                <Link to='/counter'>Xe cộ</Link>
-                            </li>
-                            <li>
-                                <Link to='/'>Đồ điện tử</Link>
-                            </li>
-                            <li>
-                                <Link to='/'>Thiết bị di động</Link>
-                            </li>
-                        </ul>
-                    </div>
+                    <GenreDropdown />
 
                     {/* Search bar */}
                     <SearchBar />

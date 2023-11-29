@@ -10,6 +10,7 @@ import Pagination from '../../../components/pagination/Pagination'
 import { saveAdToFavorite } from '../../../services'
 import { toast } from 'react-toastify'
 import SearchNotFound from '../../../components/notfound/AdNotFound/SearchNotFound'
+import CustomBadge from '../../../components/badge/CustomBadge'
 
 const SearchAd = () => {
     const [searchParams, setSearchParams] = useSearchParams()
@@ -95,9 +96,9 @@ const SearchAd = () => {
                                 <div className='product-image-wrapper'>
                                     <img src={item.thumbnail} />
                                     {item.status ? (
-                                        <span className='status badge bg-success'>Mới</span>
+                                        <CustomBadge type='success'>Mới</CustomBadge>
                                     ) : (
-                                        <span className='status badge bg-warning'>Đã sử dụng</span>
+                                        <CustomBadge type='warning'>Đã sử dụng</CustomBadge>
                                     )}
                                 </div>
                                 <div className='product-info'>

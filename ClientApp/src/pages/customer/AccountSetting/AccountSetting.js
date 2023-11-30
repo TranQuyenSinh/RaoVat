@@ -13,6 +13,8 @@ import './AccountSetting.scss'
 import AvatarSetting from './AvatarSetting'
 import AccountInfo from './AccountInfo'
 import ChangePassword from './ChangePassword'
+import { motion, AnimatePresence } from 'framer-motion'
+import { fadeRight } from '../../../animation/fade'
 
 const AccountSetting = () => {
     const dispatch = useDispatch()

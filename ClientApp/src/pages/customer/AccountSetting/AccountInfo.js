@@ -12,7 +12,8 @@ import Section from '../../../components/customer/Section/Section'
 import FloatingInput from '../../../components/input/CustomInput/FloatingInput'
 import FloatingTextArea from '../../../components/input/CustomInput/FloatingTextArea'
 import { AddressSelect, AddressSelectModal } from '../../../components/modal/AddressSelectModal/AddressSelectModal'
-
+import { motion } from 'framer-motion'
+import { fadeIn, fadeLeft, fadeRight } from '../../../animation'
 import './AccountInfo.scss'
 
 const AccountInfo = () => {
@@ -95,7 +96,7 @@ const AccountInfo = () => {
 
     return (
         <>
-            <div className='account-info-container'>
+            <motion.div variants={fadeIn} initial='initial' animate={'animate'} className='account-info-container'>
                 <div className='title'>Hồ sơ công khai</div>
                 <div className='row mt-3'>
                     <div className='col-md-6'>
@@ -171,7 +172,7 @@ const AccountInfo = () => {
                 <button className='btn btn-main mt-4 float-end' onClick={handleSubmit}>
                     Lưu thay đổi
                 </button>
-            </div>
+            </motion.div>
             <AddressSelectModal
                 isOpen={isOpenAddressModal}
                 toggle={toggleAddressModal}

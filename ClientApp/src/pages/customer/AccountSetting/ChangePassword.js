@@ -5,6 +5,8 @@ import FloatingInput from '../../../components/input/CustomInput/FloatingInput'
 import { useValidateForm } from '../../../hooks/useValidateForm'
 import { toast } from 'react-toastify'
 import { changePassword } from '../../../services'
+import { motion } from 'framer-motion'
+import { fadeIn } from '../../../animation'
 const ChangePassword = () => {
     const [formData, setFormData] = useState({
         currentPassword: '',
@@ -68,7 +70,7 @@ const ChangePassword = () => {
 
     return (
         <>
-            <div className='change-password-container'>
+            <motion.div variants={fadeIn} initial='initial' animate='animate' className='change-password-container'>
                 <div className='title mb-3'>Thay đổi mật khẩu</div>
                 <FloatingInput
                     type={'password'}
@@ -100,7 +102,7 @@ const ChangePassword = () => {
                 <button onClick={handleSubmit} className='btn btn-main float-end mt-2'>
                     Đổi mật khẩu
                 </button>
-            </div>
+            </motion.div>
         </>
     )
 }

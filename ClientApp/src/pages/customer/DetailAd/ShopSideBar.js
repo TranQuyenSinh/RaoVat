@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { followShop, getDetailShop } from '../../../services'
 import { toast } from 'react-toastify'
 import no_avatar from '../../../assets/images/no_avatar.png'
+import { motion } from 'framer-motion'
 
 const ShopSideBar = ({ shopId }) => {
     const navigate = useNavigate()
@@ -33,10 +34,22 @@ const ShopSideBar = ({ shopId }) => {
             toast.error('Có lỗi xảy ra, vui lòng thử lại')
         }
     }
+
+    const fadeUp = {
+        init: {
+            opacity: 0,
+            x: 100,
+        },
+        animate: {
+            opacity: 1,
+            x: 0,
+            transition: { type: 'tween', duration: 0.5 },
+        },
+    }
     return (
         <>
             {shop && (
-                <div className='shop-sidebar'>
+                <motion.div variants={fadeUp} initial={'init'} animate={'animate'} className='shop-sidebar'>
                     <div className='shop-info'>
                         <div className='shop-avatar'>
                             <img src={shop.avatar || no_avatar} alt='' />
@@ -78,7 +91,7 @@ const ShopSideBar = ({ shopId }) => {
                         <i className='fa-solid fa-store'></i>
                         <span>Xem sản phẩm khác của Shop</span>
                     </div>
-                </div>
+                </motion.div>
             )}
         </>
     )

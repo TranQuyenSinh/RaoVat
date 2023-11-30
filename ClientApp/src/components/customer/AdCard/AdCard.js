@@ -9,7 +9,7 @@ const AdCard = ({ ad }) => {
     return (
         <>
             {ad && (
-                <div className='adcard'>
+                <div className='adcard w-100'>
                     <Link to={`/tin-dang/${ad.id}`} className='adcard__wrapper'>
                         <div className='adcard__image' style={{ backgroundImage: `url(${ad.thumbnail})` }}></div>
                         <div className='adcard__content'>

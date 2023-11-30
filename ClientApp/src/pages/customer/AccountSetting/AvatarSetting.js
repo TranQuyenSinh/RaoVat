@@ -9,6 +9,8 @@ import Section from '../../../components/customer/Section/Section'
 import { changeUserAvatar } from '../../../redux/user/user.actions'
 
 import './AvatarSetting.scss'
+import { motion } from 'framer-motion'
+import { fadeRight } from '../../../animation/fade'
 
 const AvatarSetting = () => {
     const fileInput = useRef()
@@ -32,13 +34,15 @@ const AvatarSetting = () => {
         }
     }
     return (
-        <Section className='avatar-container m-0'>
-            <img className='img-rounded avatar' src={avatar} />
-            <button onClick={() => fileInput.current.click()} className='btn btn-main mt-2'>
-                Đổi ảnh đại diện
-            </button>
-            <input ref={fileInput} type='file' onChange={handleUpload} hidden />
-        </Section>
+        <motion.div variants={fadeRight} initial='initial' whileInView={'animate'}>
+            <Section className='avatar-container m-0'>
+                <img className='img-rounded avatar' src={avatar} />
+                <button onClick={() => fileInput.current.click()} className='btn btn-main mt-2'>
+                    Đổi ảnh đại diện
+                </button>
+                <input ref={fileInput} type='file' onChange={handleUpload} hidden />
+            </Section>
+        </motion.div>
     )
 }
 

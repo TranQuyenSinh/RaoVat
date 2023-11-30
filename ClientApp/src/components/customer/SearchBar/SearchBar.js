@@ -5,6 +5,24 @@ import { Link, useNavigate } from 'react-router-dom'
 import { axios } from '../../../axios'
 import './SearchBar.scss'
 
+import { motion, AnimatePresence } from 'framer-motion'
+
+const fadeDown = {
+    initial: {
+        y: -30,
+        opacity: 0,
+    },
+    animate: {
+        y: 0,
+        opacity: 1,
+        transition: { type: 'tween', duration: 0.3 },
+    },
+    exit: {
+        y: 50,
+        opacity: 0,
+    },
+}
+
 const SearchBar = () => {
     const [isShowRecentSearch, setIsShowRecentSearch] = useState(false)
     const [searchInput, setSearchInput] = useState('')
@@ -34,35 +52,42 @@ const SearchBar = () => {
                 <div onClick={() => navigate(`search?q=${searchInput}`)} className='searchbar--btn'>
                     <FontAwesomeIcon icon={faSearch} />
                 </div>
-                {isShowRecentSearch && (
-                    <div className='recent-search'>
-                        {searchInput ? (
-                            <>
-                                <Link to={`search?q=${searchInput}`} className='recent-search__item'>
-                                    Tìm kiếm từ khóa "{searchInput}"
-                                </Link>
+                <AnimatePresence>
+                    {isShowRecentSearch && (
+                        <motion.div
+                            variants={fadeDown}
+                            exit='exit'
+                            initial='initial'
+                            whileInView='animate'
+                            className='recent-search'>
+                            {searchInput ? (
+                                <>
+                                    <Link to={`search?q=${searchInput}`} className='recent-search__item'>
+                                        Tìm kiếm từ khóa "{searchInput}"
+                                    </Link>
 
-                                {searchResult &&
-                                    searchResult.length > 0 &&
-                                    searchResult.map((item, index) => (
-                                        <Link key={item.id} to='/' className='recent-search__item'>
-                                            {item.typeName}
-                                        </Link>
-                                    ))}
-                            </>
-                        ) : (
-                            <>
-                                <div className='recent-search__header'>
-                                    <FontAwesomeIcon className='me-2' icon={faClock} />
-                                    <strong>Tìm kiếm gần đây</strong>
-                                </div>
-                                <Link to={`search?q=sach`} className='recent-search__item'>
-                                    Sách
-                                </Link>
-                            </>
-                        )}
-                    </div>
-                )}
+                                    {searchResult &&
+                                        searchResult.length > 0 &&
+                                        searchResult.map((item, index) => (
+                                            <Link key={item.id} to='/' className='recent-search__item'>
+                                                {item.typeName}
+                                            </Link>
+                                        ))}
+                                </>
+                            ) : (
+                                <>
+                                    <div className='recent-search__header'>
+                                        <FontAwesomeIcon className='me-2' icon={faClock} />
+                                        <strong>Tìm kiếm gần đây</strong>
+                                    </div>
+                                    <Link to={`search?q=sach`} className='recent-search__item'>
+                                        Sách
+                                    </Link>
+                                </>
+                            )}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     )

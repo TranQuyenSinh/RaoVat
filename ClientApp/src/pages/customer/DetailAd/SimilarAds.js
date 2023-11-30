@@ -7,6 +7,11 @@ import Slider from 'react-slick'
 import AdCard from '../../../components/customer/AdCard/AdCard'
 import { Link } from 'react-router-dom'
 import AdNotFound from '../../../components/notfound/AdNotFound/AdNotFound'
+import { motion } from 'framer-motion'
+import { fadeDown, fadeUp } from '../../../animation'
+
+const fadeUpAnimation = {}
+
 const SimilarAds = ({ adId }) => {
     const [ads, setAds] = useState([])
     useLayoutEffect(() => {
@@ -19,25 +24,27 @@ const SimilarAds = ({ adId }) => {
     }, [adId])
 
     return (
-        <Section className='mt-4'>
-            <div className='section-title'>Tin rao tương tự</div>
-            {ads && ads.length > 0 ? (
-                <>
-                    <Slider {...gridAdCarouselConfigs}>
-                        {ads.map((item, index) => (
-                            <div key={item.id}>
-                                <AdCard ad={item} />
-                            </div>
-                        ))}
-                    </Slider>
-                    <Link to={'/'} className='section-link'>
-                        Xem tất cả
-                    </Link>
-                </>
-            ) : (
-                <AdNotFound />
-            )}
-        </Section>
+        <motion.div variants={fadeUp} initial='initial' whileInView='animate'>
+            <Section className='mt-4'>
+                <div className='section-title'>Tin rao tương tự</div>
+                {ads && ads.length > 0 ? (
+                    <>
+                        <Slider {...gridAdCarouselConfigs}>
+                            {ads.map((item, index) => (
+                                <div key={item.id}>
+                                    <AdCard ad={item} />
+                                </div>
+                            ))}
+                        </Slider>
+                        <Link to={'/'} className='section-link'>
+                            Xem tất cả
+                        </Link>
+                    </>
+                ) : (
+                    <AdNotFound />
+                )}
+            </Section>
+        </motion.div>
     )
 }
 

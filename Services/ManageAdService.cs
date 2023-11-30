@@ -103,6 +103,21 @@ public class ManageAdService
         return rejectedAds;
     }
 
+    public async Task<List<FavoriteAdModel>> GetFavoriteAds(int userId)
+    {
+        var favoriteAds = await _context.User_Ad_Favorite
+         .Where(x => x.UserId == userId)
+         .Include(x => x.Ad)
+         .ThenInclude(x => x.Author)
+         .Include(x => x.Ad)
+         .ThenInclude(x => x.Images)
+         .Where(x => x.Ad.AprovedStatus == 1)
+         .Select(x => new FavoriteAdModel(x.Ad))
+         .ToListAsync();
+
+        return favoriteAds;
+    }
+
     // HideAd(3, true) => Hide ad with id = 3
     // HideAd(3, false) => Show ad with id = 3
     public async Task<bool> HideAd(int userId, int adId, bool isHide)

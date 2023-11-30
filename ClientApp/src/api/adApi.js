@@ -20,6 +20,7 @@ export const adApi = {
     expiredAds: 'api/manage-ad/ads?type=expired',
     waitingAds: 'api/manage-ad/ads?type=waiting',
     rejectedAds: 'api/manage-ad/ads?type=rejected',
+    favoriteAds: 'api/manage-ad/ads?type=favorite',
 
     hideAd: 'api/manage-ad/handle?type=hide',
     showAd: 'api/manage-ad/handle?type=show',

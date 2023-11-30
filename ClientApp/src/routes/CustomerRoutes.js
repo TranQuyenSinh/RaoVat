@@ -6,6 +6,7 @@ import { SpecifyGenre } from '../pages/customer/SpecifyGenre/SpecifyGenre'
 import SearchAd from '../pages/customer/SearchAd/SearchAd'
 import ManageAd from '../pages/customer/ManageAd/ManageAd'
 import AccountSetting from '../pages/customer/AccountSetting/AccountSetting'
+import SavedAd from '../pages/customer/SavedAd/SavedAd'
 
 export const CustomerPublicRoutes = [
     {
@@ -42,5 +43,9 @@ export const CustomerPrivateRoutes = [
     {
         path: 'settings',
         element: <AccountSetting />,
+    },
+    {
+        path: 'saved-ads',
+        element: <SavedAd />,
     },
 ]

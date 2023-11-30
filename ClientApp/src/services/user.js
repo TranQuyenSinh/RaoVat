@@ -1,4 +1,4 @@
-import { axios } from '../axios'
+import { authAxios, axios } from '../axios'
 import { authApi, userApi } from '../api'
 
 export const getDetailShop = (shopId, userId = null) => {
@@ -14,7 +14,7 @@ export const postAd = data => {
             formData.append([key], data[key])
         }
     })
-    return axios.post(userApi.postAd, formData, {
+    return authAxios.post(userApi.postAd, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },

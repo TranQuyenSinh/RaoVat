@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using App.Data;
 using App.Models;
 using App.ResponseModels;
@@ -22,5 +23,14 @@ public class UserService
        .Select(shop => new ShopModel(shop, userId));
 
         return qr.FirstOrDefault();
+    }
+    public int GetUserId(ClaimsPrincipal User)
+    {
+        var userIdClaim = User.Claims.Where(x => x.Type == ClaimTypes.Sid).FirstOrDefault().Value;
+        if (!string.IsNullOrEmpty(userIdClaim))
+        {
+            return int.Parse(userIdClaim);
+        }
+        return -1;
     }
 }

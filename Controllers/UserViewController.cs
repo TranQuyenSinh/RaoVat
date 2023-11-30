@@ -6,6 +6,7 @@ using App.Services;
 using App.RequestModels;
 using App.Utils;
 using System.Data.SqlClient;
+using Microsoft.AspNetCore.Authorization;
 
 namespace App.Controllers;
 
@@ -31,6 +32,7 @@ public class UserViewController : ControllerBase
     }
 
     [HttpPost("post-ad")]
+    [Authorize]
     public IActionResult PostAd([FromForm] PostAdModel model)
     {
         if (!ModelState.IsValid)
@@ -38,9 +40,12 @@ public class UserViewController : ControllerBase
             return BadRequest("Invalid input");
         }
 
+        var userId = _userService.GetUserId(User);
+        if (userId == -1) return NotFound("User not found");
+
         var newAd = new Ad()
         {
-            AuthorId = model.AuthorId,
+            AuthorId = userId,
             Title = model.Title,
             Description = model.Description,
             Color = model.Color,
@@ -49,6 +54,7 @@ public class UserViewController : ControllerBase
             Price = model.Price,
             CreatedAt = DateTime.Now,
         };
+        // add genres
         model.GenreIds.ToList().ForEach(id =>
         {
             var genre = _context.Genres.Find(id);
@@ -58,11 +64,11 @@ public class UserViewController : ControllerBase
             }
         });
 
+        // add images
         List<string> imageNames = CommonUtils.UploadImage(CommonUtils.AD_IMAGE, model.Images);
         var adImages = new List<AdImage>();
         imageNames.ForEach(name => adImages.Add(new AdImage() { FileName = name }));
         newAd.Images = adImages;
-
 
         try
         {

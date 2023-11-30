@@ -5,6 +5,5 @@ namespace App.RequestModels;
 
 public class SaveAdFavoriteModel
 {
-    public int UserId { get; set; }
     public int AdId { get; set; }
 }

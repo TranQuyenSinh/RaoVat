@@ -5,6 +5,5 @@ namespace App.RequestModels;
 
 public class FollowShopModel
 {
-    public int UserId { get; set; }
     public int ShopId { get; set; }
 }

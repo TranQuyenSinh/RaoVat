@@ -17,12 +17,12 @@ export const getDetailAd = (adId, userId = null) => {
     return axios.get(adApi.getDetailAd, { params: { id: adId, userId } })
 }
 
-export const saveAdToFavorite = (userId, adId) => {
-    return authAxios.put(adApi.saveAdToFavorite, { userId, adId })
+export const saveAdToFavorite = adId => {
+    return authAxios.put(adApi.saveAdToFavorite, { adId })
 }
 
-export const followShop = (userId, shopId) => {
-    return authAxios.put(adApi.followShop, { userId, shopId })
+export const followShop = shopId => {
+    return authAxios.put(adApi.followShop, { shopId })
 }
 
 export const searchAd = (filter, currentPage, userId = null) => {

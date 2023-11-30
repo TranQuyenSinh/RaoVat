@@ -27,7 +27,7 @@ const ShopSideBar = ({ shopId }) => {
             return
         }
         try {
-            await followShop(currentUser.id, shop.id)
+            await followShop(shop.id)
             setIsFollowed(isFollowed)
         } catch (e) {
             toast.error('Có lỗi xảy ra, vui lòng thử lại')

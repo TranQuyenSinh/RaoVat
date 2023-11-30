@@ -16,18 +16,20 @@ public class ManageAdController : ControllerBase
     private readonly ILogger<ManageAdController> _logger;
     private readonly AppDbContext _context;
     private readonly ManageAdService _manageAdService;
+    private readonly UserService _userService;
 
-    public ManageAdController(ILogger<ManageAdController> logger, AppDbContext context, ManageAdService manageAdService)
+    public ManageAdController(ILogger<ManageAdController> logger, AppDbContext context, ManageAdService manageAdService, UserService userService)
     {
         _logger = logger;
         _context = context;
         _manageAdService = manageAdService;
+        _userService = userService;
     }
 
     [HttpGet("ads")]
     public async Task<IActionResult> Index(string type)
     {
-        var userId = GetUserId();
+        var userId = _userService.GetUserId(User);
         if (userId == -1) return Unauthorized("User not found");
 
         dynamic ads = new List<object>();
@@ -48,6 +50,9 @@ public class ManageAdController : ControllerBase
             case "rejected":
                 ads = await _manageAdService.GetRejectedAds(userId);
                 break;
+            case "favorite":
+                ads = await _manageAdService.GetFavoriteAds(userId);
+                break;
         }
         return new JsonResult(ads);
     }
@@ -55,7 +60,7 @@ public class ManageAdController : ControllerBase
     [HttpGet("handle")]
     public async Task<IActionResult> HandleAd(string type, int adId)
     {
-        var userId = GetUserId();
+        var userId = _userService.GetUserId(User);
         if (userId == -1) return Unauthorized("User not found");
 
         var result = false;
@@ -81,7 +86,7 @@ public class ManageAdController : ControllerBase
     [HttpGet("status-count")]
     public async Task<IActionResult> GetStatusAdCount()
     {
-        var userId = GetUserId();
+        var userId = _userService.GetUserId(User);
         if (userId == -1) return Unauthorized("User not found");
 
         var ads = await _context.Ads.Where(x => x.AuthorId == userId).ToListAsync();
@@ -112,13 +117,5 @@ public class ManageAdController : ControllerBase
         });
 
     }
-    private int GetUserId()
-    {
-        var userIdClaim = User.Claims.Where(x => x.Type == ClaimTypes.Sid).FirstOrDefault().Value;
-        if (!string.IsNullOrEmpty(userIdClaim))
-        {
-            return int.Parse(userIdClaim);
-        }
-        return -1;
-    }
+
 }

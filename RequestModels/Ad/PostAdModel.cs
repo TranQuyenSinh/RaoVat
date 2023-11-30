@@ -11,6 +11,5 @@ public class PostAdModel
     public string Origin { get; set; }
     public int[] GenreIds { get; set; }
     public IFormFile[] Images { get; set; }
-    public int AuthorId { get; set; }
 
 }

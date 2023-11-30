@@ -45,7 +45,7 @@ const NavMenu = () => {
                     <ul className='user_info--dropdown dropdown-menu custom-menu'>
                         <li className='menu-title'>Tiện ích</li>
                         <li>
-                            <Link to='/counter'>
+                            <Link to='/saved-ads'>
                                 <FontAwesomeIcon className='menu-icon bg-red' icon={faHeart} />
                                 Tin đã lưu
                             </Link>

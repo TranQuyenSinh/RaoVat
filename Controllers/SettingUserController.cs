@@ -24,17 +24,19 @@ public class SettingUserController : ControllerBase
 {
     private readonly ILogger<SettingUserController> _logger;
     private readonly AppDbContext _context;
+    private readonly UserService _userService;
 
-    public SettingUserController(ILogger<SettingUserController> logger, AppDbContext context)
+    public SettingUserController(ILogger<SettingUserController> logger, AppDbContext context, UserService userService)
     {
         _logger = logger;
         _context = context;
+        _userService = userService;
     }
 
     [HttpGet("user-info")]
     public async Task<IActionResult> GetUserInfo()
     {
-        var userId = GetUserId();
+        var userId = _userService.GetUserId(User);
         if (userId == -1) return Unauthorized("User not found");
 
         var user = await _context.Users
@@ -59,7 +61,7 @@ public class SettingUserController : ControllerBase
     [HttpPost("user-info")]
     public async Task<IActionResult> SaveUserInfo(SaveUserInfoModel model)
     {
-        var userId = GetUserId();
+        var userId = _userService.GetUserId(User);
         if (userId == -1) return Unauthorized("User not found");
 
         var user = await _context.Users
@@ -84,7 +86,7 @@ public class SettingUserController : ControllerBase
     [HttpPost("change-avatar")]
     public async Task<IActionResult> ChangeUserAvatar([FromForm] IFormFile avatar)
     {
-        var userId = GetUserId();
+        var userId = _userService.GetUserId(User);
         if (userId == -1) return Unauthorized("User not found");
 
         var user = await _context.Users.FindAsync(userId);
@@ -112,7 +114,7 @@ public class SettingUserController : ControllerBase
     [HttpPost("change-password")]
     public async Task<IActionResult> ChangeUserPassword(ChangeUserPasswordModel model)
     {
-        var userId = GetUserId();
+        var userId = _userService.GetUserId(User);
         if (userId == -1) return Unauthorized("User not found");
 
         var user = await _context.Users.FindAsync(userId);
@@ -125,15 +127,5 @@ public class SettingUserController : ControllerBase
         await _context.SaveChangesAsync();
 
         return Ok("Thay đổi mật khẩu thành công");
-    }
-
-    private int GetUserId()
-    {
-        var userIdClaim = User.Claims.Where(x => x.Type == ClaimTypes.Sid).FirstOrDefault().Value;
-        if (!string.IsNullOrEmpty(userIdClaim))
-        {
-            return int.Parse(userIdClaim);
-        }
-        return -1;
     }
 }

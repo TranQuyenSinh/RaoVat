@@ -50,7 +50,7 @@ const SearchAd = () => {
             return
         }
         try {
-            await saveAdToFavorite(currentUser?.id, item.id)
+            await saveAdToFavorite(item.id)
             const index = ads.findIndex(ad => ad.id === item.id)
             const cpyAds = [...ads]
             cpyAds[index].isFavorite = isFavorite

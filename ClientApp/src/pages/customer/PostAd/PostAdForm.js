@@ -8,7 +8,7 @@ import OutlineRadioButton from '../../../components/input/CustomRadio/OutlineRad
 import { formatNumber } from '../../../utils/FormatUtils'
 import FloatingTextArea from '../../../components/input/CustomInput/FloatingTextArea'
 import { postAd } from '../../../services'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { checkUserIsLoggedIn } from '../../../redux/user/user.actions'
@@ -16,9 +16,6 @@ const PostAdForm = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const fileInput = useRef()
-    const {
-        currentUser: { id },
-    } = useSelector(state => state.user)
     const [formData, setFormData] = useState({
         status: 0,
         price: '',
@@ -161,7 +158,6 @@ const PostAdForm = () => {
         if (isValidForm) {
             let data = {
                 ...formData,
-                authorId: id,
                 genreIds: [...genres.map(genre => genre.id)],
                 images: [...images.map(item => item.file)],
             }

@@ -68,7 +68,7 @@ const DetailAd = () => {
             return
         }
         try {
-            await saveAdToFavorite(currentUser.id, detailAd.id)
+            await saveAdToFavorite(detailAd.id)
             setIsFavorite(isFavorite)
             toast.success(isFavorite ? 'Đã lưu tin' : 'Đã bỏ lưu tin')
         } catch (e) {

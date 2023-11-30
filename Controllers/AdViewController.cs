@@ -20,12 +20,14 @@ public class AdViewController : ControllerBase
     private readonly ILogger<AdViewController> _logger;
     private readonly AppDbContext _context;
     private readonly AdServices _adService;
+    private readonly UserService _userService;
 
-    public AdViewController(ILogger<AdViewController> logger, AppDbContext context, AdServices adService)
+    public AdViewController(ILogger<AdViewController> logger, AppDbContext context, AdServices adService, UserService userService)
     {
         _logger = logger;
         _context = context;
         _adService = adService;
+        _userService = userService;
     }
 
     [HttpGet("card-ads")]
@@ -80,17 +82,15 @@ public class AdViewController : ControllerBase
     {
         try
         {
-            var user = _context.Users.Find(model.UserId);
+            var userId = _userService.GetUserId(User);
+            if (userId == -1) return NotFound("User not found");
 
-            if (user == null)
-                return NotFound("User not found");
-
-            var favorite_record = _context.User_Ad_Favorite.Where(x => x.UserId == model.UserId && x.AdId == model.AdId).FirstOrDefault();
+            var favorite_record = _context.User_Ad_Favorite.Where(x => x.UserId == userId && x.AdId == model.AdId).FirstOrDefault();
             if (favorite_record == null)
             {
                 _context.User_Ad_Favorite.Add(new User_Ad_Favorite()
                 {
-                    UserId = model.UserId,
+                    UserId = userId,
                     AdId = model.AdId
                 });
             }
@@ -115,7 +115,8 @@ public class AdViewController : ControllerBase
     {
         try
         {
-            var user = _context.Users.Find(model.UserId);
+            var userId = _userService.GetUserId(User);
+            var user = _context.Users.Find(userId);
             var shop = _context.Users.Find(model.ShopId);
 
             if (user == null || shop == null)
@@ -124,14 +125,14 @@ public class AdViewController : ControllerBase
             }
 
             var followRecord = _context.User_Shop_Follow
-            .Where(x => x.UserId == model.UserId && x.ShopId == model.ShopId)
+            .Where(x => x.UserId == userId && x.ShopId == model.ShopId)
             .FirstOrDefault();
 
             if (followRecord == null)
             {
                 _context.User_Shop_Follow.Add(new User_Shop_Follow()
                 {
-                    UserId = model.UserId,
+                    UserId = user.Id,
                     ShopId = model.ShopId
                 });
             }

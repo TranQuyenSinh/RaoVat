@@ -2,11 +2,16 @@
 @import './customBootstrap';
 
 * {
-    font-family: Helvetica, Arial, sans-serif;
+    font-family       : Helvetica, Arial, sans-serif;
+    -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none !important;
     color          : unset;
 }
 

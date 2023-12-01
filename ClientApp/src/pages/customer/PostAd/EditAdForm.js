@@ -201,10 +201,10 @@ const EditAdForm = () => {
             try {
                 console.log(data)
                 await saveEditAd(data)
-                toast.success('Đăng tin thành công')
-                // navigate('/quan-ly-tin')
+                toast.success('Cập nhật tin thành công')
+                navigate('/quan-ly-tin')
             } catch (e) {
-                toast.error('Đăng tin không thành công, vui lòng thử lại')
+                toast.error('Cập nhật tin không thành công, vui lòng thử lại')
             }
         }
     }

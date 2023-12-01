@@ -6,7 +6,8 @@ import { moment, formatNumber } from '../../../utils'
 import LoadingBalls from '../../../components/loading/LoadingBalls'
 import { getWaitingAds } from '../../../services'
 import NotHaveAd from '../../../components/notfound/AdNotFound/NotHaveAd'
-
+import { motion } from 'framer-motion'
+import { fadeLeftAnimation, fadeOut } from './manageAdAnimtion'
 const initialState = {
     ads: [],
     isLoading: false,
@@ -51,7 +52,13 @@ const WaitingAds = () => {
                     <>
                         {state.ads?.length > 0 ? (
                             state.ads.map((item, index) => (
-                                <div key={item.id} className='ad-item'>
+                                <motion.div
+                                    variants={fadeLeftAnimation}
+                                    initial='initial'
+                                    animate='animate'
+                                    custom={index}
+                                    key={item.id}
+                                    className='ad-item'>
                                     <div className='d-flex gap-3'>
                                         <img className='ad-item__image' src={item.thumbnail} alt='' />
                                         <div className='ad-item-info'>
@@ -64,10 +71,12 @@ const WaitingAds = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </motion.div>
                             ))
                         ) : (
-                            <NotHaveAd />
+                            <motion.div variants={fadeOut} initial='initial' animate='animate'>
+                                <NotHaveAd />
+                            </motion.div>
                         )}
                     </>
                 )}

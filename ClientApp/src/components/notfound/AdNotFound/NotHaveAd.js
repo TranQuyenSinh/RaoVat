@@ -9,7 +9,7 @@ const NotHaveAd = () => {
             <img src={notHaveAd} alt='' />
             <h4>Không tìm thấy tin đăng.</h4>
             <p className='text-muted'>Hiện tại chưa có tin đăng ở trạng thái này</p>
-            <Link to={'/dang-tin'} className='btn btn-main'>
+            <Link to={'/dang-tin'} className='btn btn-main mt-3'>
                 Đăng tin ngay
             </Link>
         </div>

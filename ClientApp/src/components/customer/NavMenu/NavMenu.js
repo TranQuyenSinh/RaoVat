@@ -10,6 +10,7 @@ import {
     faCog,
     faComment,
     faSignOut,
+    faTabletAndroid,
 } from '@fortawesome/free-solid-svg-icons'
 import { Link, useNavigate } from 'react-router-dom'
 import './NavMenu.scss'
@@ -17,7 +18,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser } from '../../../redux/user/user.actions'
 import no_avatar from '../../../assets/images/no_avatar.png'
 import { toast } from 'react-toastify'
-
+import { motion } from 'framer-motion'
+import { tapAnimation } from '../../../animation/button'
 const NavMenu = () => {
     const dispatch = useDispatch()
     const { currentUser, isLoggedIn } = useSelector(state => state.user)
@@ -82,10 +84,15 @@ const NavMenu = () => {
                     Đăng nhập
                 </Link>
             )}
-            <button onClick={() => navigate('dang-tin')} className='navmenu__btn'>
+            <motion.button
+                variants={tapAnimation}
+                initial='initial'
+                whileTap='animate'
+                onClick={() => navigate('dang-tin')}
+                className='navmenu__btn'>
                 <FontAwesomeIcon className='me-2' icon={faEdit} />
                 Đăng tin
-            </button>
+            </motion.button>
         </div>
     )
 }

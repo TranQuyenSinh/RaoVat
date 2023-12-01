@@ -72,25 +72,44 @@ public class AdServices
     public ICollection<AdCardModel> GetCardAdsSimilar(int? adId, int limit = 10)
     {
 
-        var ad = _context.Ads
-                .Include(x => x.AdGenre)
-                .ThenInclude(x => x.Genre)
-                .FirstOrDefault(x => x.Id == adId.Value);
+        // var ad = _context.Ads
+        //         .Include(x => x.AdGenre)
+        //         .ThenInclude(x => x.Genre)
+        //         .FirstOrDefault(x => x.Id == adId.Value);
 
-        if (ad == null)
-            return null;
+        // if (ad == null)
+        //     return null;
 
-        var qr = _context.Ads
-        .Include(x => x.AdGenre)
-        .Where(x => x.AdGenre.All(genre => ad.AdGenre.Contains(genre)))
-        .Include(x => x.Author)
-        .Include(x => x.Images)
-        .AsSplitQuery()
-        .OrderByDescending(x => x.AdGenre.Count)
+        // var qr = _context.Ads
+        // .Include(x => x.AdGenre)
+        // .Where(x => x.AdGenre.All(genre => ad.AdGenre.Contains(genre)))
+        // .Include(x => x.Author)
+        // .Include(x => x.Images)
+        // .AsSplitQuery()
+        // .OrderByDescending(x => x.AdGenre.Count)
 
-        .Select(ad => new AdCardModel(ad)).Take(limit);
+        // .Select(ad => new AdCardModel(ad)).Take(limit);
 
-        return qr.ToList();
+        var qr = from ad in _context.Ads
+                 where ad.Id == adId
+                 from genreId in ad.AdGenre.Select(ag => ag.GenreId).Distinct()
+                 from similarAd in _context.AdGenre
+                                  .Where(ag => ag.GenreId == genreId && ag.AdId != adId)
+                                  .Select(ag => ag.Ad)
+                 select similarAd;
+
+        var simalarAds = qr
+                .Include(x => x.Author)
+                .Include(x => x.Images)
+                .AsSplitQuery()
+                .Distinct()
+                .Take(limit)
+                .OrderByDescending(x => x.CreatedAt)
+                .Select(ad => new AdCardModel(ad));
+
+        // return qr.ToList();
+        return simalarAds.ToList();
+
     }
 
     public DetailAdModel GetDetailAd(int adId, int? userId = null)

@@ -21,6 +21,8 @@ import 'slick-carousel/slick/slick-theme.css'
 
 import './DetailAd.scss'
 import DetailNotFound from '../../../components/notfound/AdNotFound/DetailNotFound'
+import { AnimatePresence, motion } from 'framer-motion'
+import { tapAnimation } from '../../../animation'
 
 const DetailAd = () => {
     const { adId } = useParams()
@@ -98,21 +100,34 @@ const DetailAd = () => {
                                     <div className='ad-price'>
                                         <span>{formatNumber(detailAd.price)} đ</span>
 
-                                        <div
+                                        <motion.div
+                                            variants={tapAnimation}
+                                            initial='initial'
+                                            whileTap='animate'
                                             onClick={() => handleSaveAd(!isFavorite)}
                                             className='save-ad-btn btn-outline'>
-                                            {isFavorite ? (
-                                                <>
-                                                    <span>Đã lưu</span>
-                                                    <i className='fa-solid fa-heart'></i>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <span>Lưu tin</span>
-                                                    <i className='fa-regular fa-heart'></i>
-                                                </>
-                                            )}
-                                        </div>
+                                            <AnimatePresence initial={false} mode='popLayout'>
+                                                {isFavorite ? (
+                                                    <motion.div
+                                                        key={1}
+                                                        initial={{ y: -50, opacity: 0 }}
+                                                        animate={{ y: 0, opacity: 1, transition: { type: 'tween' } }}
+                                                        exit={{ y: -50, opacity: 0 }}>
+                                                        <span>Đã lưu</span>
+                                                        <i className='fa-solid fa-heart ms-1'></i>
+                                                    </motion.div>
+                                                ) : (
+                                                    <motion.div
+                                                        key={2}
+                                                        initial={{ y: 50, opacity: 0 }}
+                                                        animate={{ y: 0, opacity: 1, transition: { type: 'tween' } }}
+                                                        exit={{ y: 50, opacity: 0 }}>
+                                                        <span>Lưu tin</span>
+                                                        <i className='fa-regular fa-heart ms-1'></i>
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
+                                        </motion.div>
                                     </div>
                                     <p className='ad-description'>{detailAd.description}</p>
                                     <div className='ad-param-container'>

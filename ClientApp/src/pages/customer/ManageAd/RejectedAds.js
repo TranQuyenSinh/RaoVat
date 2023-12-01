@@ -8,6 +8,8 @@ import { getRejectedAds, extendAd, deleteAd } from '../../../services'
 import NotHaveAd from '../../../components/notfound/AdNotFound/NotHaveAd'
 import ConfirmHideModal from './ConfirmHideModal'
 import { useConfirmModal } from '../../../hooks'
+import { motion } from 'framer-motion'
+import { fadeLeftAnimation, fadeOut } from './manageAdAnimtion'
 const initialState = {
     ads: [],
     isLoading: false,
@@ -53,7 +55,13 @@ const RejectedAds = ({ resetCount }) => {
                     <>
                         {state.ads?.length > 0 ? (
                             state.ads.map((item, index) => (
-                                <div key={item.id} className='ad-item'>
+                                <motion.div
+                                    variants={fadeLeftAnimation}
+                                    initial='initial'
+                                    animate='animate'
+                                    custom={index}
+                                    key={item.id}
+                                    className='ad-item'>
                                     <div className='d-flex gap-3'>
                                         <img className='ad-item__image' src={item.thumbnail} alt='' />
                                         <div className='ad-item-info'>
@@ -84,7 +92,9 @@ const RejectedAds = ({ resetCount }) => {
                                                 <div>{item.rejectReason}</div>
                                             </div>
                                             <div className='reject-action'>
-                                                <button className='btn btn-sm btn-outline-warning'>
+                                                <button
+                                                    onClick={() => navigate('/sua-tin/' + item.id)}
+                                                    className='btn btn-sm btn-outline-warning'>
                                                     Chỉnh sửa lại tin
                                                 </button>
                                                 <button
@@ -95,10 +105,12 @@ const RejectedAds = ({ resetCount }) => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </motion.div>
                             ))
                         ) : (
-                            <NotHaveAd />
+                            <motion.div variants={fadeOut} initial='initial' animate='animate'>
+                                <NotHaveAd />
+                            </motion.div>
                         )}
                     </>
                 )}

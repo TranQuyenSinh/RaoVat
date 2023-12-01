@@ -9,6 +9,9 @@ import LoadingBalls from '../../../components/loading/LoadingBalls'
 import NotHaveAd from '../../../components/notfound/AdNotFound/NotHaveAd'
 import { useConfirmModal } from '../../../hooks'
 
+import { motion } from 'framer-motion'
+import { fadeLeftAnimation, fadeOut } from './manageAdAnimtion'
+import { useNavigate } from 'react-router-dom'
 const initialState = {
     ads: [],
     isLoading: false,
@@ -33,6 +36,7 @@ const reducer = (state, action) => {
 }
 
 const DisplayAds = ({ resetCount }) => {
+    const navigate = useNavigate()
     const [state, dispatch] = useReducer(reducer, initialState)
     const [isOpenHideModal, toggleHideModal] = useConfirmModal()
     const [selectedAd, setSelectedAd] = useState()
@@ -66,7 +70,13 @@ const DisplayAds = ({ resetCount }) => {
                     <>
                         {state.ads?.length > 0 ? (
                             state.ads.map((item, index) => (
-                                <div key={item.id} className='ad-item'>
+                                <motion.div
+                                    variants={fadeLeftAnimation}
+                                    initial='initial'
+                                    animate='animate'
+                                    custom={index}
+                                    key={item.id}
+                                    className='ad-item'>
                                     <div className='d-flex gap-3'>
                                         <img className='ad-item__image' src={item.thumbnail} alt='' />
                                         <div className='ad-item-info'>
@@ -93,7 +103,9 @@ const DisplayAds = ({ resetCount }) => {
                                         </div>
                                     </div>
                                     <div className='text-end'>
-                                        <button className='btn btn-outline-secondary btn-sm fw-bold me-2'>
+                                        <button
+                                            onClick={() => navigate('/sua-tin/' + item.id)}
+                                            className='btn btn-outline-secondary btn-sm fw-bold me-2'>
                                             <i className='fa-regular fa-pen-to-square me-2'></i>Sửa tin
                                         </button>
                                         <button
@@ -103,10 +115,12 @@ const DisplayAds = ({ resetCount }) => {
                                             Ẩn tin
                                         </button>
                                     </div>
-                                </div>
+                                </motion.div>
                             ))
                         ) : (
-                            <NotHaveAd />
+                            <motion.div variants={fadeOut} initial='initial' animate='animate'>
+                                <NotHaveAd />
+                            </motion.div>
                         )}
                     </>
                 )}

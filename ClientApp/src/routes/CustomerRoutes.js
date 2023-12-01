@@ -7,6 +7,7 @@ import SearchAd from '../pages/customer/SearchAd/SearchAd'
 import ManageAd from '../pages/customer/ManageAd/ManageAd'
 import AccountSetting from '../pages/customer/AccountSetting/AccountSetting'
 import SavedAd from '../pages/customer/SavedAd/SavedAd'
+import EditAdForm from '../pages/customer/PostAd/EditAdForm'
 
 export const CustomerPublicRoutes = [
     {
@@ -35,6 +36,10 @@ export const CustomerPrivateRoutes = [
     {
         path: 'dang-tin',
         element: <PostAdForm />,
+    },
+    {
+        path: 'sua-tin/:adId',
+        element: <EditAdForm />,
     },
     {
         path: 'quan-ly-tin',

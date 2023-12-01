@@ -7,6 +7,7 @@ using App.RequestModels;
 using App.Utils;
 using System.Data.SqlClient;
 using Microsoft.AspNetCore.Authorization;
+using App.ResponseModels;
 
 namespace App.Controllers;
 
@@ -81,6 +82,81 @@ public class UserViewController : ControllerBase
         }
 
         return Ok("Success!");
+    }
+
+    [HttpGet("get-edit-ad")]
+    [Authorize]
+    public async Task<IActionResult> GetEditAd(int adId)
+    {
+        var userId = _userService.GetUserId(User);
+        if (userId == -1) return NotFound("User not found");
+
+        var editAd = await _context.Ads
+                            .Where(x => x.Id == adId && x.AuthorId == userId)
+                            .Include(x => x.Images)
+                            .Include(x => x.Author)
+                            .Include(x => x.AdGenre)
+                            .ThenInclude(x => x.Genre)
+                            .FirstOrDefaultAsync();
+        if (editAd == null) return NotFound("Ad not found");
+
+        var model = new ResponseModels.EditAdModel(editAd);
+
+        return new JsonResult(model);
+    }
+
+    [HttpPost("save-edit-ad")]
+    [Authorize]
+    public async Task<IActionResult> SaveEditAd([FromForm] RequestModels.EditAdModel ad)
+    {
+        var userId = _userService.GetUserId(User);
+        if (userId == -1) return NotFound("User not found");
+
+        var editAd = await _context.Ads
+                            .Where(x => x.Id == ad.AdId && x.AuthorId == userId)
+                            .Include(x => x.Images)
+                            .Include(x => x.AdGenre)
+                            .ThenInclude(x => x.Genre)
+                            .FirstOrDefaultAsync();
+        if (editAd == null) return NotFound("Ad not found");
+
+        // ad info
+        editAd.Title = ad.Title;
+        editAd.Description = ad.Description;
+        editAd.Price = ad.Price;
+        editAd.Status = ad.Status;
+        editAd.Color = ad.Color;
+        editAd.Origin = ad.Origin;
+        editAd.AprovedStatus = 0;
+
+        // genre
+        _context.AdGenre.RemoveRange(_context.AdGenre.Where(x => x.AdId == editAd.Id).ToList());
+        var addGenres = await _context.Genres.Where(x => ad.GenreIds.Contains(x.Id)).ToListAsync();
+        addGenres.ForEach(genre => _context.Add(new AdGenre
+        {
+            AdId = editAd.Id,
+            GenreId = genre.Id
+        }));
+
+        // remove images
+        if (ad.RemoveImages?.Length > 0)
+        {
+            var deleteImages = await _context.AdImages.Where(x => x.AdId == editAd.Id && ad.RemoveImages.Contains(x.Id)).ToListAsync();
+            deleteImages.ForEach(image => CommonUtils.DeleteImage(CommonUtils.AD_IMAGE, image.FileName));
+            _context.AdImages.RemoveRange(deleteImages);
+        }
+
+        // add images
+        if (ad.AddImages?.Length > 0)
+        {
+            List<string> imageNames = CommonUtils.UploadImage(CommonUtils.AD_IMAGE, ad.AddImages);
+            var newImages = new List<AdImage>();
+            imageNames.ForEach(name => newImages.Add(new AdImage() { AdId = editAd.Id, FileName = name }));
+            await _context.AdImages.AddRangeAsync(newImages);
+        }
+
+        await _context.SaveChangesAsync();
+        return Ok("Save successfully");
     }
 
 }

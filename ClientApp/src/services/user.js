@@ -20,3 +20,23 @@ export const postAd = data => {
         },
     })
 }
+
+export const saveEditAd = data => {
+    let formData = new FormData()
+    Object.keys(data).forEach(key => {
+        if (Array.isArray(data[key])) {
+            data[key].forEach(item => formData.append([key], item))
+        } else {
+            formData.append([key], data[key])
+        }
+    })
+    return authAxios.post(userApi.saveEditAd, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    })
+}
+
+export const getEditAd = adId => {
+    return authAxios.get(userApi.getEditAd, { params: { adId } })
+}

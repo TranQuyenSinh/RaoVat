@@ -20,7 +20,7 @@ export const Login = props => {
     const { isLoggedIn, loginErrorMessage } = useSelector(state => state.user)
 
     useEffect(() => {
-        if (isLoggedIn) navigate(-1)
+        if (isLoggedIn) navigate('/')
     }, [isLoggedIn])
 
     useEffect(() => {

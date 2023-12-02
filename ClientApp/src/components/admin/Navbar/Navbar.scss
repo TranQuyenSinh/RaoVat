@@ -1,0 +1,14 @@
+@import '../../../styles/variables.scss';
+
+.admin-navbar {
+    background-color: $backgrounddark;
+    color           : $whitecolor;
+}
+
+.sidebar-toggler {
+    cursor: pointer;
+
+    &:hover {
+        color: $maincolor;
+    }
+}

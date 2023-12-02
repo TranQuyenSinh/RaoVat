@@ -1,0 +1,11 @@
+@import '../../styles/variables.scss';
+
+.admin-content {
+    margin-left   : 250px;
+    min-height    : 100vh;
+    background    : $backgroundcolor;
+    transition    : 0.5s;
+    width         : 100%;
+    display       : flex;
+    flex-direction: column;
+}

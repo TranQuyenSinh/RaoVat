@@ -1,15 +1,16 @@
 import { Counter } from '../components/Counter'
 import { FetchData } from '../components/FetchData'
-import { Home } from '../pages/customer/Home'
+import GenreManage from '../pages/admin/GenreManage/GenreManage'
+import Home from '../pages/admin/Home/Home'
 
 export const SystemPublicRoutes = [
     {
-        index: 'system',
+        index: 'admin',
         element: <Home />,
     },
     {
-        path: 'fetch-data',
-        element: <FetchData />,
+        path: 'genres',
+        element: <GenreManage />,
     },
 ]
 

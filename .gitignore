@@ -3,6 +3,7 @@
 
 # Upload folder
 /Uploads
+/AdminTheme
 
 # User-specific files
 *.suo

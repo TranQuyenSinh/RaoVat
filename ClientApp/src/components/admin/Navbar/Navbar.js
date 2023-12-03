@@ -1,6 +1,10 @@
 import React from 'react'
 import no_avatar from '@assets/images/no_avatar.png'
 import './Navbar.scss'
+import { signal } from '@preact/signals-react'
+
+export const setNavbarTitle = signal('')
+
 const Navbar = ({ toggleSidebar }) => {
     return (
         <nav className='admin-navbar navbar navbar-expand navbar-dark sticky-top px-4 py-0'>
@@ -12,6 +16,8 @@ const Navbar = ({ toggleSidebar }) => {
             <span onClick={toggleSidebar} className='sidebar-toggler flex-shrink-0'>
                 <i className='fa fa-bars'></i>
             </span>
+
+            <h5 className='ms-3 text-light'>{setNavbarTitle.value}</h5>
 
             <div className='navbar-nav align-items-center ms-auto'>
                 <div className='nav-item dropdown'>

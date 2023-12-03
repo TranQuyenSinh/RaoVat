@@ -3,20 +3,8 @@ import './GridAd.scss'
 import AdCard from './AdCard'
 import AdNotFound from '../../notfound/AdNotFound/AdNotFound'
 import { motion } from 'framer-motion'
+import { fadeUpCustom } from '@animation/fade'
 
-const fadeUpAnimation = {
-    initial: {
-        opacity: 0,
-        y: 100,
-    },
-    animate: index => ({
-        opacity: 1,
-        y: 0,
-        transition: {
-            delay: 0.05 * index,
-        },
-    }),
-}
 const GridAd = ({ data }) => {
     return (
         <>
@@ -24,7 +12,7 @@ const GridAd = ({ data }) => {
                 {data && data.length > 0 ? (
                     data.map((item, index) => (
                         <motion.div
-                            variants={fadeUpAnimation}
+                            variants={fadeUpCustom}
                             initial='initial'
                             whileInView='animate'
                             viewport={{ once: true }}

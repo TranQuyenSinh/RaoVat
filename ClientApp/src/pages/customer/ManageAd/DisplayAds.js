@@ -7,7 +7,7 @@ import { moment, formatNumber } from '../../../utils'
 import { hideAd, getDisplayAds } from '../../../services'
 import LoadingBalls from '../../../components/loading/LoadingBalls'
 import NotHaveAd from '../../../components/notfound/AdNotFound/NotHaveAd'
-import { useConfirmModal } from '../../../hooks'
+import { useModal } from '@hooks/useModal'
 
 import { motion } from 'framer-motion'
 import { fadeLeftAnimation, fadeOut } from './manageAdAnimtion'
@@ -38,7 +38,7 @@ const reducer = (state, action) => {
 const DisplayAds = ({ resetCount }) => {
     const navigate = useNavigate()
     const [state, dispatch] = useReducer(reducer, initialState)
-    const [isOpenHideModal, toggleHideModal] = useConfirmModal()
+    const [isOpenHideModal, toggleHideModal] = useModal()
     const [selectedAd, setSelectedAd] = useState()
 
     const handleHideAd = async () => {

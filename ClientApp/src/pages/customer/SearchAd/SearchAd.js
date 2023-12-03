@@ -14,7 +14,7 @@ import CustomBadge from '../../../components/badge/CustomBadge'
 
 const SearchAd = () => {
     const [searchParams, setSearchParams] = useSearchParams()
-    const keyword = searchParams.get('q') || ''
+    const keyword = searchParams?.get('q') || ''
     const [filter, setFilter] = useState()
     const { currentLocation } = useSelector(state => state.app)
     const { isLoggedIn, currentUser } = useSelector(state => state.user)
@@ -88,7 +88,7 @@ const SearchAd = () => {
                 <div className='mt-2 mb-3 fw-bold'>Tìm kiếm với từ khóa: {keyword}</div>
                 <Section className='search-list-container'>
                     {ads?.length > 0 &&
-                        ads.map(item => (
+                        ads?.map(item => (
                             <div
                                 key={item.id}
                                 className='product-item'
@@ -124,7 +124,7 @@ const SearchAd = () => {
                                 </div>
                             </div>
                         ))}
-                    {ads.length == 0 && <SearchNotFound className={'py-5'} />}
+                    {ads?.length == 0 && <SearchNotFound className={'py-5'} />}
                 </Section>
             </div>
         </>

@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 export const tapAnimation = {
     initial: {
         scale: 1,
@@ -8,4 +10,12 @@ export const tapAnimation = {
             duration: 0.2,
         },
     },
+}
+
+export const AnimationButton = ({ children, ...props }) => {
+    return (
+        <motion.div variants={tapAnimation} whileTap='animate' {...props}>
+            {children}
+        </motion.div>
+    )
 }

@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
 
 import { getUserInfo, saveUserInfo } from '../../../services'
-import { useConfirmModal } from '../../../hooks/useConfirmModal'
+import { useModal } from '@hooks/useModal'
 import { useValidateForm } from '../../../hooks/useValidateForm'
 import { updateUserInfo } from '../../../redux/user/user.actions'
 import Section from '../../../components/customer/Section/Section'
@@ -18,7 +18,7 @@ import './AccountInfo.scss'
 
 const AccountInfo = () => {
     const dispatch = useDispatch()
-    const [isOpenAddressModal, toggleAddressModal] = useConfirmModal()
+    const [isOpenAddressModal, toggleAddressModal] = useModal()
     const [formData, setFormData] = useState({
         fullName: '',
         phone: '',

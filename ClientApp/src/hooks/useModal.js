@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const useConfirmModal = () => {
+export const useModal = () => {
     const [isOpen, setIsOpen] = useState(false)
     const toggle = () => {
         setIsOpen(!isOpen)

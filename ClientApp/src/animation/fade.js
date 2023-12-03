@@ -9,7 +9,19 @@ export const fadeUp = {
         transition: { type: 'tween', duration: 0.7 },
     },
 }
-
+export const fadeUpCustom = {
+    initial: {
+        opacity: 0,
+        y: 100,
+    },
+    animate: index => ({
+        opacity: 1,
+        y: 0,
+        transition: {
+            delay: 0.04 * index,
+        },
+    }),
+}
 export const fadeDown = {
     initial: {
         y: -100,
@@ -52,6 +64,20 @@ export const fadeIn = {
     },
     animate: {
         opacity: 1,
+        transition: { duration: 0.3 },
+    },
+    exit: {
+        opacity: 0,
+        // transition: { duration: 0.3},
+    },
+}
+
+export const fadeOut = {
+    initial: {
+        opacity: 1,
+    },
+    animate: {
+        opacity: 0,
         transition: { duration: 0.3 },
     },
 }

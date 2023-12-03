@@ -25,7 +25,6 @@ export const SystemLayout = () => {
 
                     <Footer />
                 </div>
-                {/* <!-- Content End --> */}
             </div>
         </>
     )

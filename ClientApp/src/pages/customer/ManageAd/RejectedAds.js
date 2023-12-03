@@ -7,7 +7,7 @@ import LoadingBalls from '../../../components/loading/LoadingBalls'
 import { getRejectedAds, extendAd, deleteAd } from '../../../services'
 import NotHaveAd from '../../../components/notfound/AdNotFound/NotHaveAd'
 import ConfirmHideModal from './ConfirmHideModal'
-import { useConfirmModal } from '../../../hooks'
+import { useModal } from '@hooks/useModal'
 import { motion } from 'framer-motion'
 import { fadeLeftAnimation, fadeOut } from './manageAdAnimtion'
 const initialState = {

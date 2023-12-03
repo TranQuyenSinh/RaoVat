@@ -7,7 +7,7 @@ import LoadingBalls from '../../../components/loading/LoadingBalls'
 import { getExpiredAds, extendAd, deleteAd } from '../../../services'
 import NotHaveAd from '../../../components/notfound/AdNotFound/NotHaveAd'
 import ConfirmHideModal from './ConfirmHideModal'
-import { useConfirmModal } from '../../../hooks'
+import { useModal } from '@hooks/useModal'
 import { motion } from 'framer-motion'
 import { fadeLeftAnimation, fadeOut } from './manageAdAnimtion'
 const initialState = {
@@ -35,7 +35,7 @@ const reducer = (state, action) => {
 
 const ExpiredAds = ({ resetCount }) => {
     const [state, dispatch] = useReducer(reducer, initialState)
-    const [isOpenDeleteModal, toggleDeleteModal] = useConfirmModal()
+    const [isOpenDeleteModal, toggleDeleteModal] = useModal()
     const [selectedAd, setSelectedAd] = useState()
 
     const handleConfirmDelete = item => {

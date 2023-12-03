@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { setNavbarTitle } from '@components/admin/Navbar/Navbar'
 
 const Home = () => {
+    useEffect(() => {
+        setNavbarTitle.value = 'Trang chủ'
+    }, [])
+
     return (
         <div className='home-container'>
             <div className='container-fluid pt-4 px-4'>

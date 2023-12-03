@@ -1,3 +1,4 @@
+import ChildGenreManage from '@pages/admin/GenreManage/ChildGenreManage'
 import { Counter } from '../components/Counter'
 import { FetchData } from '../components/FetchData'
 import GenreManage from '../pages/admin/GenreManage/GenreManage'
@@ -11,6 +12,10 @@ export const SystemPublicRoutes = [
     {
         path: 'genres',
         element: <GenreManage />,
+    },
+    {
+        path: 'genres/:parentGenreId',
+        element: <ChildGenreManage />,
     },
 ]
 

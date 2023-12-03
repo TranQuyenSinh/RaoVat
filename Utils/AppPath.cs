@@ -2,7 +2,7 @@ namespace App.Utils;
 
 public static class AppPath
 {
-    public const string GENRE_IMAGE = "/contents/genre/image/";
+    public const string GENRE_IMAGE = "/contents/genre/";
     public const string AD_IMAGE = "/contents/ad/";
     public const string USER_AVATAR = "/contents/customer/avatar/";
 

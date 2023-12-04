@@ -12,20 +12,6 @@
         .ad-infor {
             width: 70%;
 
-            .ad-img-slider {
-                background-color: $backgroundcolor;
-
-                .slider-item {
-                    img {
-                        height    : 450px;
-                        width     : 100%;
-                        object-fit: contain;
-                        margin    : 0 auto;
-                        cursor    : zoom-in;
-                    }
-                }
-            }
-
             .ad-title {
                 font-weight: bold;
                 margin     : 6px 0;

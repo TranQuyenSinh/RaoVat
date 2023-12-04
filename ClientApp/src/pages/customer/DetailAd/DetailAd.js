@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from 'react'
 
-import Slider from 'react-slick'
 import { toast } from 'react-toastify'
 import { useSelector } from 'react-redux'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useParams, useNavigate } from 'react-router-dom'
+
+import ImageSlider from '@components/slider/ImageSlider'
 
 import OtherAds from './OtherAds'
 import SimilarAds from './SimilarAds'
 import { moment } from '../../../utils'
 import ShopSideBar from './ShopSideBar'
 import { formatNumber } from '../../../utils'
+import { tapAnimation } from '../../../animation'
+import { getDetailAd, saveAdToFavorite } from '../../../services'
 import Section from '../../../components/customer/Section/Section'
 import LoadingBalls from '../../../components/loading/LoadingBalls'
-import { getDetailAd, saveAdToFavorite } from '../../../services'
-import { adImagesCarouselConfigs } from '../../../components/carousel/carouselConfig'
-import CustomLightBox from '../../../components/customer/CustomLightBox/CustomLightBox'
+import DetailNotFound from '../../../components/notfound/AdNotFound/DetailNotFound'
 
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
 import './DetailAd.scss'
-import DetailNotFound from '../../../components/notfound/AdNotFound/DetailNotFound'
-import { AnimatePresence, motion } from 'framer-motion'
-import { tapAnimation } from '../../../animation'
 
 const DetailAd = () => {
     const { adId } = useParams()
@@ -34,9 +33,6 @@ const DetailAd = () => {
     const [error, setError] = useState(false)
 
     const [isFavorite, setIsFavorite] = useState(false)
-
-    const [isOpenLightBox, setIsOpenLightBox] = useState(false)
-    const [photoIndex, setPhotoIndex] = useState(0)
 
     useEffect(() => {
         ;(async () => {
@@ -55,14 +51,6 @@ const DetailAd = () => {
             setIsLoadingDetail(false)
         })()
     }, [adId])
-
-    const toggleLightBox = () => {
-        setIsOpenLightBox(!isOpenLightBox)
-    }
-    const handleShowLightBox = index => {
-        setPhotoIndex(index)
-        toggleLightBox()
-    }
 
     const handleSaveAd = async isFavorite => {
         if (!isLoggedIn) {
@@ -89,13 +77,7 @@ const DetailAd = () => {
                             <Section className='ad-detail-section'>
                                 {/* Infor */}
                                 <div className='ad-infor'>
-                                    <Slider className='ad-img-slider' {...adImagesCarouselConfigs}>
-                                        {detailAd.images.map((item, index) => (
-                                            <div className='slider-item' key={index}>
-                                                <img onClick={() => handleShowLightBox(index)} src={item} alt='' />
-                                            </div>
-                                        ))}
-                                    </Slider>
+                                    <ImageSlider images={detailAd.images} />
                                     <div className='ad-title'>{detailAd.title}</div>
                                     <div className='ad-price'>
                                         <span>{formatNumber(detailAd.price)} đ</span>
@@ -148,13 +130,7 @@ const DetailAd = () => {
 
                                 <ShopSideBar shopId={detailAd.shopId} />
                             </Section>
-                            <CustomLightBox
-                                images={detailAd.images}
-                                photoIndex={photoIndex}
-                                setPhotoIndex={setPhotoIndex}
-                                isOpen={isOpenLightBox}
-                                toggle={toggleLightBox}
-                            />
+
                             {/* Tin cùng shop */}
                             {detailAd.shopId && <OtherAds shopId={detailAd.shopId} />}
 

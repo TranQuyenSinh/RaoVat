@@ -119,8 +119,11 @@ public class AdServices
         .Where(x => x.Id == adId)
         .Include(x => x.Images)
         .Include(x => x.UserAd)
+        .Include(x => x.AdGenre)
+        .ThenInclude(x => x.Genre)
         .Include(x => x.Author)
         .ThenInclude(author => author.Followers)
+        .AsSingleQuery()
         .Select(ad => new DetailAdModel(ad, userId));
 
         return qr.FirstOrDefault();

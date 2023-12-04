@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import Slider from 'react-slick'
 import { adImagesCarouselConfigs } from '@components/carousel/carouselConfig'
 import CustomLightBox from '@components/customer/CustomLightBox/CustomLightBox'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+
 import './ImageSlider.scss'
 const ImageSlider = ({ images }) => {
     const [isOpenLightBox, setIsOpenLightBox] = useState(false)

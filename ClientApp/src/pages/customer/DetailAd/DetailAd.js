@@ -18,9 +18,6 @@ import Section from '../../../components/customer/Section/Section'
 import LoadingBalls from '../../../components/loading/LoadingBalls'
 import DetailNotFound from '../../../components/notfound/AdNotFound/DetailNotFound'
 
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-
 import './DetailAd.scss'
 
 const DetailAd = () => {

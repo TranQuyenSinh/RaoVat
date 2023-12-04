@@ -1,7 +1,7 @@
 @import '../../styles/variables.scss';
 
 .admin-content {
-    margin-left   : 250px;
+    margin-left   : $admin-sidebar-width;
     min-height    : 100vh;
     background    : $backgroundcolor-darker;
     transition    : 0.5s;

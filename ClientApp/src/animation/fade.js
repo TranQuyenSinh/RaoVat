@@ -32,6 +32,10 @@ export const fadeDown = {
         opacity: 1,
         transition: { type: 'tween', duration: 0.7 },
     },
+    exit: {
+        y: -100,
+        opacity: 0,
+    },
 }
 
 export const fadeRight = {

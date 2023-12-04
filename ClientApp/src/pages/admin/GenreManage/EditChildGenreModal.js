@@ -1,13 +1,14 @@
 import FloatingInput from '@components/input/CustomInput/FloatingInput'
 import FloatingTextArea from '@components/input/CustomInput/FloatingTextArea'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
 import placeholder_image from '@assets/images/placeholder_image.png'
 import { useValidateForm } from '@hooks/useValidateForm'
 
-const AddGenreModal = ({ isOpen, toggle, onSubmit }) => {
+const EditChildGenreModal = ({ isOpen, toggle, editChildGenre, onSubmit }) => {
     const inputFileRef = useRef()
     const [formData, setFormData] = useState({
+        id: '',
         title: '',
         description: '',
         image: undefined,
@@ -21,26 +22,29 @@ const AddGenreModal = ({ isOpen, toggle, onSubmit }) => {
     const [formValidate, errors] = useValidateForm({ title, description }, errorMessages, false)
     const [imgError, setImgError] = useState('')
 
+    useEffect(() => {
+        if (editChildGenre) {
+            setFormData({
+                id: editChildGenre?.id,
+                title: editChildGenre?.title,
+                description: editChildGenre?.description,
+                image: {
+                    url: editChildGenre?.image,
+                },
+            })
+        }
+    }, [editChildGenre])
+
     const handleSubmit = () => {
-        if (!validate()) {
+        if (!formValidate()) {
             return
         }
         onSubmit({
+            id: formData.id,
             title: formData.title,
             description: formData.description,
             image: formData.image.file,
         })
-        setFormData({ title: '', description: '', image: undefined })
-    }
-
-    const validate = () => {
-        let isValid = true
-        if (!formValidate()) isValid = false
-        if (!formData.image?.file) {
-            setImgError('Hình ảnh không được bỏ trống')
-            isValid = false
-        }
-        return isValid
     }
 
     const handleChangeInput = e => {
@@ -72,7 +76,7 @@ const AddGenreModal = ({ isOpen, toggle, onSubmit }) => {
     return (
         <Modal isOpen={isOpen} toggle={toggle} className='add-genre-modal'>
             <ModalHeader>
-                <strong>Thêm danh mục</strong>
+                <strong>Thêm danh mục con</strong>
                 <span>
                     <button onClick={toggle} className='btn btn-close'></button>
                 </span>
@@ -112,11 +116,11 @@ const AddGenreModal = ({ isOpen, toggle, onSubmit }) => {
                     Hủy
                 </div>
                 <div onClick={handleSubmit} className='btn btn-main text-uppercase'>
-                    Thêm mới
+                    Lưu thay đổi
                 </div>
             </ModalFooter>
         </Modal>
     )
 }
 
-export default AddGenreModal
+export default EditChildGenreModal

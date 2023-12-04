@@ -1,13 +1,13 @@
 import Section from '@components/admin/Section/Section'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { setNavbarTitle } from '@components/admin/Navbar/Navbar'
 import './GenreManage.scss'
 import testimg from '@assets/images/test.png'
 import { useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { fadeIn, fadeUpCustom } from '@animation/fade'
 import { tapAnimation } from '@animation/button'
-import { getAllGenres, getRootGenres } from '@services/genre'
+import { createGenre, getAllGenres, getRootGenres } from '@services/genre'
 import AddGenreModal from './AddGenreModal'
 import { useModal } from '@hooks/useModal'
 
@@ -26,6 +26,11 @@ const GenreManage = () => {
     }
 
     useEffect(() => {
+        setNavbarTitle.value = 'Quản lý danh mục'
+        fetchData()
+    }, [])
+
+    useEffect(() => {
         let filteredGenres = genres
         if (searchKey) {
             filteredGenres = genres.filter(g => g.title.toLowerCase().indexOf(searchKey.toLowerCase()) !== -1)
@@ -33,10 +38,15 @@ const GenreManage = () => {
         setFilteredGenres(filteredGenres)
     }, [searchKey, genres])
 
-    useEffect(() => {
-        setNavbarTitle.value = 'Quản lý danh mục'
-        fetchData()
-    }, [])
+    const handleCreateGenre = async data => {
+        try {
+            await createGenre(data)
+            toggle()
+            fetchData()
+        } catch (e) {
+            console.log('Có lỗi xảy ra, vui lòng thử lại!')
+        }
+    }
 
     return (
         <>
@@ -75,7 +85,7 @@ const GenreManage = () => {
                     </div>
                 </Section>
             </motion.div>
-            <AddGenreModal isOpen={isOpen} toggle={toggle} onSubmit={fetchData} />
+            <AddGenreModal isOpen={isOpen} toggle={toggle} onSubmit={handleCreateGenre} />
         </>
     )
 }

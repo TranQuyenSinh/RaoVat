@@ -6,16 +6,19 @@ import { motion } from 'framer-motion'
 
 const Sidebar = ({ isShow }) => {
     const tabs = useRef([
-        { id: 1, title: 'Dashboard', url: '/admin', icon: <i className='fa fa-user-edit me-2'></i> },
-        { id: 2, title: 'Quản lý danh mục', url: '/admin/genres', icon: <i className='fa fa-user-edit me-2'></i> },
-        { id: 3, title: 'Quản lý test', url: '/admin', icon: <i className='fa fa-user-edit me-2'></i> },
+        { id: 1, title: 'Dashboard', url: '/admin', icon: <i className='fa-solid fa-gauge me-2'></i> },
+        {
+            id: 2,
+            title: 'Quản lý danh mục',
+            url: '/admin/genres',
+            icon: <i className='fa-solid fa-table-list me-2'></i>,
+        },
     ]).current
     const [activeTab, setActiveTab] = useState(1)
 
     return (
         <motion.div className='sidebar' style={!isShow ? { translateX: '-100%', transition: 0.5 } : null}>
             <nav className='navbar p-0  navbar-dark'>
-                {console.log(activeTab)}
                 <img src={logo} width={'100%'} />
                 <div className='mt-4'>
                     {tabs.map((item, index) => (

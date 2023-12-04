@@ -6,7 +6,7 @@ import { moment, formatNumber } from '../../../utils'
 import LoadingBalls from '../../../components/loading/LoadingBalls'
 import { getExpiredAds, extendAd, deleteAd } from '../../../services'
 import NotHaveAd from '../../../components/notfound/AdNotFound/NotHaveAd'
-import ConfirmHideModal from './ConfirmHideModal'
+import ConfirmModal from './ConfirmModal'
 import { useModal } from '@hooks/useModal'
 import { motion } from 'framer-motion'
 import { fadeLeftAnimation, fadeOut } from './manageAdAnimtion'
@@ -130,7 +130,7 @@ const ExpiredAds = ({ resetCount }) => {
                     </>
                 )}
             </div>
-            <ConfirmHideModal
+            <ConfirmModal
                 title={'Xác nhận xóa tin'}
                 body={'Xác nhận xóa tin, thao tác này không thể phục hồi. Bạn có chắc muốn xóa tin này?'}
                 submitText={'Xóa tin'}

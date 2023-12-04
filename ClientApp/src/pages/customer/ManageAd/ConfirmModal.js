@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 
-const ConfirmHideModal = ({ title, body, submitText, isOpen, toggle, handleSubmit }) => {
+const ConfirmModal = ({ title, body, submitText, isOpen, toggle, handleSubmit }) => {
     const onSubmit = () => {
         toggle()
         handleSubmit()
@@ -27,4 +27,4 @@ const ConfirmHideModal = ({ title, body, submitText, isOpen, toggle, handleSubmi
     )
 }
 
-export default ConfirmHideModal
+export default ConfirmModal

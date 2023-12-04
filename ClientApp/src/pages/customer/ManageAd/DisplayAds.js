@@ -2,7 +2,7 @@ import React, { useState, useEffect, useReducer } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import ConfirmHideModal from './ConfirmHideModal'
+import ConfirmModal from './ConfirmModal'
 import { moment, formatNumber } from '../../../utils'
 import { hideAd, getDisplayAds } from '../../../services'
 import LoadingBalls from '../../../components/loading/LoadingBalls'
@@ -125,7 +125,7 @@ const DisplayAds = ({ resetCount }) => {
                     </>
                 )}
             </div>
-            <ConfirmHideModal
+            <ConfirmModal
                 title={'Xác nhận ẩn tin'}
                 body={'Khi bạn đã bán được hàng, hoặc không muốn tin xuất hiện trên Rao vặt, hãy chọn "Ẩn tin".'}
                 submitText={'Ẩn tin'}

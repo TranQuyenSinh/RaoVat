@@ -2,7 +2,7 @@ import React, { useState, useEffect, useReducer } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import ConfirmHideModal from './ConfirmHideModal'
+import ConfirmModal from './ConfirmModal'
 import { moment, formatNumber } from '../../../utils'
 import LoadingBalls from '../../../components/loading/LoadingBalls'
 import { showAd, getHiddenAds } from '../../../services'

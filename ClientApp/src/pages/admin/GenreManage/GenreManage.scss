@@ -1,6 +1,15 @@
 @import '../../../styles/variables.scss';
 
 .genre-manage-container {
+
+    .detail-genre-image {
+        width     : 150px;
+        height    : 150px;
+        object-fit: contain;
+        cursor    : pointer;
+        border    : 1px solid $graycolor;
+    }
+
     .list {
         display  : flex;
         gap      : 10px;

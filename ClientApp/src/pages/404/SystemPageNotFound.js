@@ -8,7 +8,7 @@ const SystemPageNotFound = () => {
             <img src={NotFoundImage} alt='' className='w-50' />
             <h5 className='fw-bold mt-3'>Đã có lỗi xảy ra</h5>
             <p>Rất tiếc, không tìm thấy trang. Vui lòng kiểm tra lại đường dẫn</p>
-            <Link to={'/system'} className='btn btn-main'>
+            <Link to={'/admin'} className='btn btn-main mt-2'>
                 Về trang chủ
             </Link>
         </div>

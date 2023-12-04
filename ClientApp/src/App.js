@@ -9,6 +9,7 @@ import { Register } from './pages/customer/auth/Register'
 import CustomToastContainer from './components/toast/CustomToastContainer'
 import './styles/custom.scss'
 import { SystemLayout } from './components/layout/SystemLayout'
+import SystemPageNotFound from '@pages/404/SystemPageNotFound'
 
 const App = () => {
     return (
@@ -36,17 +37,16 @@ const App = () => {
                 <Route path='/admin' element={<SystemLayout />}>
                     {/* Public customer routes */}
                     {SystemPublicRoutes.map((route, index) => {
-                        const { element, ...rest } = route
-                        return <Route key={index} {...rest} element={element} />
+                        // const { element, ...rest } = route
+                        return <Route key={index} {...route} />
                     })}
                     {/* Private customer routes */}
                     <Route element={<LoggedInRoute />}>
                         {SystemPrivateRoutes.map((route, index) => {
-                            const { element, ...rest } = route
-                            return <Route key={index} {...rest} element={element} />
+                            return <Route key={index} {...route} />
                         })}
                     </Route>
-                    <Route path='*' element={<CustomerPageNotFound />} />
+                    <Route path='*' element={<SystemPageNotFound />} />
                 </Route>
             </Routes>
             <CustomToastContainer />

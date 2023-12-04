@@ -1,25 +1,26 @@
-.pagination-container {
-    display        : flex;
-    list-style-type: none;
+@import '../../styles/variables.scss';
 
-    .pagination-item {
-        padding       : 0 12px;
-        height        : 32px;
-        text-align    : center;
-        margin        : auto 4px;
-        color         : rgba(0, 0, 0, 0.87);
-        display       : flex;
-        box-sizing    : border-box;
-        align-items   : center;
-        letter-spacing: 0.01071em;
-        border-radius : 16px;
-        line-height   : 1.43;
-        font-size     : 13px;
-        min-width     : 32px;
+.custom-paginate-container {
+    display            : flex;
+    align-items        : center;
+    justify-content    : center;
+    gap                : 12px;
+    margin             : 12px auto;
+    // border-radius   : 30px;
+    // padding         : 6px 12px;
+    // background-color: white;
+    // width           : fit-content;
+    // box-shadow      : $card-boxshadow;
+    // margin-top      : 30px;
 
-        &.dots:hover {
-            background-color: transparent;
-            cursor          : default;
+    .page-item,
+    .page-arrow {
+        margin       : auto 4px;
+        color        : rgba(0, 0, 0, 0.87) !important;
+        border-radius: 50%;
+
+        &.active {
+            background-color: rgba(0, 0, 0, 0.274);
         }
 
         &:hover {
@@ -27,8 +28,18 @@
             cursor          : pointer;
         }
 
-        &.selected {
-            background-color: rgba(0, 0, 0, 0.08);
+        &.disabled {
+            display: none;
+        }
+
+        .link-arrow,
+        .page-link {
+            font-size  : 18px;
+            display    : block;
+            padding    : 14px 18px;
+            line-height: 16px;
+            color      : rgba(0, 0, 0, 0.87) !important;
+
         }
 
         .arrow {

@@ -23,12 +23,14 @@ public class ManageApproveController : ControllerBase
     private readonly AppDbContext _context;
     private readonly UserService _userService;
     private readonly IConfiguration _configuration;
+    private readonly IEmailSender _emailSender;
 
-    public ManageApproveController(AppDbContext context, UserService userService, IConfiguration configuration)
+    public ManageApproveController(AppDbContext context, UserService userService, IConfiguration configuration, IEmailSender emailSender)
     {
         _context = context;
         _userService = userService;
         _configuration = configuration;
+        _emailSender = emailSender;
     }
 
     [HttpGet("waiting-approve-ads")]
@@ -56,27 +58,36 @@ public class ManageApproveController : ControllerBase
     public async Task<IActionResult> ApproveAd(ApproveAdModel model)
     {
         var userId = _userService.GetUserId(User);
-        if (userId == -1) return NotFound("User not found");
+        var approvedUser = await _context.Users.FindAsync(userId);
+        if (approvedUser == null) return NotFound("User not found");
 
-        var ad = await _context.Ads.FindAsync(model.AdId);
+        var ad = await _context.Ads
+                    .Where(x => x.Id == model.AdId)
+                    .Include(x => x.Author)
+                    .FirstOrDefaultAsync();
         if (ad == null) return NotFound("Ad not found");
-
         _ = int.TryParse(_configuration["GlobalVariables:AdLifeTimeInDay"], out int AdLifeTimeInDay);
 
         ad.AprovedStatus = (byte)model.ApproveStatus;
         ad.AprovedAt = DateTime.Now;
-        ad.AprovedUserId = userId;
+        ad.AprovedUserId = approvedUser.Id;
 
+
+        string? emailSubject;
+        string? emailBody;
         if (ad.AprovedStatus == 2)
         {
             ad.RejectReason = model.RejectReason;
+            (emailSubject, emailBody) = EmailUtils.GenerateRejectMail(ad);
         }
         else
         {
+            (emailSubject, emailBody) = EmailUtils.GenerateApprovedMail(ad);
             ad.ExpireAt = DateTime.Now.AddDays(AdLifeTimeInDay);
         }
 
         await _context.SaveChangesAsync();
+        await _emailSender.SendEmailAsync(ad.Author.Email, emailSubject, emailBody);
 
         return Ok("Ad has approved successfully");
     }

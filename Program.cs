@@ -19,6 +19,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("RaoVat"));
 });
 
+/* ================ Send Mail Service ================ */
+builder.Services.AddOptions();
+var mailsettings = builder.Configuration.GetSection("MailSettings");
+builder.Services.Configure<MailSettings>(mailsettings);
+builder.Services.AddSingleton<IEmailSender, SendMailService>();
+
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(

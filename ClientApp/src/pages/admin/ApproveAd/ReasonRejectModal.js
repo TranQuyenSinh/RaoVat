@@ -9,7 +9,6 @@ const ReasonRejectModal = ({ isOpen, toggle, handleSubmit }) => {
 
     const onSubmit = () => {
         if (!validate()) return
-
         handleSubmit(reason)
         toggle()
     }
@@ -18,7 +17,7 @@ const ReasonRejectModal = ({ isOpen, toggle, handleSubmit }) => {
             <ModalHeader>
                 <strong>Lý do từ chối</strong>
                 <span>
-                    <button onClick={toggle} className='btn btn-close'></button>
+                    <button onClick={toggle} className='btn btn-close'></button>;
                 </span>
             </ModalHeader>
             <ModalBody>

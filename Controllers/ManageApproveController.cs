@@ -21,10 +21,14 @@ namespace App.Controllers;
 public class ManageApproveController : ControllerBase
 {
     private readonly AppDbContext _context;
+    private readonly UserService _userService;
+    private readonly IConfiguration _configuration;
 
-    public ManageApproveController(AppDbContext context)
+    public ManageApproveController(AppDbContext context, UserService userService, IConfiguration configuration)
     {
         _context = context;
+        _userService = userService;
+        _configuration = configuration;
     }
 
     [HttpGet("waiting-approve-ads")]
@@ -48,72 +52,34 @@ public class ManageApproveController : ControllerBase
         return new JsonResult(waitingAds);
     }
 
-    [HttpPut("edit-genre")]
-    public async Task<IActionResult> SaveEditGenre([FromForm] EditGenreModel model)
+    [HttpPut("approve-ad")]
+    public async Task<IActionResult> ApproveAd(ApproveAdModel model)
     {
-        var genre = await _context.Genres.FindAsync(model.Id);
-        genre.Title = model.Title;
-        genre.Description = model.Description;
-        genre.Slug = GenerateGenreSlug(genre);
-        if (model.Image != null)
+        var userId = _userService.GetUserId(User);
+        if (userId == -1) return NotFound("User not found");
+
+        var ad = await _context.Ads.FindAsync(model.AdId);
+        if (ad == null) return NotFound("Ad not found");
+
+        _ = int.TryParse(_configuration["GlobalVariables:AdLifeTimeInDay"], out int AdLifeTimeInDay);
+
+        ad.AprovedStatus = (byte)model.ApproveStatus;
+        ad.AprovedAt = DateTime.Now;
+        ad.AprovedUserId = userId;
+
+        if (ad.AprovedStatus == 2)
         {
-            CommonUtils.DeleteImage(CommonUtils.GENRE_IMAGE, genre.Image);
-            genre.Image = CommonUtils.UploadImage(CommonUtils.GENRE_IMAGE, new IFormFile[] { model.Image })[0];
+            ad.RejectReason = model.RejectReason;
+        }
+        else
+        {
+            ad.ExpireAt = DateTime.Now.AddDays(AdLifeTimeInDay);
         }
 
         await _context.SaveChangesAsync();
-        return Ok("Save change successfully");
+
+        return Ok("Ad has approved successfully");
     }
 
-    [HttpPost("create-genre")]
-    public async Task<IActionResult> CreateGenre([FromForm] CreateGenreModel model)
-    {
-        var genre = new Genre
-        {
-            Title = model.Title,
-            Description = model.Description,
-            ParentId = model.ParentId
-        };
-        genre.Slug = GenerateGenreSlug(genre);
-        genre.Image = CommonUtils.UploadImage(CommonUtils.GENRE_IMAGE, new IFormFile[] { model.Image })[0];
-        _context.Genres.Add(genre);
-        await _context.SaveChangesAsync();
-        return Ok("Create successfully");
-    }
 
-    [HttpDelete("delete-genre")]
-    public async Task<IActionResult> DeleteGenre(int id)
-    {
-        var genre = await _context.Genres.Where(x => x.Id == id).Include(x => x.ChildrenGenres).FirstOrDefaultAsync();
-        if (genre == null) return NotFound("Genre not found");
-
-        if (genre.ChildrenGenres.Count != 0)
-        {
-            _context.Genres.RemoveRange(genre.ChildrenGenres);
-        }
-
-        _context.Genres.Remove(genre);
-        await _context.SaveChangesAsync();
-        return Ok("Create successfully");
-    }
-
-    [HttpGet]
-    [Route("test")]
-    public string Test()
-    {
-        return "test successfully";
-    }
-
-    private string GenerateGenreSlug(Genre genre)
-    {
-        var counter = 1;
-        var prefix = "";
-        var slug = CommonUtils.GenerateSlug(genre.Title);
-        while (_context.Genres.Any(x => x.Slug == slug + prefix && x.Id != genre.Id))
-        {
-            prefix = "-" + counter.ToString();
-            counter++;
-        }
-        return slug + prefix;
-    }
 }

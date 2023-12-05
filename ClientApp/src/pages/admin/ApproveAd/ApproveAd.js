@@ -12,11 +12,14 @@ import { setNavbarTitle } from '@components/admin/Navbar/Navbar'
 import DetailAd from './DetailAd'
 import './ApproveAd.scss'
 import { useModal } from '@hooks/useModal'
+import all_done_img from '@assets/images/all_done.svg'
 
 const ApproveAd = () => {
     const [isOpenDetail, toggleDetail] = useModal()
     const [ads, setAds] = useState([])
+    const [filterAds, setFilterAds] = useState([])
     const [selectedAd, setSelectedAd] = useState()
+    const [searchKey, setSearchKey] = useState('')
 
     const fetchData = async () => {
         try {
@@ -32,6 +35,14 @@ const ApproveAd = () => {
         fetchData()
     }, [])
 
+    useEffect(() => {
+        let filteredAds = ads
+        if (searchKey) {
+            filteredAds = ads.filter(ad => ad.title.toLowerCase().includes(searchKey.toLowerCase()))
+        }
+        setFilterAds(filteredAds)
+    }, [searchKey, ads])
+
     const handleToggleDetail = ad => {
         setSelectedAd(ad)
         toggleDetail()
@@ -40,17 +51,19 @@ const ApproveAd = () => {
     return (
         <motion.div>
             <Section className='approve-ad-container'>
-                <div className='d-flex gap-3 align-items-center'>
-                    <input
-                        type='text'
-                        // value={searchKey}
-                        // onChange={e => setSearchKey(e.target.value)}
-                        className='form-control w-25'
-                        placeholder='Tìm kiếm'
-                    />
-                </div>
+                {ads.length != 0 && (
+                    <div className='d-flex gap-3 align-items-center'>
+                        <input
+                            type='text'
+                            value={searchKey}
+                            onChange={e => setSearchKey(e.target.value)}
+                            className='form-control w-25'
+                            placeholder='Tìm kiếm'
+                        />
+                    </div>
+                )}
                 <div className='list w-100 mt-4'>
-                    {ads?.map((item, index) => (
+                    {filterAds?.map((item, index) => (
                         <motion.div onClick={() => handleToggleDetail(item)} key={item.id} className='item'>
                             <div className='position-relative'>
                                 <img className='item__img' src={item.thumbnail} />
@@ -69,6 +82,13 @@ const ApproveAd = () => {
                             </div>
                         </motion.div>
                     ))}
+                    {ads?.length == 0 && (
+                        <div className='text-center w-100 p-5'>
+                            <img width={'100%'} height={300} src={all_done_img} alt='' />
+                            <h3 className='mt-2'>Không còn tin nào cần duyệt</h3>
+                            <p className='mt-2 text-muted'>Hãy chờ đợi và nhâm nhi tách cà phê thôi nào :)</p>
+                        </div>
+                    )}
                 </div>
             </Section>
             <DetailAd isOpen={isOpenDetail} toggle={toggleDetail} adId={selectedAd?.id} onDone={fetchData} />

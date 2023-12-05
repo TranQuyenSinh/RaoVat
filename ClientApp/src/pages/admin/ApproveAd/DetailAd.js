@@ -15,6 +15,7 @@ import { isShowSidebar } from '@components/layout/SystemLayout'
 import ConfirmModal from '@pages/customer/ManageAd/ConfirmModal'
 import { useModal } from '@hooks/useModal'
 import ReasonRejectModal from './ReasonRejectModal'
+import { approveAd, rejectAd } from '@services/approveAd'
 
 const DetailAd = ({ isOpen, toggle, adId, onDone }) => {
     return (
@@ -171,9 +172,9 @@ const ShopInfo = ({ shopId }) => {
 const ApproveButtons = ({ adId, toggle, onDone }) => {
     const [isOpenConfirmApproved, toggleConfirmApproved] = useModal()
     const [isOpenReasonReject, toggleReasonReject] = useModal()
-    const handleApproveAd = () => {
+    const handleApproveAd = async () => {
         try {
-            // call API here
+            await approveAd(adId)
             toggle()
             onDone()
             toast.success('Duyệt thành công')
@@ -182,9 +183,9 @@ const ApproveButtons = ({ adId, toggle, onDone }) => {
         }
     }
 
-    const handleRejectAd = reason => {
+    const handleRejectAd = async reason => {
         try {
-            // call API here
+            await rejectAd(adId, reason)
             toggle()
             onDone()
             toast.success('Đã xử lý tin')

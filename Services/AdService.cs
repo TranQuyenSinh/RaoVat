@@ -29,6 +29,7 @@ public class AdServices
 
     {
         var qr = _context.Ads
+        .Where(x => x.AprovedStatus == 1 && x.Display == true && x.ExpireAt > DateTime.Now)
         .Include(x => x.Author)
         .Include(x => x.Images)
         .AsQueryable();
@@ -59,7 +60,7 @@ public class AdServices
     public ICollection<AdCardModel> GetCardAdsRelated(int? shopId, int limit = 10)
     {
         var qr = _context.Ads
-        .Where(x => x.AuthorId == shopId)
+        .Where(x => x.AuthorId == shopId && x.AprovedStatus == 1 && x.Display == true && x.ExpireAt > DateTime.Now)
         .Include(x => x.Author)
         .Include(x => x.Images)
         .AsSplitQuery()
@@ -71,25 +72,6 @@ public class AdServices
     }
     public ICollection<AdCardModel> GetCardAdsSimilar(int? adId, int limit = 10)
     {
-
-        // var ad = _context.Ads
-        //         .Include(x => x.AdGenre)
-        //         .ThenInclude(x => x.Genre)
-        //         .FirstOrDefault(x => x.Id == adId.Value);
-
-        // if (ad == null)
-        //     return null;
-
-        // var qr = _context.Ads
-        // .Include(x => x.AdGenre)
-        // .Where(x => x.AdGenre.All(genre => ad.AdGenre.Contains(genre)))
-        // .Include(x => x.Author)
-        // .Include(x => x.Images)
-        // .AsSplitQuery()
-        // .OrderByDescending(x => x.AdGenre.Count)
-
-        // .Select(ad => new AdCardModel(ad)).Take(limit);
-
         var qr = from ad in _context.Ads
                  where ad.Id == adId
                  from genreId in ad.AdGenre.Select(ag => ag.GenreId).Distinct()
@@ -99,6 +81,7 @@ public class AdServices
                  select similarAd;
 
         var simalarAds = qr
+                .Where(x => x.AprovedStatus == 1 && x.Display == true && x.ExpireAt > DateTime.Now)
                 .Include(x => x.Author)
                 .Include(x => x.Images)
                 .AsSplitQuery()
@@ -115,8 +98,7 @@ public class AdServices
     public DetailAdModel GetDetailAd(int adId, int? userId = null)
     {
         var qr = _context.Ads
-        // .Where(x => x.Id == adId && x.Display == true && x.ExpireAt > DateTime.Now && x.AprovedStatus == 1)
-        .Where(x => x.Id == adId)
+        .Where(x => x.Id == adId && x.Display == true && x.ExpireAt > DateTime.Now && x.AprovedStatus == 1)
         .Include(x => x.Images)
         .Include(x => x.UserAd)
         .Include(x => x.AdGenre)
@@ -133,12 +115,15 @@ public class AdServices
     {
         List<SearchAdResponse> result = null;
 
-        var qr = _context.Ads.Where(x => x.Title.Contains(model.KeyWord))
-         .Include(x => x.Author)
-         .Include(x => x.AdGenre)
-         .Include(x => x.UserAd)
-         .Include(x => x.Images)
-         .AsSingleQuery();
+        var qr = _context.Ads.Where(x => x.AprovedStatus == 1 &&
+                                        x.Display == true &&
+                                        x.ExpireAt > DateTime.Now &&
+                                        x.Title.Contains(model.KeyWord))
+                                .Include(x => x.Author)
+                                .Include(x => x.AdGenre)
+                                .Include(x => x.UserAd)
+                                .Include(x => x.Images)
+                                .AsSingleQuery();
 
 
         if (model.Location != "Toàn quốc")

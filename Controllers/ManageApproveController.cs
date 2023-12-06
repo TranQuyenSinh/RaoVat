@@ -54,6 +54,22 @@ public class ManageApproveController : ControllerBase
         return new JsonResult(waitingAds);
     }
 
+
+    [HttpGet("detail-ad")]
+    public async Task<IActionResult> GetDetailAd(int adId)
+    {
+        var qr = _context.Ads
+                .Where(x => x.Id == adId && x.AprovedStatus == 0)
+                .Include(x => x.Images)
+                .Include(x => x.AdGenre)
+                .ThenInclude(x => x.Genre)
+                .Include(x => x.Author)
+                .AsSplitQuery()
+                .Select(ad => new DetailAdModel(ad, null));
+
+        return new JsonResult(qr.FirstOrDefault());
+    }
+
     [HttpPut("approve-ad")]
     public async Task<IActionResult> ApproveAd(ApproveAdModel model)
     {

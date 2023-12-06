@@ -92,8 +92,8 @@ const NavMenu = () => {
                     variants={tapAnimation}
                     initial='initial'
                     whileTap='animate'
-                    // onClick={() => navigate('dang-tin')}
-                    onClick={toggle}
+                    onClick={() => navigate('dang-tin')}
+                    // onClick={toggle}
                     className='navmenu__btn'>
                     <FontAwesomeIcon className='me-2' icon={faEdit} />
                     Đăng tin

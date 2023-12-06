@@ -5,7 +5,7 @@ import GenreManage from '../pages/admin/GenreManage/GenreManage'
 import Home from '../pages/admin/Home/Home'
 import { Navigate } from 'react-router-dom'
 import ApproveAd from '@pages/admin/ApproveAd/ApproveAd'
-export const SystemPublicRoutes = [
+export const SystemPrivateRoutes = [
     {
         index: 'admin',
         element: <Navigate to={'/admin/dashboard'} />,
@@ -25,12 +25,5 @@ export const SystemPublicRoutes = [
     {
         path: 'genres/:genreId',
         element: <DetailGenre />,
-    },
-]
-
-export const SystemPrivateRoutes = [
-    {
-        path: 'counter',
-        element: <Counter />,
     },
 ]

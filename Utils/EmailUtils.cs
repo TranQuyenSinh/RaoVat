@@ -11,7 +11,7 @@ public static class EmailUtils
         var body = @$"
             <div style='
                 padding: 30px;
-                width: 100%;
+                width: 90%;
                 background-color: #e8e8e8;
             '>
         <div style='width: 450px; 
@@ -76,7 +76,7 @@ public static class EmailUtils
         var body = @$"
             <div style='
                 padding: 30px;
-                width: 100%;
+                width: 90%;
                 background-color: #e8e8e8;
             '>
         <div style='width: 450px; 

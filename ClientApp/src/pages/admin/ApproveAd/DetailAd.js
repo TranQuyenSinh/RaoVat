@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { motion, AnimatePresence } from 'framer-motion'
 
-import { getDetailAd } from '@services/ad'
+import { getDetailAd } from '@services/approveAd'
 import { fadeIn, fadeDown } from '@animation/fade'
 import LoadingBalls from '@components/loading/LoadingBalls'
 import ImageSlider from '@components/slider/ImageSlider'

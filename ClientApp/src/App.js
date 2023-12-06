@@ -10,6 +10,9 @@ import CustomToastContainer from './components/toast/CustomToastContainer'
 import './styles/custom.scss'
 import { SystemLayout } from './components/layout/SystemLayout'
 import SystemPageNotFound from '@pages/404/SystemPageNotFound'
+import AdminLogin from '@pages/admin/Auth/AdminLogin'
+import AdminRoute from '@components/customRoute/AdminRoute'
+import SystemNotAllow from '@pages/404/SystemNotAllow'
 
 const App = () => {
     return (
@@ -17,6 +20,8 @@ const App = () => {
             <Routes>
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
+                <Route path='/not-allow' element={<SystemNotAllow />} />
+                <Route path='/admin/login' element={<AdminLogin />} />
 
                 <Route path='/' element={<CustomerLayout />}>
                     {/* Public customer routes */}
@@ -35,13 +40,7 @@ const App = () => {
                 </Route>
 
                 <Route path='/admin' element={<SystemLayout />}>
-                    {/* Public customer routes */}
-                    {SystemPublicRoutes.map((route, index) => {
-                        // const { element, ...rest } = route
-                        return <Route key={index} {...route} />
-                    })}
-                    {/* Private customer routes */}
-                    <Route element={<LoggedInRoute />}>
+                    <Route element={<AdminRoute />}>
                         {SystemPrivateRoutes.map((route, index) => {
                             return <Route key={index} {...route} />
                         })}

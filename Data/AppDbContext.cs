@@ -82,6 +82,6 @@ namespace App.Data
         public DbSet<AdImage> AdImages { get; set; }
         public DbSet<User_Ad_Favorite> User_Ad_Favorite { get; set; }
         public DbSet<User_Shop_Follow> User_Shop_Follow { get; set; }
-
+        public DbSet<Banner> Banners { get; set; }
     }
 }

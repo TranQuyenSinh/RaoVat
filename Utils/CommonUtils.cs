@@ -9,6 +9,7 @@ public static class CommonUtils
 {
     public const string AD_IMAGE = "Uploads/Ad/";
     public const string GENRE_IMAGE = "Uploads/Genre/";
+    public const string BANNER = "Uploads/Banner/";
     public const string USER_AVATAR = "Uploads/Customer/Avatar/";
     public static List<string> UploadImage(string type, IFormFile[] files)
     {

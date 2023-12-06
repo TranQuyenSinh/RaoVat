@@ -4,6 +4,7 @@ using App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231206114717_Add_Banner")]
+    partial class Add_Banner
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,15 +145,9 @@ namespace Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Display")
-                        .HasColumnType("bit");
 
                     b.Property<string>("FileName")
                         .IsRequired()
@@ -161,12 +158,7 @@ namespace Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Banners");
                 });
@@ -405,14 +397,14 @@ namespace Server.Migrations
                             Id = 1,
                             Address = "5M2",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 12, 6, 18, 59, 37, 710, DateTimeKind.Local).AddTicks(3900),
+                            CreatedAt = new DateTime(2023, 12, 6, 18, 47, 17, 293, DateTimeKind.Local).AddTicks(3970),
                             DateOfBirth = new DateTime(2002, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "ABC",
                             District = "Thành phố Long Xuyên",
                             Email = "admin@gmail.com",
                             FullName = "Trần Quyền Sinh",
                             Gender = true,
-                            Password = "+RbBIQb+4eBBct4W54jdB8keWgQjlxl1yBwnBc6VoYBcYvxg",
+                            Password = "2hlXDxYZzCD74Fi7mAUpmsNVJp0lmLDeAR0GVXVU7VjGsr/N",
                             Phone = "0818283714",
                             Province = "Tỉnh An Giang",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -424,14 +416,14 @@ namespace Server.Migrations
                             Id = 2,
                             Address = "60C",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 12, 6, 18, 59, 37, 714, DateTimeKind.Local).AddTicks(4681),
+                            CreatedAt = new DateTime(2023, 12, 6, 18, 47, 17, 297, DateTimeKind.Local).AddTicks(1138),
                             DateOfBirth = new DateTime(2002, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "XYZ",
                             District = "Thành phố Long Xuyên",
                             Email = "censor@gmail.com",
                             FullName = "Hồ Minh Nguyên",
                             Gender = true,
-                            Password = "AKHP5QYi7zwt8IA1vMwWFrPUTlbve4GxBMnkp9EARLU0tq73",
+                            Password = "3ETSHJGWul+INRtuga2Ue0VvYSxIBn1MMzbmP9WHcRGcze2g",
                             Phone = "0913615294",
                             Province = "Tỉnh An Giang",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -443,14 +435,14 @@ namespace Server.Migrations
                             Id = 3,
                             Address = "30/12A",
                             Avatar = "customerAvatar.jpg",
-                            CreatedAt = new DateTime(2023, 12, 6, 18, 59, 37, 718, DateTimeKind.Local).AddTicks(1740),
+                            CreatedAt = new DateTime(2023, 12, 6, 18, 47, 17, 300, DateTimeKind.Local).AddTicks(9912),
                             DateOfBirth = new DateTime(2002, 7, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "ABCXYZ",
                             District = "Thành phố Rạch Giá",
                             Email = "guest@gmail.com",
                             FullName = "Nguyễn Thị Kim Nguyệt",
                             Gender = false,
-                            Password = "G4W4MryK4+vLDRDVB0u0DVAsg13d7C60c8vu04j0tsf5Gwuv",
+                            Password = "oBVWXswA1shVroqad7sUhCyrCORfroSIDyF2/kfBljO8psoO",
                             Phone = "0941482144",
                             Province = "Tỉnh Kiên Giang",
                             RefreshTokenExpiryTime = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -548,17 +540,6 @@ namespace Server.Migrations
                         .HasForeignKey("AdId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("App.Models.Banner", b =>
-                {
-                    b.HasOne("App.Models.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CreatedBy");
                 });
 
             modelBuilder.Entity("App.Models.Genre", b =>

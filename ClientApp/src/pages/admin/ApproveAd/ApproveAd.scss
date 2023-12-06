@@ -85,6 +85,7 @@
             }
 
             .detail-info-container {
+                position      : relative;
                 display       : flex;
                 flex-direction: column;
                 flex          : 1;
@@ -139,3 +140,14 @@
 }
 
 .reason-reject-modal {}
+
+.approving-loader {
+    position        : absolute;
+    top             : 0;
+    left            : 0;
+    bottom          : 0;
+    right           : 0;
+    background-color: #00000076;
+    color           : $whitecolor;
+    @include flex-center();
+}

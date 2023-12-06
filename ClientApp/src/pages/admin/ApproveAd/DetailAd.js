@@ -16,6 +16,10 @@ import ConfirmModal from '@pages/customer/ManageAd/ConfirmModal'
 import { useModal } from '@hooks/useModal'
 import ReasonRejectModal from './ReasonRejectModal'
 import { approveAd, rejectAd } from '@services/approveAd'
+import { signal } from '@preact/signals-react'
+import { BouncingBalls } from 'react-cssfx-loading'
+
+const isApproving = signal(false)
 
 const DetailAd = ({ isOpen, toggle, adId, onDone }) => {
     return (
@@ -28,12 +32,14 @@ const DetailAd = ({ isOpen, toggle, adId, onDone }) => {
                         animate='animate'
                         exit='exit'
                         className='approve-ad-detail-container'>
+                        {/* Overlay */}
                         <motion.div
                             onClick={toggle}
                             style={{
                                 left: isShowSidebar.value ? 250 : 0,
                             }}
                             className='overlay'>
+                            {/* Modal content */}
                             <motion.div variants={fadeDown} className='content' onClick={e => e.stopPropagation()}>
                                 <DetailContent adId={adId} onDone={onDone} toggle={toggle} />
                             </motion.div>
@@ -78,6 +84,11 @@ const DetailContent = ({ adId, toggle, onDone }) => {
 
                         <ApproveButtons toggle={toggle} onDone={onDone} adId={ad.id} />
                     </div>
+                    {isApproving.value && (
+                        <div className='approving-loader'>
+                            <LoadingBalls title='Đang xử lý tin...' />
+                        </div>
+                    )}
                 </>
             )}
 
@@ -174,7 +185,9 @@ const ApproveButtons = ({ adId, toggle, onDone }) => {
     const [isOpenReasonReject, toggleReasonReject] = useModal()
     const handleApproveAd = async () => {
         try {
+            isApproving.value = true
             await approveAd(adId)
+            isApproving.value = false
             toggle()
             onDone()
             toast.success('Duyệt thành công')

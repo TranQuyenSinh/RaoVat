@@ -1,20 +1,19 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 
-import { Link } from 'react-router-dom'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import MenuIcon from '@rsuite/icons/Menu'
-
-import './GenreDropdown.scss'
-import { Dropdown, ButtonToolbar } from 'rsuite'
-import { getAllGenres } from '../../../services'
-import 'rsuite/dist/rsuite.css'
+import { Dropdown } from 'rsuite'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+
+import MenuIcon from '@rsuite/icons/Menu'
+
+import { getAllGenres } from '../../../services'
+
+import 'rsuite/dist/rsuite.css'
+
+import './GenreDropdown.scss'
 const GenreDropdown = () => {
-    const navigate = useNavigate()
     const [genres, setGenres] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         ;(async () => {

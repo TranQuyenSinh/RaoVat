@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
+
 import Slider from 'react-slick'
+import { useNavigate } from 'react-router-dom'
+
+import Section from '../Section/Section'
+import { getRootGenres, getGenreBySlug } from '../../../services'
+import { genreCarouselConfigs } from '../../../components/carousel/carouselConfig'
+
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+
 import './GenreGrid.scss'
-import { genreCarouselConfigs } from '../../../components/carousel/carouselConfig'
-import { getRootGenres, getGenreBySlug } from '../../../services'
-import { useNavigate } from 'react-router-dom'
-import Section from '../Section/Section'
 
 export const GenreGrid = ({ genreSlug }) => {
-    const navigate = useNavigate()
     const [genres, setGenres] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         const fetchGenre = async () => {

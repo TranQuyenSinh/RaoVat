@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { CustomerLayout } from './components/layout/CustomerLayout'
-import { CustomerPrivateRoutes, CustomerPublicRoutes, SystemPrivateRoutes, SystemPublicRoutes } from './routes'
+import { CustomerPrivateRoutes, CustomerPublicRoutes, SystemPrivateRoutes } from './routes'
 import LoggedInRoute from './components/customRoute/LoggedInRoute'
 import { Login } from './pages/customer/auth/Login'
 import CustomerPageNotFound from './pages/404/CustomerPageNotFound'

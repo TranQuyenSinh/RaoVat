@@ -8,7 +8,7 @@ import { fadeIn, fadeUpCustom } from '@animation/fade'
 import { tapAnimation } from '@animation/button'
 import { createGenre, getRootGenres } from '@services/genre'
 import AddGenreModal from './AddGenreModal'
-import { useModal } from '@hooks/useModal'
+import useModal from '@hooks/useModal'
 
 const GenreManage = () => {
     const [genres, setGenres] = useState([])

@@ -5,4 +5,5 @@ public class CreateBannerModel
     public IFormFile Image { get; set; }
     public string Description { get; set; }
     public string Url { get; set; }
+    public bool Display { get; set; }
 }

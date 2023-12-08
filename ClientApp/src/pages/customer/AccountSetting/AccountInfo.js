@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import { useDispatch } from 'react-redux'
 
 import { getUserInfo, saveUserInfo } from '../../../services'
-import { useModal } from '@hooks/useModal'
+import useModal from '@hooks/useModal'
 import { useValidateForm } from '../../../hooks/useValidateForm'
 import { updateUserInfo } from '../../../redux/user/user.actions'
 import Section from '../../../components/customer/Section/Section'

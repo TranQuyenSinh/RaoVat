@@ -21,7 +21,7 @@ import { toast } from 'react-toastify'
 import { motion } from 'framer-motion'
 import { tapAnimation } from '../../../animation/button'
 import FloatForm from './FloatForm'
-import { useModal } from '@hooks/useModal'
+import useModal from '@hooks/useModal'
 const NavMenu = () => {
     const [isOpen, toggle] = useModal()
     const dispatch = useDispatch()

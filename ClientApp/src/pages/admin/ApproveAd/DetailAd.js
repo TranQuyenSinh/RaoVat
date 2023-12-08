@@ -13,7 +13,7 @@ import { toast } from 'react-toastify'
 
 import { isShowSidebar } from '@components/layout/SystemLayout'
 import ConfirmModal from '@pages/customer/ManageAd/ConfirmModal'
-import { useModal } from '@hooks/useModal'
+import useModal from '@hooks/useModal'
 import ReasonRejectModal from './ReasonRejectModal'
 import { approveAd, rejectAd } from '@services/approveAd'
 import { signal } from '@preact/signals-react'

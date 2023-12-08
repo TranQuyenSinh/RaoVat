@@ -11,7 +11,7 @@ import { getWaitingApproveAds } from '@services/approveAd'
 import { setNavbarTitle } from '@components/admin/Navbar/Navbar'
 import DetailAd from './DetailAd'
 import './ApproveAd.scss'
-import { useModal } from '@hooks/useModal'
+import useModal from '@hooks/useModal'
 import all_done_img from '@assets/images/all_done.svg'
 
 const ApproveAd = () => {

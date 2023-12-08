@@ -16,6 +16,12 @@ const Sidebar = ({ isShow }) => {
             url: '/admin/genres',
             icon: <i className='fa-solid fa-table-list me-2'></i>,
         },
+        {
+            id: 4,
+            title: 'Quản lý banner',
+            url: '/admin/banners',
+            icon: <i className='fa-solid fa-ticket me-2'></i>,
+        },
     ]).current
 
     return (

@@ -7,7 +7,7 @@ import { moment, formatNumber } from '../../../utils'
 import { hideAd, getDisplayAds } from '../../../services'
 import LoadingBalls from '../../../components/loading/LoadingBalls'
 import NotHaveAd from '../../../components/notfound/AdNotFound/NotHaveAd'
-import { useModal } from '@hooks/useModal'
+import useModal from '@hooks/useModal'
 
 import { motion } from 'framer-motion'
 import { fadeLeftAnimation, fadeOut } from './manageAdAnimtion'

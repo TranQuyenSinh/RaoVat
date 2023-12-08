@@ -12,8 +12,5 @@ public class Banner
     public string Description { get; set; }
     public string Url { get; set; }
     public bool Display { get; set; } = true;
-    public int UserId { get; set; }
-    [ForeignKey("UserId")]
-    public User CreatedBy { get; set; }
     public DateTime CreatedAt { get; set; }
 }

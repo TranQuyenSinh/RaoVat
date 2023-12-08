@@ -13,7 +13,7 @@ import placeholder_image from '@assets/images/placeholder_image.png'
 import { createGenre, deleteGenre, getGenreById, saveEditGenre } from '@services/genre'
 import { toast } from 'react-toastify'
 import ConfirmModal from '@pages/customer/ManageAd/ConfirmModal'
-import { useModal } from '@hooks/useModal'
+import useModal from '@hooks/useModal'
 import AddGenreModal from './AddGenreModal'
 import EditChildGenreModal from './EditChildGenreModal'
 

@@ -6,8 +6,7 @@ using App.RequestModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using App.Utils;
-using Microsoft.Extensions.Internal;
-
+using App.ResponseModels;
 namespace App.Controllers;
 
 [ApiController]
@@ -25,7 +24,9 @@ public class ManageBannerController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetDisplayBanners()
     {
-        var banners = await _context.Banners.Where(x => x.Display == true).ToListAsync();
+        var banners = await _context.Banners
+        .Where(x => x.Display == true)
+        .Select(x => new DisplayBannerModel(x)).ToListAsync();
         return new JsonResult(banners);
     }
 
@@ -33,7 +34,9 @@ public class ManageBannerController : ControllerBase
     [Authorize]
     public async Task<IActionResult> GetAllBanners()
     {
-        var banners = await _context.Banners.ToListAsync();
+        var banners = await _context.Banners
+        .Select(x => new BannerModel(x))
+        .ToListAsync();
         return new JsonResult(banners);
     }
 
@@ -41,16 +44,12 @@ public class ManageBannerController : ControllerBase
     [Authorize]
     public async Task<IActionResult> Create([FromForm] CreateBannerModel model)
     {
-        var userId = _userService.GetUserId(User);
-        var user = await _context.Users.FindAsync(userId);
-        if (user == null) return NotFound("User not found");
-
         var banner = new Banner
         {
             Url = model.Url,
             FileName = CommonUtils.UploadImage(CommonUtils.BANNER, new IFormFile[] { model.Image }).FirstOrDefault(),
             Description = model.Description,
-            UserId = userId,
+            Display = model.Display,
             CreatedAt = DateTime.Now,
         };
 
@@ -68,6 +67,7 @@ public class ManageBannerController : ControllerBase
 
         banner.Url = model.Url;
         banner.Description = model.Description;
+        banner.Display = model.Display;
         if (model.Image != null)
         {
             CommonUtils.DeleteImage(CommonUtils.BANNER, banner.FileName);

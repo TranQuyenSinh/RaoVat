@@ -3,6 +3,12 @@
 .admin-navbar {
     background-color: $backgrounddark;
     color           : $whitecolor;
+
+    .dropdown-menu {
+        a {
+            cursor: pointer;
+        }
+    }
 }
 
 .sidebar-toggler {

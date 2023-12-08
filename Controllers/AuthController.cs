@@ -71,7 +71,7 @@ public class AuthController : ControllerBase
         {
             Email = guest.Email,
             FullName = guest.FullName,
-            Password = PasswordHasher.Hash(guest.Password)
+            Password = PasswordHasher.Hash(guest.Password),
         };
 
         var (Success, Message) = _authService.CreateNewGuest(newGuest);
@@ -121,6 +121,13 @@ public class AuthController : ControllerBase
     [Authorize]
     [HttpGet("check-is-logged-in")]
     public IActionResult CheckUserIsLoggedIn()
+    {
+        return Ok();
+    }
+
+    [Authorize(Roles = "Administrator")]
+    [HttpGet("check-role-admin")]
+    public IActionResult CheckRoleAdmin()
     {
         return Ok();
     }

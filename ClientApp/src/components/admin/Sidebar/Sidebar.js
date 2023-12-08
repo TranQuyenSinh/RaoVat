@@ -8,7 +8,6 @@ const Sidebar = ({ isShow }) => {
     const location = useLocation()
     console.log(location.pathname)
     const tabs = useRef([
-        { id: 1, title: 'Dashboard', url: '/admin/dashboard', icon: <i className='fa-solid fa-gauge me-2'></i> },
         { id: 2, title: 'Duyệt tin', url: '/admin/approve-ad', icon: <i className='fa-solid fa-check me-2'></i> },
         {
             id: 3,

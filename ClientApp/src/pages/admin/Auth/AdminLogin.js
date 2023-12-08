@@ -19,9 +19,9 @@ const AdminLogin = props => {
     const dispatch = useDispatch()
     const { isLoggedIn, loginErrorMessage } = useSelector(state => state.user)
 
-    // useEffect(() => {
-    //     if (isLoggedIn) navigate('/')
-    // }, [isLoggedIn])
+    useEffect(() => {
+        if (isLoggedIn) navigate('/admin')
+    }, [isLoggedIn])
 
     useEffect(() => {
         document.title = 'Rao vặt - Đăng nhập'

@@ -7,11 +7,7 @@ import BannerManage from '@pages/admin/BannerManage/BannerManage'
 export const SystemPrivateRoutes = [
     {
         index: 'admin',
-        element: <Navigate to={'/admin/dashboard'} />,
-    },
-    {
-        path: 'dashboard',
-        element: <Home />,
+        element: <Navigate to={'/admin/approve-ad'} />,
     },
     {
         path: 'approve-ad',

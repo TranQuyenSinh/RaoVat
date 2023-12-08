@@ -1,5 +1,5 @@
 import { userTypes } from './user.types'
-import { authAxios, axios } from '../../axios'
+import { adminAxios, authAxios, axios } from '../../axios'
 import { authApi } from '../../api'
 import { store } from '../store'
 // Login

@@ -1,4 +1,4 @@
-import { authAxios, axios } from '../axios'
+import { adminAxios, authAxios, axios } from '../axios'
 import { authApi, userApi } from '../api'
 
 export const getDetailShop = (shopId, userId = null) => {
@@ -39,4 +39,8 @@ export const saveEditAd = data => {
 
 export const getEditAd = adId => {
     return authAxios.get(userApi.getEditAd, { params: { adId } })
+}
+
+export const checkUserRole = () => {
+    return adminAxios.get(authApi.checkRoleAdmin)
 }

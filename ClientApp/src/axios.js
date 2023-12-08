@@ -3,6 +3,8 @@ import { store } from './redux/store'
 import { logoutUser, refreshAccessToken } from './redux/user/user.actions'
 import { authApi } from './api'
 import { getCookie } from './utils'
+import { history } from '@routes/CustomBrowserRouter'
+
 const axios = baseAxios.create({
     baseURL: process.env.ASPNET_SERVER_URL || 'https://localhost:8080',
     timeout: 10000,
@@ -14,7 +16,19 @@ const authAxios = baseAxios.create({
     withCredentials: true,
 })
 
+const adminAxios = baseAxios.create({
+    baseURL: process.env.ASPNET_SERVER_URL || 'https://localhost:8080',
+    timeout: 10000,
+    withCredentials: true,
+})
+
 authAxios.interceptors.request.use(config => {
+    let accessToken = store.getState().user.currentUser?.accessToken
+    config.headers['Authorization'] = 'Bearer ' + accessToken
+    return config
+})
+
+adminAxios.interceptors.request.use(config => {
     let accessToken = store.getState().user.currentUser?.accessToken
     config.headers['Authorization'] = 'Bearer ' + accessToken
     return config
@@ -80,4 +94,24 @@ axios.interceptors.response.use(
         return Promise.reject(error)
     }
 )
-export { axios, authAxios }
+
+adminAxios.interceptors.response.use(
+    response => {
+        return response
+    },
+    error => {
+        let { status } = error.response
+        // unAuthenticate
+        if (status == 401) {
+            history.push('/admin/login')
+        }
+
+        // forbidden
+        if (status == 403) {
+            history.push('/not-allow')
+        }
+        return Promise.reject(error)
+    }
+)
+
+export { axios, authAxios, adminAxios }

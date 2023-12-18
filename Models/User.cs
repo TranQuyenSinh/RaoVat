@@ -43,6 +43,8 @@ namespace App.Models
 
         public bool? Gender { get; set; }
 
+        public bool IsLocked { get; set; } = false;
+
         public DateTime? DateOfBirth { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;

@@ -135,6 +135,10 @@
                 background-color: $backgroundcolor;
                 width           : 500px !important;
             }
+
+            .slick-dots {
+                display: none !important;
+            }
         }
     }
 }

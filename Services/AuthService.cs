@@ -21,7 +21,7 @@ public class AuthService
         _context = context;
     }
 
-    public (bool, string, User?) LoginUser(string email, string password)
+    public (bool, int, string, User?) LoginUser(string email, string password)
     {
         var user = _context.Users
                     .Include(u => u.Role)
@@ -29,6 +29,7 @@ public class AuthService
         if (user == null)
             return (
                 Success: false,
+                StatusCode: 401,
                 Message: "Email không hợp lệ",
                 data: null
             );
@@ -37,12 +38,24 @@ public class AuthService
         if (!PasswordHasher.Verify(password, user.Password))
             return (
                 Success: false,
+                StatusCode: 401,
                 Message: "Sai mật khẩu, vui lòng nhập lại!",
                 data: null
             );
 
+        if (user.IsLocked)
+        {
+            return (
+                Success: false,
+                StatusCode: 403,
+                Message: "Tài khoản đã bị khóa, vui lòng liên hệ hỗ trợ!",
+                data: null
+            );
+        }
+
         return (
             Success: true,
+            StatusCode: 200,
             Message: "Đăng nhập thành công",
             data: user
         );

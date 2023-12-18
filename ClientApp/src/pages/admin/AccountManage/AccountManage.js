@@ -11,6 +11,7 @@ import ModifyAccountModal from './ModifyAccountModal'
 import useModal from '@hooks/useModal'
 import FloatingSelect from '@components/input/CustomSelect/FloatingSelect'
 import { toast } from 'react-toastify'
+import { setNavbarTitle } from '@components/admin/Navbar/Navbar'
 
 const AccountManage = () => {
    const [searchKey, setSearchKey] = useState('')
@@ -32,6 +33,7 @@ const AccountManage = () => {
    }
 
    useEffect(() => {
+      setNavbarTitle.value = 'Quản lý tài khoản'
       fetchData()
    }, [])
 

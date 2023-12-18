@@ -30,9 +30,11 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public IActionResult LoginUser([FromBody] LoginModel loginUser)
     {
-        var (success, message, user) = _authService.LoginUser(loginUser.Email, loginUser.Password);
+        var (success, statusCode, message, user) = _authService.LoginUser(loginUser.Email, loginUser.Password);
         if (!success)
+        {
             return Unauthorized(message);
+        }
 
         // Generate auth token
         var token = _authService.GenerateAccessToken(user);
